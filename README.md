@@ -51,7 +51,7 @@ const (
 
 	// name of the service, match with executable file name
 	name        = "myservice"
-	description = "Some explanation of the service purpose"
+	description = "My Echo Service"
 
 	// port which daemon should be listen
 	port = ":9977"
