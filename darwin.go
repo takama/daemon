@@ -113,7 +113,7 @@ func (darwin *DarwinRecord) Remove() (string, error) {
 	}
 
 	if darwin.checkInstalled() == false {
-		return removeAction + failed, errors.New(darwin.description + " not installed")
+		return removeAction + failed, errors.New(darwin.description + " is not installed")
 	}
 
 	if err := os.Remove(darwin.servicePath()); err != nil {
@@ -132,7 +132,7 @@ func (darwin *DarwinRecord) Start() (string, error) {
 	}
 
 	if darwin.checkInstalled() == false {
-		return startAction + failed, errors.New(darwin.description + " not installed")
+		return startAction + failed, errors.New(darwin.description + " is not installed")
 	}
 
 	if _, status := darwin.checkRunning(); status == true {
@@ -155,7 +155,7 @@ func (darwin *DarwinRecord) Stop() (string, error) {
 	}
 
 	if darwin.checkInstalled() == false {
-		return stopAction + failed, errors.New(darwin.description + " not installed")
+		return stopAction + failed, errors.New(darwin.description + " is not installed")
 	}
 
 	if _, status := darwin.checkRunning(); status == false {
@@ -177,7 +177,7 @@ func (darwin *DarwinRecord) Status() (string, error) {
 	}
 
 	if darwin.checkInstalled() == false {
-		return "Status could not defined", errors.New(darwin.description + " not installed")
+		return "Status could not defined", errors.New(darwin.description + " is not installed")
 	}
 
 	statusAction, _ := darwin.checkRunning()

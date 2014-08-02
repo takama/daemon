@@ -127,7 +127,7 @@ func (linux *LinuxRecord) Remove() (string, error) {
 	}
 
 	if linux.checkInstalled() == false {
-		return removeAction + failed, errors.New(linux.description + " not installed")
+		return removeAction + failed, errors.New(linux.description + " is not installed")
 	}
 
 	if err := os.Remove(linux.servicePath()); err != nil {
@@ -157,7 +157,7 @@ func (linux *LinuxRecord) Start() (string, error) {
 	}
 
 	if linux.checkInstalled() == false {
-		return startAction + failed, errors.New(linux.description + " not installed")
+		return startAction + failed, errors.New(linux.description + " is not installed")
 	}
 
 	if _, status := linux.checkRunning(); status == true {
@@ -180,7 +180,7 @@ func (linux *LinuxRecord) Stop() (string, error) {
 	}
 
 	if linux.checkInstalled() == false {
-		return stopAction + failed, errors.New(linux.description + " not installed")
+		return stopAction + failed, errors.New(linux.description + " is not installed")
 	}
 
 	if _, status := linux.checkRunning(); status == false {
@@ -202,7 +202,7 @@ func (linux *LinuxRecord) Status() (string, error) {
 	}
 
 	if linux.checkInstalled() == false {
-		return "Status could not defined", errors.New(linux.description + " not installed")
+		return "Status could not defined", errors.New(linux.description + " is not installed")
 	}
 
 	statusAction, _ := linux.checkRunning()
