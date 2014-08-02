@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package daemon 0.1.0 for use with Go (golang) services.
+// Package daemon 0.1.1 for use with Go (golang) services.
 //
 // Package daemon provides primitives for daemonization of golang services.
 // This package is not provide implementation of user daemon,
