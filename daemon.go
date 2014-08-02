@@ -29,7 +29,7 @@
 //
 //		// name of the service, match with executable file name
 //		name        = "myservice"
-//		description = ""My Echo Service"
+//		description = "My Echo Service"
 //
 //		// port which daemon should be listen
 //		port = ":9977"
