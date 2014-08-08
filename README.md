@@ -1,7 +1,7 @@
 Go Daemon
 =========
 
-A daemon package for use with Go (golang) services
+A daemon package for use with Go (golang) services with no dependencies
 
 [![GoDoc](https://godoc.org/github.com/takama/daemon?status.svg)](https://godoc.org/github.com/takama/daemon)
 
@@ -165,6 +165,15 @@ func main() {
 ## Author
 
 [Igor Dolzhikov](https://github.com/takama)
+
+## Contributors
+
+All the contributors are welcome. If you would like to be the contributor please accept some rules.
+- The pull requests will be accepted only in "develop" branch
+- All modifications or additions should be tested
+- Sorry, I'll not accept code with any dependency, only standard library
+
+Thank you for your understanding!
 
 ## License
 
