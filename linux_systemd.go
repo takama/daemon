@@ -38,8 +38,8 @@ func (linux *SystemDRecord) checkInstalled() bool {
 func (linux *SystemDRecord) checkRunning() (string, bool) {
 	output, err := exec.Command("systemctl", "status", linux.name+".service").Output()
 	if err == nil {
-		if matched, err := regexp.MatchString(linux.name, string(output)); err == nil && matched {
-			reg := regexp.MustCompile("PID: ([0-9]+)")
+		if matched, err := regexp.MatchString("Active: active", string(output)); err == nil && matched {
+			reg := regexp.MustCompile("Main PID: ([0-9]+)")
 			data := reg.FindStringSubmatch(string(output))
 			if len(data) > 1 {
 				return "Service (pid  " + data[1] + ") is running...", true
