@@ -14,24 +14,24 @@ import (
 	"text/template"
 )
 
-// DarwinRecord - standard record (struct) for darwin version of daemon package
-type DarwinRecord struct {
+// darwinRecord - standard record (struct) for darwin version of daemon package
+type darwinRecord struct {
 	name        string
 	description string
 }
 
-func newDaemon(name, description string) (*DarwinRecord, error) {
+func newDaemon(name, description string) (Daemon, error) {
 
-	return &DarwinRecord{name, description}, nil
+	return &darwinRecord{name, description}, nil
 }
 
 // Standard service path for system daemons
-func (darwin *DarwinRecord) servicePath() string {
+func (darwin *darwinRecord) servicePath() string {
 	return "/Library/LaunchDaemons/" + darwin.name + ".plist"
 }
 
 // Check service is installed
-func (darwin *DarwinRecord) checkInstalled() bool {
+func (darwin *darwinRecord) checkInstalled() bool {
 
 	if _, err := os.Stat(darwin.servicePath()); err == nil {
 		return true
@@ -46,7 +46,7 @@ func execPath() (string, error) {
 }
 
 // Check service is running
-func (darwin *DarwinRecord) checkRunning() (string, bool) {
+func (darwin *darwinRecord) checkRunning() (string, bool) {
 	output, err := exec.Command("launchctl", "list", darwin.name).Output()
 	if err == nil {
 		if matched, err := regexp.MatchString(darwin.name, string(output)); err == nil && matched {
@@ -63,7 +63,7 @@ func (darwin *DarwinRecord) checkRunning() (string, bool) {
 }
 
 // Install the service
-func (darwin *DarwinRecord) Install() (string, error) {
+func (darwin *darwinRecord) Install() (string, error) {
 	installAction := "Install " + darwin.description + ":"
 
 	if checkPrivileges() == false {
@@ -105,7 +105,7 @@ func (darwin *DarwinRecord) Install() (string, error) {
 }
 
 // Remove the service
-func (darwin *DarwinRecord) Remove() (string, error) {
+func (darwin *darwinRecord) Remove() (string, error) {
 	removeAction := "Removing " + darwin.description + ":"
 
 	if checkPrivileges() == false {
@@ -124,7 +124,7 @@ func (darwin *DarwinRecord) Remove() (string, error) {
 }
 
 // Start the service
-func (darwin *DarwinRecord) Start() (string, error) {
+func (darwin *darwinRecord) Start() (string, error) {
 	startAction := "Starting " + darwin.description + ":"
 
 	if checkPrivileges() == false {
@@ -147,7 +147,7 @@ func (darwin *DarwinRecord) Start() (string, error) {
 }
 
 // Stop the service
-func (darwin *DarwinRecord) Stop() (string, error) {
+func (darwin *darwinRecord) Stop() (string, error) {
 	stopAction := "Stopping " + darwin.description + ":"
 
 	if checkPrivileges() == false {
@@ -170,7 +170,7 @@ func (darwin *DarwinRecord) Stop() (string, error) {
 }
 
 // Status - Get service status
-func (darwin *DarwinRecord) Status() (string, error) {
+func (darwin *darwinRecord) Status() (string, error) {
 
 	if checkPrivileges() == false {
 		return "", errors.New(rootPrivileges)
