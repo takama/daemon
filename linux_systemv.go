@@ -13,19 +13,19 @@ import (
 	"text/template"
 )
 
-// SystemVRecord - standard record (struct) for linux systemV version of daemon package
-type SystemVRecord struct {
+// systemVRecord - standard record (struct) for linux systemV version of daemon package
+type systemVRecord struct {
 	name        string
 	description string
 }
 
 // Standard service path for systemV daemons
-func (linux *SystemVRecord) servicePath() string {
+func (linux *systemVRecord) servicePath() string {
 	return "/etc/init.d/" + linux.name
 }
 
 // Check service is installed
-func (linux *SystemVRecord) checkInstalled() bool {
+func (linux *systemVRecord) checkInstalled() bool {
 
 	if _, err := os.Stat(linux.servicePath()); err == nil {
 		return true
@@ -35,7 +35,7 @@ func (linux *SystemVRecord) checkInstalled() bool {
 }
 
 // Check service is running
-func (linux *SystemVRecord) checkRunning() (string, bool) {
+func (linux *systemVRecord) checkRunning() (string, bool) {
 	output, err := exec.Command("service", linux.name, "status").Output()
 	if err == nil {
 		if matched, err := regexp.MatchString(linux.name, string(output)); err == nil && matched {
@@ -52,7 +52,7 @@ func (linux *SystemVRecord) checkRunning() (string, bool) {
 }
 
 // Install the service
-func (linux *SystemVRecord) Install() (string, error) {
+func (linux *systemVRecord) Install() (string, error) {
 	installAction := "Install " + linux.description + ":"
 
 	if checkPrivileges() == false {
@@ -76,7 +76,7 @@ func (linux *SystemVRecord) Install() (string, error) {
 		return installAction + failed, err
 	}
 
-	templ, err := template.New("sysremVConfig").Parse(sysremVConfig)
+	templ, err := template.New("systemVConfig").Parse(systemVConfig)
 	if err != nil {
 		return installAction + failed, err
 	}
@@ -109,7 +109,7 @@ func (linux *SystemVRecord) Install() (string, error) {
 }
 
 // Remove the service
-func (linux *SystemVRecord) Remove() (string, error) {
+func (linux *systemVRecord) Remove() (string, error) {
 	removeAction := "Removing " + linux.description + ":"
 
 	if checkPrivileges() == false {
@@ -139,7 +139,7 @@ func (linux *SystemVRecord) Remove() (string, error) {
 }
 
 // Start the service
-func (linux *SystemVRecord) Start() (string, error) {
+func (linux *systemVRecord) Start() (string, error) {
 	startAction := "Starting " + linux.description + ":"
 
 	if checkPrivileges() == false {
@@ -162,7 +162,7 @@ func (linux *SystemVRecord) Start() (string, error) {
 }
 
 // Stop the service
-func (linux *SystemVRecord) Stop() (string, error) {
+func (linux *systemVRecord) Stop() (string, error) {
 	stopAction := "Stopping " + linux.description + ":"
 
 	if checkPrivileges() == false {
@@ -185,7 +185,7 @@ func (linux *SystemVRecord) Stop() (string, error) {
 }
 
 // Status - Get service status
-func (linux *SystemVRecord) Status() (string, error) {
+func (linux *systemVRecord) Status() (string, error) {
 
 	if checkPrivileges() == false {
 		return "", errors.New(rootPrivileges)
@@ -200,7 +200,7 @@ func (linux *SystemVRecord) Status() (string, error) {
 	return statusAction, nil
 }
 
-var sysremVConfig = `#! /bin/sh
+var systemVConfig = `#! /bin/sh
 #
 #       /etc/rc.d/init.d/{{.Name}}
 #
