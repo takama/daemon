@@ -22,10 +22,12 @@ const (
 	port = ":9977"
 )
 
+// Service has embedded daemon
 type Service struct {
 	daemon.Daemon
 }
 
+// Manage by daemon commands or run the daemon
 func (service *Service) Manage() (string, error) {
 
 	usage := "Usage: myservice install | remove | start | stop | status"

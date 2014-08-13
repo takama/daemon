@@ -2,7 +2,6 @@
 // Use of this source code is governed by
 // license that can be found in the LICENSE file.
 
-// Package daemon linux systemV version
 package daemon
 
 import (
