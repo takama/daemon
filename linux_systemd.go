@@ -13,19 +13,19 @@ import (
 	"text/template"
 )
 
-// SystemDRecord - standard record (struct) for linux systemD version of daemon package
-type SystemDRecord struct {
+// systemDRecord - standard record (struct) for linux systemD version of daemon package
+type systemDRecord struct {
 	name        string
 	description string
 }
 
 // Standard service path for systemD daemons
-func (linux *SystemDRecord) servicePath() string {
+func (linux *systemDRecord) servicePath() string {
 	return "/etc/systemd/system/" + linux.name + ".service"
 }
 
 // Check service is installed
-func (linux *SystemDRecord) checkInstalled() bool {
+func (linux *systemDRecord) checkInstalled() bool {
 
 	if _, err := os.Stat(linux.servicePath()); err == nil {
 		return true
@@ -35,7 +35,7 @@ func (linux *SystemDRecord) checkInstalled() bool {
 }
 
 // Check service is running
-func (linux *SystemDRecord) checkRunning() (string, bool) {
+func (linux *systemDRecord) checkRunning() (string, bool) {
 	output, err := exec.Command("systemctl", "status", linux.name+".service").Output()
 	if err == nil {
 		if matched, err := regexp.MatchString("Active: active", string(output)); err == nil && matched {
@@ -52,7 +52,7 @@ func (linux *SystemDRecord) checkRunning() (string, bool) {
 }
 
 // Install the service
-func (linux *SystemDRecord) Install() (string, error) {
+func (linux *systemDRecord) Install() (string, error) {
 	installAction := "Install " + linux.description + ":"
 
 	if checkPrivileges() == false {
@@ -102,7 +102,7 @@ func (linux *SystemDRecord) Install() (string, error) {
 }
 
 // Remove the service
-func (linux *SystemDRecord) Remove() (string, error) {
+func (linux *systemDRecord) Remove() (string, error) {
 	removeAction := "Removing " + linux.description + ":"
 
 	if checkPrivileges() == false {
@@ -125,7 +125,7 @@ func (linux *SystemDRecord) Remove() (string, error) {
 }
 
 // Start the service
-func (linux *SystemDRecord) Start() (string, error) {
+func (linux *systemDRecord) Start() (string, error) {
 	startAction := "Starting " + linux.description + ":"
 
 	if checkPrivileges() == false {
@@ -148,7 +148,7 @@ func (linux *SystemDRecord) Start() (string, error) {
 }
 
 // Stop the service
-func (linux *SystemDRecord) Stop() (string, error) {
+func (linux *systemDRecord) Stop() (string, error) {
 	stopAction := "Stopping " + linux.description + ":"
 
 	if checkPrivileges() == false {
@@ -171,7 +171,7 @@ func (linux *SystemDRecord) Stop() (string, error) {
 }
 
 // Status - Get service status
-func (linux *SystemDRecord) Status() (string, error) {
+func (linux *systemDRecord) Status() (string, error) {
 
 	if checkPrivileges() == false {
 		return "", errors.New(rootPrivileges)
