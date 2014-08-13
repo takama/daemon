@@ -19,7 +19,7 @@ type SystemVRecord struct {
 	description string
 }
 
-// Standard service path for system V daemons
+// Standard service path for systemV daemons
 func (linux *SystemVRecord) servicePath() string {
 	return "/etc/init.d/" + linux.name
 }
@@ -76,7 +76,7 @@ func (linux *SystemVRecord) Install() (string, error) {
 		return installAction + failed, err
 	}
 
-	templ, err := template.New("daemonConfig").Parse(daemonConfig)
+	templ, err := template.New("sysremVConfig").Parse(sysremVConfig)
 	if err != nil {
 		return installAction + failed, err
 	}
@@ -200,7 +200,7 @@ func (linux *SystemVRecord) Status() (string, error) {
 	return statusAction, nil
 }
 
-var daemonConfig = `#! /bin/sh
+var sysremVConfig = `#! /bin/sh
 #
 #       /etc/rc.d/init.d/{{.Name}}
 #
