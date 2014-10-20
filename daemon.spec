@@ -1,10 +1,7 @@
 %global go_import_path  github.com/takama/daemon
-%global rev             84a4013f96e01fdd14b65d260a78b543e3702ee1
-%global shortrev        %(r=%{rev}; echo ${r:0:12})
-%define  debug_package %{nil}
 
 Name:           daemon
-Version:        0.2.1
+Version:        0.2.2
 Release:        1%{?dist}
 Summary:        A daemon package for use with Go (golang) services with no dependencies
 License:        MIT
@@ -31,9 +28,12 @@ Provides:       golang(%{go_import_path}) = %{version}-%{release}
 
 %install
 install -d %{buildroot}/%{gopath}/src/%{go_import_path}
-for i in `ls -1|egrep -iv 'license|readme'`; do
+for i in `ls -1|egrep -iv 'license|readme|\.spec'`; do
 cp -ap $i %{buildroot}/%{gopath}/src/%{go_import_path}/
 done
+
+%clean
+%{__rm} -rf %{buildroot}
 
 %check
 #GOPATH=%{buildroot}/%{gopath} go test %{go_import_path}
@@ -47,5 +47,5 @@ done
 %{gopath}/src/%{go_import_path}/example/*.go
 
 %changelog
-* Mon Oct 20 2014 Igor Dolzhikov - 0.2.1
-- add spec for rpm building
+* Mon Oct 20 2014 Igor Dolzhikov - 0.2.2
+- fix rpm spec
