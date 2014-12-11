@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 /*
-Package daemon 0.2.3 for use with Go (golang) services.
+Package daemon 0.2.4 for use with Go (golang) services.
 
 Package daemon provides primitives for daemonization of golang services.
 This package is not provide implementation of user daemon,
