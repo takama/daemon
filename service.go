@@ -122,7 +122,7 @@ func (service Service) GetProcess() func() {
 	return service.Process
 }
 
-func (service Service) Daemon() {
+func (service Service) Initialize() {
 
 	srv, err := New(service.GetName(), service.GetDescription())
 
