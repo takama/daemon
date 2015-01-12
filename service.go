@@ -106,20 +106,20 @@ type Service struct {
 	Process     func()
 }
 
-func (s Service) GetName() string {
-	return s.Name
+func (service Service) GetName() string {
+	return service.Name
 }
 
-func (s Service) GetPort() int {
-	return s.Port
+func (service Service) GetPort() int {
+	return service.Port
 }
 
-func (s Service) GetDescription() string {
-	return s.Description
+func (service Service) GetDescription() string {
+	return service.Description
 }
 
-func (s Service) GetProcess() func() {
-	return s.Process
+func (service Service) GetProcess() func() {
+	return service.Process
 }
 
 func (service Service) Daemon() {
