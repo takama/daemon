@@ -234,7 +234,7 @@ lockfile="/var/lock/subsys/$proc"
 stdoutlog="/var/log/$proc.log"
 stderrlog="/var/log/$proc.err"
 
-mkdir -p /var/lock/subsys
+[[ -d $(dirname $lockfile) ]] || mkdir -p $(dirname $lockfile)
 
 [ -e /etc/sysconfig/$proc ] && . /etc/sysconfig/$proc
 
