@@ -234,6 +234,8 @@ lockfile="/var/lock/subsys/$proc"
 stdoutlog="/var/log/$proc.log"
 stderrlog="/var/log/$proc.err"
 
+mkdir -p /var/lock/subsys
+
 [ -e /etc/sysconfig/$proc ] && . /etc/sysconfig/$proc
 
 start() {
