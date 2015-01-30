@@ -244,7 +244,7 @@ start() {
     if ! [ -f $pidfile ]; then
         printf "Starting $servname:\t"
         echo "$(date)" >> $stdoutlog
-        $exec >> $stderrlog 2>> $stdoutlog &
+        $exec >> $stdoutlog 2>> $stderrlog &
         echo $! > $pidfile
         touch $lockfile
         success
