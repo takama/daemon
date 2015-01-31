@@ -33,7 +33,7 @@ func main() {
 
 Real example:
 ```go
-// Example of the daemon with echo service
+// Example of a daemon with echo service
 package main
 
 import (
@@ -56,6 +56,8 @@ const (
 	// port which daemon should be listen
 	port = ":9977"
 )
+
+var stdlog, errlog *log.Logger
 
 // Service has embedded daemon
 type Service struct {
@@ -111,8 +113,8 @@ func (service *Service) Manage() (string, error) {
 		case conn := <-listen:
 			go handleClient(conn)
 		case killSignal := <-interrupt:
-			log.Println("Got signal:", killSignal)
-			log.Println("Stoping listening on ", listener.Addr())
+			stdlog.Println("Got signal:", killSignal)
+			stdlog.Println("Stoping listening on ", listener.Addr())
 			listener.Close()
 			if killSignal == os.Interrupt {
 				return "Daemon was interruped by system signal", nil
@@ -147,20 +149,24 @@ func handleClient(client net.Conn) {
 	}
 }
 
+func init() {
+	stdlog = log.New(os.Stdout, "", log.Ldate|log.Ltime)
+	errlog = log.New(os.Stderr, "", log.Ldate|log.Ltime)
+}
+
 func main() {
 	srv, err := daemon.New(name, description)
 	if err != nil {
-		fmt.Println("Error: ", err)
+		errlog.Println("Error: ", err)
 		os.Exit(1)
 	}
 	service := &Service{srv}
 	status, err := service.Manage()
 	if err != nil {
-		fmt.Println(status, "\nError: ", err)
+		errlog.Println(status, "\nError: ", err)
 		os.Exit(1)
 	}
 	fmt.Println(status)
-
 }
 ```
 
