@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Daemon by takama</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Daemon</h1>
+      <h2 class="project-tagline">A daemon package for use with Go (golang) services with no dependencies</h2>
+      <a href="https://github.com/takama/daemon" class="btn">View on GitHub</a>
+      <a href="https://github.com/takama/daemon/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/takama/daemon/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="go-daemon" class="anchor" href="#go-daemon" aria-hidden="true"><span class="octicon octicon-link"></span></a>Go Daemon</h1>
+
+<p>A daemon package for use with Go (golang) services with no dependencies</p>
+
+<h3>
+<a id="examples" class="anchor" href="#examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Examples</h3>
+
+<p>Simplest example (just install self as daemon):</p>
+
+<div class="highlight highlight-go"><pre><span class="pl-k">package</span> main
+
+<span class="pl-k">import</span> (
+    <span class="pl-s"><span class="pl-pds">"</span>fmt<span class="pl-pds">"</span></span>
+    <span class="pl-s"><span class="pl-pds">"</span>log<span class="pl-pds">"</span></span>
+
+    <span class="pl-s"><span class="pl-pds">"</span>github.com/takama/daemon<span class="pl-pds">"</span></span>
+)
+
+<span class="pl-k">func</span> <span class="pl-en">main</span>() {
+    <span class="pl-smi">service</span>, <span class="pl-smi">err</span> <span class="pl-k">:=</span> daemon.<span class="pl-c1">New</span>(<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>description<span class="pl-pds">"</span></span>)
+    <span class="pl-k">if</span> err != <span class="pl-c1">nil</span> {
+        log.<span class="pl-c1">Fatal</span>(<span class="pl-s"><span class="pl-pds">"</span>Error: <span class="pl-pds">"</span></span>, err)
+    }
+    <span class="pl-smi">status</span>, <span class="pl-smi">err</span> <span class="pl-k">:=</span> service.<span class="pl-c1">Install</span>()
+    <span class="pl-k">if</span> err != <span class="pl-c1">nil</span> {
+        log.<span class="pl-c1">Fatal</span>(status, <span class="pl-s"><span class="pl-pds">"</span><span class="pl-cce">\n</span>Error: <span class="pl-pds">"</span></span>, err)
+    }
+    fmt.<span class="pl-c1">Println</span>(status)
+}</pre></div>
+
+<p>Real example:</p>
+
+<div class="highlight highlight-go"><pre><span class="pl-c">// Example of a daemon with echo service</span>
+<span class="pl-k">package</span> main
+
+<span class="pl-k">import</span> (
+    <span class="pl-s"><span class="pl-pds">"</span>fmt<span class="pl-pds">"</span></span>
+    <span class="pl-s"><span class="pl-pds">"</span>log<span class="pl-pds">"</span></span>
+    <span class="pl-s"><span class="pl-pds">"</span>net<span class="pl-pds">"</span></span>
+    <span class="pl-s"><span class="pl-pds">"</span>os<span class="pl-pds">"</span></span>
+    <span class="pl-s"><span class="pl-pds">"</span>os/signal<span class="pl-pds">"</span></span>
+    <span class="pl-s"><span class="pl-pds">"</span>syscall<span class="pl-pds">"</span></span>
+
+    <span class="pl-s"><span class="pl-pds">"</span>github.com/takama/daemon<span class="pl-pds">"</span></span>
+)
+
+<span class="pl-k">const</span> (
+
+    <span class="pl-c">// name of the service, match with executable file name</span>
+    name        = <span class="pl-s"><span class="pl-pds">"</span>myservice<span class="pl-pds">"</span></span>
+    description = <span class="pl-s"><span class="pl-pds">"</span>My Echo Service<span class="pl-pds">"</span></span>
+
+    <span class="pl-c">// port which daemon should be listen</span>
+    port = <span class="pl-s"><span class="pl-pds">"</span>:9977<span class="pl-pds">"</span></span>
+)
+
+<span class="pl-k">var</span> <span class="pl-smi">stdlog</span>, <span class="pl-smi">errlog</span> *log.<span class="pl-smi">Logger</span>
+
+<span class="pl-c">// Service has embedded daemon</span>
+<span class="pl-k">type</span> <span class="pl-v">Service</span> <span class="pl-k">struct</span> {
+    daemon.<span class="pl-smi">Daemon</span>
+}
+
+<span class="pl-c">// Manage by daemon commands or run the daemon</span>
+<span class="pl-k">func</span> <span class="pl-en">(<span class="pl-v">service</span> *<span class="pl-v">Service</span>) <span class="pl-en">Manage</span></span>() (<span class="pl-v">string</span>, <span class="pl-v">error</span>) {
+
+    <span class="pl-smi">usage</span> <span class="pl-k">:=</span> <span class="pl-s"><span class="pl-pds">"</span>Usage: myservice install | remove | start | stop | status<span class="pl-pds">"</span></span>
+
+    <span class="pl-c">// if received any kind of command, do it</span>
+    <span class="pl-k">if</span> <span class="pl-c1">len</span>(os.<span class="pl-smi">Args</span>) &gt; <span class="pl-c1">1</span> {
+        <span class="pl-smi">command</span> <span class="pl-k">:=</span> os.<span class="pl-smi">Args</span>[<span class="pl-c1">1</span>]
+        <span class="pl-k">switch</span> command {
+        <span class="pl-k">case</span> <span class="pl-s"><span class="pl-pds">"</span>install<span class="pl-pds">"</span></span>:
+            <span class="pl-k">return</span> service.<span class="pl-c1">Install</span>()
+        <span class="pl-k">case</span> <span class="pl-s"><span class="pl-pds">"</span>remove<span class="pl-pds">"</span></span>:
+            <span class="pl-k">return</span> service.<span class="pl-c1">Remove</span>()
+        <span class="pl-k">case</span> <span class="pl-s"><span class="pl-pds">"</span>start<span class="pl-pds">"</span></span>:
+            <span class="pl-k">return</span> service.<span class="pl-c1">Start</span>()
+        <span class="pl-k">case</span> <span class="pl-s"><span class="pl-pds">"</span>stop<span class="pl-pds">"</span></span>:
+            <span class="pl-k">return</span> service.<span class="pl-c1">Stop</span>()
+        <span class="pl-k">case</span> <span class="pl-s"><span class="pl-pds">"</span>status<span class="pl-pds">"</span></span>:
+            <span class="pl-k">return</span> service.<span class="pl-c1">Status</span>()
+        <span class="pl-k">default</span>:
+            <span class="pl-k">return</span> usage, <span class="pl-c1">nil</span>
+        }
+    }
+
+    <span class="pl-c">// Do something, call your goroutines, etc</span>
+
+    <span class="pl-c">// Set up channel on which to send signal notifications.</span>
+    <span class="pl-c">// We must use a buffered channel or risk missing the signal</span>
+    <span class="pl-c">// if we're not ready to receive when the signal is sent.</span>
+    <span class="pl-smi">interrupt</span> <span class="pl-k">:=</span> <span class="pl-c1">make</span>(<span class="pl-k">chan</span> os.<span class="pl-smi">Signal</span>, <span class="pl-c1">1</span>)
+    signal.<span class="pl-c1">Notify</span>(interrupt, os.<span class="pl-smi">Interrupt</span>, os.<span class="pl-smi">Kill</span>, syscall.<span class="pl-smi">SIGTERM</span>)
+
+    <span class="pl-c">// Set up listener for defined host and port</span>
+    <span class="pl-smi">listener</span>, <span class="pl-smi">err</span> <span class="pl-k">:=</span> net.<span class="pl-c1">Listen</span>(<span class="pl-s"><span class="pl-pds">"</span>tcp<span class="pl-pds">"</span></span>, port)
+    <span class="pl-k">if</span> err != <span class="pl-c1">nil</span> {
+        <span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">"</span>Possibly was a problem with the port binding<span class="pl-pds">"</span></span>, err
+    }
+
+    <span class="pl-c">// set up channel on which to send accepted connections</span>
+    <span class="pl-smi">listen</span> <span class="pl-k">:=</span> <span class="pl-c1">make</span>(<span class="pl-k">chan</span> net.<span class="pl-smi">Conn</span>, <span class="pl-c1">100</span>)
+    <span class="pl-k">go</span> <span class="pl-c1">acceptConnection</span>(listener, listen)
+
+    <span class="pl-c">// loop work cycle with accept connections or interrupt</span>
+    <span class="pl-c">// by system signal</span>
+    <span class="pl-k">for</span> {
+        <span class="pl-k">select</span> {
+        <span class="pl-k">case</span> <span class="pl-smi">conn</span> <span class="pl-k">:=</span> <span class="pl-k">&lt;-</span>listen:
+            <span class="pl-k">go</span> <span class="pl-c1">handleClient</span>(conn)
+        <span class="pl-k">case</span> <span class="pl-smi">killSignal</span> <span class="pl-k">:=</span> <span class="pl-k">&lt;-</span>interrupt:
+            stdlog.<span class="pl-c1">Println</span>(<span class="pl-s"><span class="pl-pds">"</span>Got signal:<span class="pl-pds">"</span></span>, killSignal)
+            stdlog.<span class="pl-c1">Println</span>(<span class="pl-s"><span class="pl-pds">"</span>Stoping listening on <span class="pl-pds">"</span></span>, listener.<span class="pl-c1">Addr</span>())
+            listener.<span class="pl-c1">Close</span>()
+            <span class="pl-k">if</span> killSignal == os.<span class="pl-smi">Interrupt</span> {
+                <span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">"</span>Daemon was interruped by system signal<span class="pl-pds">"</span></span>, <span class="pl-c1">nil</span>
+            }
+            <span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">"</span>Daemon was killed<span class="pl-pds">"</span></span>, <span class="pl-c1">nil</span>
+        }
+    }
+
+    <span class="pl-c">// never happen, but need to complete code</span>
+    <span class="pl-k">return</span> usage, <span class="pl-c1">nil</span>
+}
+
+<span class="pl-c">// Accept a client connection and collect it in a channel</span>
+<span class="pl-k">func</span> <span class="pl-en">acceptConnection</span>(<span class="pl-v">listener</span> <span class="pl-v">net</span>.<span class="pl-v">Listener</span>, <span class="pl-v">listen</span> <span class="pl-v">chan</span>&lt;- <span class="pl-v">net</span>.<span class="pl-v">Conn</span>) {
+    <span class="pl-k">for</span> {
+        <span class="pl-smi">conn</span>, <span class="pl-smi">err</span> <span class="pl-k">:=</span> listener.<span class="pl-c1">Accept</span>()
+        <span class="pl-k">if</span> err != <span class="pl-c1">nil</span> {
+            <span class="pl-k">continue</span>
+        }
+        listen <span class="pl-k">&lt;-</span> conn
+    }
+}
+
+<span class="pl-k">func</span> <span class="pl-en">handleClient</span>(<span class="pl-v">client</span> <span class="pl-v">net</span>.<span class="pl-v">Conn</span>) {
+    <span class="pl-k">for</span> {
+        <span class="pl-smi">buf</span> <span class="pl-k">:=</span> <span class="pl-c1">make</span>([]<span class="pl-k">byte</span>, <span class="pl-c1">4096</span>)
+        <span class="pl-smi">numbytes</span>, <span class="pl-smi">err</span> <span class="pl-k">:=</span> client.<span class="pl-c1">Read</span>(buf)
+        <span class="pl-k">if</span> numbytes == <span class="pl-c1">0</span> || err != <span class="pl-c1">nil</span> {
+            <span class="pl-k">return</span>
+        }
+        client.<span class="pl-c1">Write</span>(buf)
+    }
+}
+
+<span class="pl-k">func</span> <span class="pl-en">init</span>() {
+    stdlog = log.<span class="pl-c1">New</span>(os.<span class="pl-smi">Stdout</span>, <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>, log.<span class="pl-smi">Ldate</span>|log.<span class="pl-smi">Ltime</span>)
+    errlog = log.<span class="pl-c1">New</span>(os.<span class="pl-smi">Stderr</span>, <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>, log.<span class="pl-smi">Ldate</span>|log.<span class="pl-smi">Ltime</span>)
+}
+
+<span class="pl-k">func</span> <span class="pl-en">main</span>() {
+    <span class="pl-smi">srv</span>, <span class="pl-smi">err</span> <span class="pl-k">:=</span> daemon.<span class="pl-c1">New</span>(name, description)
+    <span class="pl-k">if</span> err != <span class="pl-c1">nil</span> {
+        errlog.<span class="pl-c1">Println</span>(<span class="pl-s"><span class="pl-pds">"</span>Error: <span class="pl-pds">"</span></span>, err)
+        os.<span class="pl-c1">Exit</span>(<span class="pl-c1">1</span>)
+    }
+    <span class="pl-smi">service</span> <span class="pl-k">:=</span> &amp;Service{srv}
+    <span class="pl-smi">status</span>, <span class="pl-smi">err</span> <span class="pl-k">:=</span> service.<span class="pl-c1">Manage</span>()
+    <span class="pl-k">if</span> err != <span class="pl-c1">nil</span> {
+        errlog.<span class="pl-c1">Println</span>(status, <span class="pl-s"><span class="pl-pds">"</span><span class="pl-cce">\n</span>Error: <span class="pl-pds">"</span></span>, err)
+        os.<span class="pl-c1">Exit</span>(<span class="pl-c1">1</span>)
+    }
+    fmt.<span class="pl-c1">Println</span>(status)
+}</pre></div>
+
+<h2>
+<a id="author" class="anchor" href="#author" aria-hidden="true"><span class="octicon octicon-link"></span></a>Author</h2>
+
+<p><a href="https://github.com/takama">Igor Dolzhikov</a></p>
+
+<h2>
+<a id="contributors" class="anchor" href="#contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributors</h2>
+
+<p>All the contributors are welcome. If you would like to be the contributor please accept some rules.</p>
+
+<ul>
+<li>The pull requests will be accepted only in "develop" branch</li>
+<li>All modifications or additions should be tested</li>
+<li>Sorry, I'll not accept code with any dependency, only standard library</li>
+</ul>
+
+<p>Thank you for your understanding!</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p><a href="https://github.com/takama/daemon/blob/master/LICENSE">MIT Public License</a></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/takama/daemon">Daemon</a> is maintained by <a href="https://github.com/takama">takama</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
+
