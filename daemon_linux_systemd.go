@@ -47,7 +47,7 @@ func (linux *systemDRecord) checkRunning() (string, bool) {
 		}
 	}
 
-	return "Service is stoped", false
+	return "Service is stopped", false
 }
 
 // Install the service
