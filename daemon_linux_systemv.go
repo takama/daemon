@@ -228,7 +228,7 @@ fi
 exec="{{.Path}}"
 servname="{{.Description}}"
 
-proc=$(basename $exec)
+proc="{{.Name}}"
 pidfile="/var/run/$proc.pid"
 lockfile="/var/lock/subsys/$proc"
 stdoutlog="/var/log/$proc.log"
