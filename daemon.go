@@ -28,7 +28,7 @@ Example:
 
 	const (
 
-		// name of the service, match with executable file name
+		// name of the service
 		name        = "myservice"
 		description = "My Echo Service"
 
@@ -152,6 +152,8 @@ Go daemon
 */
 package daemon
 
+import "strings"
+
 // Daemon interface has standard set of a methods/commands
 type Daemon interface {
 
@@ -173,8 +175,8 @@ type Daemon interface {
 
 // New - Create a new daemon
 //
-// name: name of the service, match with executable file name;
+// name: name of the service
 // description: any explanation, what is the service, its purpose
 func New(name, description string) (Daemon, error) {
-	return newDaemon(name, description)
+	return newDaemon(strings.Join(strings.Fields(name), "_"), description)
 }
