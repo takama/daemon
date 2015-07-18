@@ -14,7 +14,7 @@ import (
 
 const (
 
-	// name of the service, match with executable file name
+	// name of the service
 	name        = "myservice"
 	description = "My Echo Service"
 

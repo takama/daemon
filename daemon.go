@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 /*
-Package daemon 0.2.11 for use with Go (golang) services.
+Package daemon 0.2.12 for use with Go (golang) services.
 
 Package daemon provides primitives for daemonization of golang services.
 This package is not provide implementation of user daemon,
@@ -28,7 +28,7 @@ Example:
 
 	const (
 
-		// name of the service, match with executable file name
+		// name of the service
 		name        = "myservice"
 		description = "My Echo Service"
 
@@ -152,6 +152,8 @@ Go daemon
 */
 package daemon
 
+import "strings"
+
 // Daemon interface has standard set of a methods/commands
 type Daemon interface {
 
@@ -173,8 +175,8 @@ type Daemon interface {
 
 // New - Create a new daemon
 //
-// name: name of the service, match with executable file name;
+// name: name of the service
 // description: any explanation, what is the service, its purpose
 func New(name, description string) (Daemon, error) {
-	return newDaemon(name, description)
+	return newDaemon(strings.Join(strings.Fields(name), "_"), description)
 }
