@@ -16,13 +16,14 @@ import (
 
 // darwinRecord - standard record (struct) for darwin version of daemon package
 type darwinRecord struct {
-	name        string
-	description string
+	name         string
+	description  string
+	dependencies []string
 }
 
-func newDaemon(name, description string) (Daemon, error) {
+func newDaemon(name, description string, dependencies []string) (Daemon, error) {
 
-	return &darwinRecord{name, description}, nil
+	return &darwinRecord{name, description, dependencies}, nil
 }
 
 // Standard service path for system daemons
