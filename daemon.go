@@ -36,6 +36,9 @@ Example:
 		port = ":9977"
 	)
 
+  //	dependencies that are required by the service
+  var dependencies = []string{"dummy.service"}
+
 	var stdlog, errlog *log.Logger
 
 	// Service has embedded daemon
@@ -134,7 +137,7 @@ Example:
 	}
 
 	func main() {
-		srv, err := daemon.New(name, description)
+		srv, err := daemon.New(name, description, dependencies)
 		if err != nil {
 			errlog.Println("Error: ", err)
 			os.Exit(1)
