@@ -11,13 +11,14 @@ import (
 
 // windowsRecord - standard record (struct) for windows version of daemon package
 type windowsRecord struct {
-	name        string
-	description string
+	name         string
+	description  string
+	dependencies []string
 }
 
-func newDaemon(name, description string) (Daemon, error) {
+func newDaemon(name, description string, dependencies []string) (Daemon, error) {
 
-	return &windowsRecord{name, description}, nil
+	return &windowsRecord{name, description, dependencies}, nil
 }
 
 // Install the service
@@ -52,4 +53,9 @@ func (windows *windowsRecord) Stop() (string, error) {
 func (windows *windowsRecord) Status() (string, error) {
 
 	return "Status could not defined", errors.New("windows daemon is not supported")
+}
+
+// Get executable path
+func execPath() (string, error) {
+	return "", errors.New("windows daemon is not supported")
 }
