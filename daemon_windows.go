@@ -53,3 +53,8 @@ func (windows *windowsRecord) Status() (string, error) {
 
 	return "Status could not defined", errors.New("windows daemon is not supported")
 }
+
+// Get executable path
+func execPath() (string, error) {
+	return "", errors.New("windows daemon is not supported")
+}
