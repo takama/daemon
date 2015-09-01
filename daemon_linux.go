@@ -10,11 +10,11 @@ import (
 )
 
 // Get the daemon properly
-func newDaemon(name, description string) (Daemon, error) {
+func newDaemon(name, description string, dependencies []string) (Daemon, error) {
 	if _, err := os.Stat("/run/systemd/system"); err == nil {
-		return &systemDRecord{name, description}, nil
+		return &systemDRecord{name, description, dependencies}, nil
 	}
-	return &systemVRecord{name, description}, nil
+	return &systemVRecord{name, description, dependencies}, nil
 }
 
 // Get executable path

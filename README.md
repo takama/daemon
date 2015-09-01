@@ -19,7 +19,7 @@ import (
 )
 
 func main() {
-	service, err := daemon.New("name", "description")
+	service, err := daemon.New("name", "description", []string{})
 	if err != nil {
 		log.Fatal("Error: ", err)
 	}
@@ -56,6 +56,9 @@ const (
 	// port which daemon should be listen
 	port = ":9977"
 )
+
+//	dependencies that are required by the service
+var dependencies = []string{"dummy.service"}
 
 var stdlog, errlog *log.Logger
 
@@ -155,7 +158,7 @@ func init() {
 }
 
 func main() {
-	srv, err := daemon.New(name, description)
+	srv, err := daemon.New(name, description, dependencies)
 	if err != nil {
 		errlog.Println("Error: ", err)
 		os.Exit(1)

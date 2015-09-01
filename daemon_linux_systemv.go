@@ -14,8 +14,9 @@ import (
 
 // systemVRecord - standard record (struct) for linux systemV version of daemon package
 type systemVRecord struct {
-	name        string
-	description string
+	name         string
+	description  string
+	dependencies []string
 }
 
 // Standard service path for systemV daemons

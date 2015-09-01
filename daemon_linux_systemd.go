@@ -9,13 +9,15 @@ import (
 	"os"
 	"os/exec"
 	"regexp"
+	"strings"
 	"text/template"
 )
 
 // systemDRecord - standard record (struct) for linux systemD version of daemon package
 type systemDRecord struct {
-	name        string
-	description string
+	name         string
+	description  string
+	dependencies []string
 }
 
 // Standard service path for systemD daemons
@@ -83,8 +85,8 @@ func (linux *systemDRecord) Install() (string, error) {
 	if err := templ.Execute(
 		file,
 		&struct {
-			Name, Description, Path string
-		}{linux.name, linux.description, execPatch},
+			Name, Description, Dependencies, Path string
+		}{linux.name, linux.description, strings.Join(linux.dependencies, " "), execPatch},
 	); err != nil {
 		return installAction + failed, err
 	}
@@ -187,6 +189,8 @@ func (linux *systemDRecord) Status() (string, error) {
 
 var systemDConfig = `[Unit]
 Description={{.Description}}
+Requires={{.Dependencies}}
+After={{.Dependencies}}
 
 [Service]
 PIDFile=/var/run/{{.Name}}.pid
