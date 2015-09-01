@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 /*
-Package daemon 0.2.12 for use with Go (golang) services.
+Package daemon 0.3.0 for use with Go (golang) services.
 
 Package daemon provides primitives for daemonization of golang services.
 This package is not provide implementation of user daemon,
@@ -36,7 +36,7 @@ Example:
 		port = ":9977"
 	)
 
-  //	dependencies that are required by the service
+  // dependencies that are NOT required by the service, but might be used
   var dependencies = []string{"dummy.service"}
 
 	var stdlog, errlog *log.Logger
@@ -137,7 +137,7 @@ Example:
 	}
 
 	func main() {
-		srv, err := daemon.New(name, description, dependencies)
+		srv, err := daemon.New(name, description, dependencies...)
 		if err != nil {
 			errlog.Println("Error: ", err)
 			os.Exit(1)
@@ -180,6 +180,6 @@ type Daemon interface {
 //
 // name: name of the service
 // description: any explanation, what is the service, its purpose
-func New(name, description string, dependencies []string) (Daemon, error) {
+func New(name, description string, dependencies ...string) (Daemon, error) {
 	return newDaemon(strings.Join(strings.Fields(name), "_"), description, dependencies)
 }
