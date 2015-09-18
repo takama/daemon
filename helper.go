@@ -3,7 +3,6 @@ package daemon
 import (
 	"os"
 	"os/exec"
-	"os/user"
 	"log"
 "strings"
 )
