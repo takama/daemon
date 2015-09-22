@@ -3,7 +3,8 @@ package daemon
 import (
 	"os"
 	"os/exec"
-	"os/user"
+	"log"
+"strings"
 )
 
 // Service constants
@@ -27,9 +28,12 @@ func executablePath(name string) (string, error) {
 
 // Check root rights to use system service
 func checkPrivileges() bool {
-
-	if user, err := user.Current(); err == nil && user.Gid == "0" {
-		return true
+	cmd := exec.Command("id", "-g")
+	if output, err := cmd.Output(); err == nil {
+		gid := strings.TrimSpace(string(output))
+		return gid == "0"
+	} else {
+		log.Println(err)
 	}
 	return false
 }
