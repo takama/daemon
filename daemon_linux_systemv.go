@@ -219,13 +219,6 @@ var systemVConfig = `#! /bin/sh
 # Description: {{.Description}}
 ### END INIT INFO
 
-#
-# Source function library.
-#
-if [ -f /etc/rc.d/init.d/functions ]; then
-    . /etc/rc.d/init.d/functions
-fi
-
 exec="{{.Path}}"
 servname="{{.Description}}"
 
@@ -235,70 +228,80 @@ lockfile="/var/lock/subsys/$proc"
 stdoutlog="/var/log/$proc.log"
 stderrlog="/var/log/$proc.err"
 
-[[ -d $(dirname $lockfile) ]] || mkdir -p $(dirname $lockfile)
+test $(id -u) -eq "0"          || exit 4 # LSB exit: insufficient permissions
+test -x $exec                  || exit 5 # LSB exit: program not installed
+test -d $(dirname $lockfile)   || mkdir -p $(dirname $lockfile)
+# Source configuration as appropriate.
+! test -e /etc/default/$proc   || . /etc/default/$proc
+! test -e /etc/sysconfig/$proc || . /etc/sysconfig/$proc
 
-[ -e /etc/sysconfig/$proc ] && . /etc/sysconfig/$proc
+# Source function libraries.
+if [ -f /lib/lsb/init-functions ]; then
+    . /lib/lsb/init-functions
+else
+    log_success_msg() { echo "$*.";   }
+    log_failure_msg() { echo "$*${*:+...} failed!"; return 1; }
+fi
+if [ -f /etc/rc.d/init.d/functions ]; then
+    . /etc/rc.d/init.d/functions
+fi
+
+if type status_of_proc >/dev/null 2>&1; then
+    get_status() { status_of_proc -p $pidfile $exec $proc; }
+elif type status >/dev/null 2>&1; then
+    get_status() { status -p $pidfile $exec; }
+else
+    echo >&2 "FIXME: system not LSB compliant, does not have status nor status_of_proc"
+    exit 6
+fi
 
 start() {
-    [ -x $exec ] || exit 5
-
-    if ! [ -f $pidfile ]; then
-        printf "Starting $servname:\t"
+    if get_status >/dev/null 2>&1; then
+        return 0
+    elif [ -f $pidfile ]; then
+	# program is dead and /var/run pid file exists - LSB exit 1
+        log_failure_msg "$pidfile still exists"
+        return 1
+    else
+        echo -n "Starting $servname: $proc"
         echo "$(date)" >> $stdoutlog
         $exec >> $stdoutlog 2>> $stderrlog &
         echo $! > $pidfile
         touch $lockfile
-        success
-        echo
-    else
-        failure
-        echo
-        printf "$pidfile still exists...\n"
-        exit 7
+        log_success_msg
     fi
 }
 
 stop() {
-    echo -n $"Stopping $servname: "
-    killproc -p $pidfile $proc
-    retval=$?
-    echo
-    [ $retval -eq 0 ] && rm -f $lockfile
-    return $retval
-}
-
-restart() {
-    stop
-    start
-}
-
-rh_status() {
-    status -p $pidfile $proc
-}
-
-rh_status_q() {
-    rh_status >/dev/null 2>&1
+    get_status >/dev/null 2>&1 || return 0
+    echo -n "Stopping $servname: $proc"
+    if killproc -p $pidfile $proc >/dev/null 2>&1; then
+        log_success_msg
+        rm -f $lockfile $pidfile
+    else
+        log_failure_msg
+    fi
 }
 
 case "$1" in
-    start)
-        rh_status_q && exit 0
+    start|stop)
         $1
         ;;
-    stop)
-        rh_status_q || exit 0
-        $1
+    try-restart)
+        get_status >/dev/null 2>&1 || exit $?
+        $0 restart
         ;;
     restart)
-        $1
+        stop
+        start
+        ;;
+    reload|force-reload)
+        exit 3 # LSB: unimplemented feature
         ;;
     status)
-        rh_status
+        get_status
         ;;
-    *)
-        echo $"Usage: $0 {start|stop|status|restart}"
-        exit 2
+    *)  echo $"Usage: $0 {start|stop|restart|try-restart|status}"
+        exit 2 # LSB: invalid or excess arguments
 esac
-
-exit $?
 `
