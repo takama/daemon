@@ -67,7 +67,7 @@ func (service *Service) Manage() (string, error) {
 	// Set up listener for defined host and port
 	listener, err := net.Listen("tcp", port)
 	if err != nil {
-		return "Possibly was a problem with the port binding", err
+		return "Failed to set up listening socket", err
 	}
 
 	// set up channel on which to send accepted connections
@@ -82,10 +82,10 @@ func (service *Service) Manage() (string, error) {
 			go handleClient(conn)
 		case killSignal := <-interrupt:
 			stdlog.Println("Got signal:", killSignal)
-			stdlog.Println("Stoping listening on ", listener.Addr())
+			stdlog.Println("Stopping listening on ", listener.Addr())
 			listener.Close()
 			if killSignal == os.Interrupt {
-				return "Daemon was interruped by system signal", nil
+				return "Daemon was interrupted by signal", nil
 			}
 			return "Daemon was killed", nil
 		}
