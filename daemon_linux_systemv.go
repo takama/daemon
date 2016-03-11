@@ -5,7 +5,6 @@
 package daemon
 
 import (
-	"errors"
 	"os"
 	"os/exec"
 	"regexp"
@@ -24,8 +23,8 @@ func (linux *systemVRecord) servicePath() string {
 	return "/etc/init.d/" + linux.name
 }
 
-// Check service is installed
-func (linux *systemVRecord) checkInstalled() bool {
+// Is a service installed
+func (linux *systemVRecord) isInstalled() bool {
 
 	if _, err := os.Stat(linux.servicePath()); err == nil {
 		return true
@@ -55,14 +54,14 @@ func (linux *systemVRecord) checkRunning() (string, bool) {
 func (linux *systemVRecord) Install() (string, error) {
 	installAction := "Install " + linux.description + ":"
 
-	if checkPrivileges() == false {
-		return installAction + failed, errors.New(rootPrivileges)
+	if ok, err := checkPrivileges(); !ok {
+		return installAction + failed, err
 	}
 
 	srvPath := linux.servicePath()
 
-	if linux.checkInstalled() == true {
-		return installAction + failed, errors.New(linux.description + " already installed")
+	if linux.isInstalled() {
+		return installAction + failed, ErrAlreadyInstalled
 	}
 
 	file, err := os.Create(srvPath)
@@ -112,12 +111,12 @@ func (linux *systemVRecord) Install() (string, error) {
 func (linux *systemVRecord) Remove() (string, error) {
 	removeAction := "Removing " + linux.description + ":"
 
-	if checkPrivileges() == false {
-		return removeAction + failed, errors.New(rootPrivileges)
+	if ok, err := checkPrivileges(); !ok {
+		return removeAction + failed, err
 	}
 
-	if linux.checkInstalled() == false {
-		return removeAction + failed, errors.New(linux.description + " is not installed")
+	if !linux.isInstalled() {
+		return removeAction + failed, ErrNotInstalled
 	}
 
 	if err := os.Remove(linux.servicePath()); err != nil {
@@ -142,16 +141,16 @@ func (linux *systemVRecord) Remove() (string, error) {
 func (linux *systemVRecord) Start() (string, error) {
 	startAction := "Starting " + linux.description + ":"
 
-	if checkPrivileges() == false {
-		return startAction + failed, errors.New(rootPrivileges)
+	if ok, err := checkPrivileges(); !ok {
+		return startAction + failed, err
 	}
 
-	if linux.checkInstalled() == false {
-		return startAction + failed, errors.New(linux.description + " is not installed")
+	if !linux.isInstalled() {
+		return startAction + failed, ErrNotInstalled
 	}
 
-	if _, status := linux.checkRunning(); status == true {
-		return startAction + failed, errors.New("service already running")
+	if _, ok := linux.checkRunning(); ok {
+		return startAction + failed, ErrAlreadyRunning
 	}
 
 	if err := exec.Command("service", linux.name, "start").Run(); err != nil {
@@ -165,16 +164,16 @@ func (linux *systemVRecord) Start() (string, error) {
 func (linux *systemVRecord) Stop() (string, error) {
 	stopAction := "Stopping " + linux.description + ":"
 
-	if checkPrivileges() == false {
-		return stopAction + failed, errors.New(rootPrivileges)
+	if ok, err := checkPrivileges(); !ok {
+		return stopAction + failed, err
 	}
 
-	if linux.checkInstalled() == false {
-		return stopAction + failed, errors.New(linux.description + " is not installed")
+	if !linux.isInstalled() {
+		return stopAction + failed, ErrNotInstalled
 	}
 
-	if _, status := linux.checkRunning(); status == false {
-		return stopAction + failed, errors.New("service already stopped")
+	if _, ok := linux.checkRunning(); !ok {
+		return stopAction + failed, ErrAlreadyStopped
 	}
 
 	if err := exec.Command("service", linux.name, "stop").Run(); err != nil {
@@ -187,12 +186,12 @@ func (linux *systemVRecord) Stop() (string, error) {
 // Status - Get service status
 func (linux *systemVRecord) Status() (string, error) {
 
-	if checkPrivileges() == false {
-		return "", errors.New(rootPrivileges)
+	if ok, err := checkPrivileges(); !ok {
+		return "", err
 	}
 
-	if linux.checkInstalled() == false {
-		return "Status could not defined", errors.New(linux.description + " is not installed")
+	if !linux.isInstalled() {
+		return "Status could not defined", ErrNotInstalled
 	}
 
 	statusAction, _ := linux.checkRunning()
