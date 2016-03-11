@@ -9,6 +9,8 @@ import (
 	"errors"
 )
 
+var ErrWindowsUnsupported = errors.New("windows daemon is not supported")
+
 // windowsRecord - standard record (struct) for windows version of daemon package
 type windowsRecord struct {
 	name         string
@@ -25,37 +27,37 @@ func newDaemon(name, description string, dependencies []string) (Daemon, error) 
 func (windows *windowsRecord) Install() (string, error) {
 	installAction := "Install " + windows.description + ":"
 
-	return installAction + failed, errors.New("windows daemon is not supported")
+	return installAction + failed, ErrWindowsUnsupported
 }
 
 // Remove the service
 func (windows *windowsRecord) Remove() (string, error) {
 	removeAction := "Removing " + windows.description + ":"
 
-	return removeAction + failed, errors.New("windows daemon is not supported")
+	return removeAction + failed, ErrWindowsUnsupported
 }
 
 // Start the service
 func (windows *windowsRecord) Start() (string, error) {
 	startAction := "Starting " + windows.description + ":"
 
-	return startAction + failed, errors.New("windows daemon is not supported")
+	return startAction + failed, ErrWindowsUnsupported
 }
 
 // Stop the service
 func (windows *windowsRecord) Stop() (string, error) {
 	stopAction := "Stopping " + windows.description + ":"
 
-	return stopAction + failed, errors.New("windows daemon is not supported")
+	return stopAction + failed, ErrWindowsUnsupported
 }
 
 // Status - Get service status
 func (windows *windowsRecord) Status() (string, error) {
 
-	return "Status could not defined", errors.New("windows daemon is not supported")
+	return "Status could not defined", ErrWindowsUnsupported
 }
 
 // Get executable path
 func execPath() (string, error) {
-	return "", errors.New("windows daemon is not supported")
+	return "", ErrWindowsUnsupported
 }
