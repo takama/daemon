@@ -179,6 +179,11 @@ func main() {
 
 ## Contributors
 
+- [Sheile](https://github.com/Sheile)
+- [Nguyen Trung Loi](https://github.com/loint)
+- [Donny Prasetyobudi](https://github.com/donnpebe)
+- [Mark Berner](https://github.com/mark2b)
+
 All the contributors are welcome. If you would like to be the contributor please accept some rules.
 - The pull requests will be accepted only in "develop" branch
 - All modifications or additions should be tested
