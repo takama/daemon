@@ -118,8 +118,8 @@ func handleClient(client net.Conn) {
 }
 
 func init() {
-	stdlog = log.New(os.Stdout, "", log.Ldate|log.Ltime)
-	errlog = log.New(os.Stderr, "", log.Ldate|log.Ltime)
+	stdlog = log.New(os.Stdout, "", 0)
+	errlog = log.New(os.Stderr, "", 0)
 }
 
 func main() {
