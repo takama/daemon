@@ -1,9 +1,9 @@
-// Copyright 2015 Igor Dolzhikov. All rights reserved.
+// Copyright 2016 Igor Dolzhikov. All rights reserved.
 // Use of this source code is governed by
 // license that can be found in the LICENSE file.
 
 /*
-Package daemon 0.3.0 for use with Go (golang) services.
+Package daemon 0.3.1 for use with Go (golang) services.
 
 Package daemon provides primitives for daemonization of golang services.
 This package is not provide implementation of user daemon,

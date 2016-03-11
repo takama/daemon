@@ -1,4 +1,4 @@
-// Copyright 2015 Igor Dolzhikov. All rights reserved.
+// Copyright 2016 Igor Dolzhikov. All rights reserved.
 // Use of this source code is governed by
 // license that can be found in the LICENSE file.
 
@@ -6,7 +6,6 @@
 package daemon
 
 import (
-	"errors"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -31,8 +30,8 @@ func (darwin *darwinRecord) servicePath() string {
 	return "/Library/LaunchDaemons/" + darwin.name + ".plist"
 }
 
-// Check service is installed
-func (darwin *darwinRecord) checkInstalled() bool {
+// Is a service installed
+func (darwin *darwinRecord) isInstalled() bool {
 
 	if _, err := os.Stat(darwin.servicePath()); err == nil {
 		return true
@@ -67,14 +66,14 @@ func (darwin *darwinRecord) checkRunning() (string, bool) {
 func (darwin *darwinRecord) Install() (string, error) {
 	installAction := "Install " + darwin.description + ":"
 
-	if checkPrivileges() == false {
-		return installAction + failed, errors.New(rootPrivileges)
+	if ok, err := checkPrivileges(); !ok {
+		return installAction + failed, err
 	}
 
 	srvPath := darwin.servicePath()
 
-	if darwin.checkInstalled() == true {
-		return installAction + failed, errors.New(darwin.description + " already installed")
+	if darwin.isInstalled() {
+		return installAction + failed, ErrAlreadyInstalled
 	}
 
 	file, err := os.Create(srvPath)
@@ -109,12 +108,12 @@ func (darwin *darwinRecord) Install() (string, error) {
 func (darwin *darwinRecord) Remove() (string, error) {
 	removeAction := "Removing " + darwin.description + ":"
 
-	if checkPrivileges() == false {
-		return removeAction + failed, errors.New(rootPrivileges)
+	if ok, err := checkPrivileges(); !ok {
+		return removeAction + failed, err
 	}
 
-	if darwin.checkInstalled() == false {
-		return removeAction + failed, errors.New(darwin.description + " is not installed")
+	if !darwin.isInstalled() {
+		return removeAction + failed, ErrNotInstalled
 	}
 
 	if err := os.Remove(darwin.servicePath()); err != nil {
@@ -128,16 +127,16 @@ func (darwin *darwinRecord) Remove() (string, error) {
 func (darwin *darwinRecord) Start() (string, error) {
 	startAction := "Starting " + darwin.description + ":"
 
-	if checkPrivileges() == false {
-		return startAction + failed, errors.New(rootPrivileges)
+	if ok, err := checkPrivileges(); !ok {
+		return startAction + failed, err
 	}
 
-	if darwin.checkInstalled() == false {
-		return startAction + failed, errors.New(darwin.description + " is not installed")
+	if !darwin.isInstalled() {
+		return startAction + failed, ErrNotInstalled
 	}
 
-	if _, status := darwin.checkRunning(); status == true {
-		return startAction + failed, errors.New("service already running")
+	if _, ok := darwin.checkRunning(); ok {
+		return startAction + failed, ErrAlreadyRunning
 	}
 
 	if err := exec.Command("launchctl", "load", darwin.servicePath()).Run(); err != nil {
@@ -151,16 +150,16 @@ func (darwin *darwinRecord) Start() (string, error) {
 func (darwin *darwinRecord) Stop() (string, error) {
 	stopAction := "Stopping " + darwin.description + ":"
 
-	if checkPrivileges() == false {
-		return stopAction + failed, errors.New(rootPrivileges)
+	if ok, err := checkPrivileges(); !ok {
+		return stopAction + failed, err
 	}
 
-	if darwin.checkInstalled() == false {
-		return stopAction + failed, errors.New(darwin.description + " is not installed")
+	if !darwin.isInstalled() {
+		return stopAction + failed, ErrNotInstalled
 	}
 
-	if _, status := darwin.checkRunning(); status == false {
-		return stopAction + failed, errors.New("service already stopped")
+	if _, ok := darwin.checkRunning(); !ok {
+		return stopAction + failed, ErrAlreadyStopped
 	}
 
 	if err := exec.Command("launchctl", "unload", darwin.servicePath()).Run(); err != nil {
@@ -173,12 +172,12 @@ func (darwin *darwinRecord) Stop() (string, error) {
 // Status - Get service status
 func (darwin *darwinRecord) Status() (string, error) {
 
-	if checkPrivileges() == false {
-		return "", errors.New(rootPrivileges)
+	if ok, err := checkPrivileges(); !ok {
+		return "", err
 	}
 
-	if darwin.checkInstalled() == false {
-		return "Status could not defined", errors.New(darwin.description + " is not installed")
+	if !darwin.isInstalled() {
+		return "Status could not defined", ErrNotInstalled
 	}
 
 	statusAction, _ := darwin.checkRunning()

@@ -1,11 +1,10 @@
-// Copyright 2015 Igor Dolzhikov. All rights reserved.
+// Copyright 2016 Igor Dolzhikov. All rights reserved.
 // Use of this source code is governed by
 // license that can be found in the LICENSE file.
 
 package daemon
 
 import (
-	"errors"
 	"os"
 	"os/exec"
 	"regexp"
@@ -25,8 +24,8 @@ func (linux *systemDRecord) servicePath() string {
 	return "/etc/systemd/system/" + linux.name + ".service"
 }
 
-// Check service is installed
-func (linux *systemDRecord) checkInstalled() bool {
+// Is a service installed
+func (linux *systemDRecord) isInstalled() bool {
 
 	if _, err := os.Stat(linux.servicePath()); err == nil {
 		return true
@@ -56,14 +55,14 @@ func (linux *systemDRecord) checkRunning() (string, bool) {
 func (linux *systemDRecord) Install() (string, error) {
 	installAction := "Install " + linux.description + ":"
 
-	if checkPrivileges() == false {
-		return installAction + failed, errors.New(rootPrivileges)
+	if ok, err := checkPrivileges(); !ok {
+		return installAction + failed, err
 	}
 
 	srvPath := linux.servicePath()
 
-	if linux.checkInstalled() == true {
-		return installAction + failed, errors.New(linux.description + " already installed")
+	if linux.isInstalled() {
+		return installAction + failed, ErrAlreadyInstalled
 	}
 
 	file, err := os.Create(srvPath)
@@ -106,12 +105,12 @@ func (linux *systemDRecord) Install() (string, error) {
 func (linux *systemDRecord) Remove() (string, error) {
 	removeAction := "Removing " + linux.description + ":"
 
-	if checkPrivileges() == false {
-		return removeAction + failed, errors.New(rootPrivileges)
+	if ok, err := checkPrivileges(); !ok {
+		return removeAction + failed, err
 	}
 
-	if linux.checkInstalled() == false {
-		return removeAction + failed, errors.New(linux.description + " is not installed")
+	if !linux.isInstalled() {
+		return removeAction + failed, ErrNotInstalled
 	}
 
 	if err := exec.Command("systemctl", "disable", linux.name+".service").Run(); err != nil {
@@ -129,16 +128,16 @@ func (linux *systemDRecord) Remove() (string, error) {
 func (linux *systemDRecord) Start() (string, error) {
 	startAction := "Starting " + linux.description + ":"
 
-	if checkPrivileges() == false {
-		return startAction + failed, errors.New(rootPrivileges)
+	if ok, err := checkPrivileges(); !ok {
+		return startAction + failed, err
 	}
 
-	if linux.checkInstalled() == false {
-		return startAction + failed, errors.New(linux.description + " is not installed")
+	if !linux.isInstalled() {
+		return startAction + failed, ErrNotInstalled
 	}
 
-	if _, status := linux.checkRunning(); status == true {
-		return startAction + failed, errors.New("service already running")
+	if _, ok := linux.checkRunning(); ok {
+		return startAction + failed, ErrAlreadyRunning
 	}
 
 	if err := exec.Command("systemctl", "start", linux.name+".service").Run(); err != nil {
@@ -152,16 +151,16 @@ func (linux *systemDRecord) Start() (string, error) {
 func (linux *systemDRecord) Stop() (string, error) {
 	stopAction := "Stopping " + linux.description + ":"
 
-	if checkPrivileges() == false {
-		return stopAction + failed, errors.New(rootPrivileges)
+	if ok, err := checkPrivileges(); !ok {
+		return stopAction + failed, err
 	}
 
-	if linux.checkInstalled() == false {
-		return stopAction + failed, errors.New(linux.description + " is not installed")
+	if !linux.isInstalled() {
+		return stopAction + failed, ErrNotInstalled
 	}
 
-	if _, status := linux.checkRunning(); status == false {
-		return stopAction + failed, errors.New("service already stopped")
+	if _, ok := linux.checkRunning(); !ok {
+		return stopAction + failed, ErrAlreadyStopped
 	}
 
 	if err := exec.Command("systemctl", "stop", linux.name+".service").Run(); err != nil {
@@ -174,12 +173,12 @@ func (linux *systemDRecord) Stop() (string, error) {
 // Status - Get service status
 func (linux *systemDRecord) Status() (string, error) {
 
-	if checkPrivileges() == false {
-		return "", errors.New(rootPrivileges)
+	if ok, err := checkPrivileges(); !ok {
+		return "", err
 	}
 
-	if linux.checkInstalled() == false {
-		return "Status could not defined", errors.New(linux.description + " is not installed")
+	if !linux.isInstalled() {
+		return "Status could not defined", ErrNotInstalled
 	}
 
 	statusAction, _ := linux.checkRunning()
