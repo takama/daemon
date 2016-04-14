@@ -52,7 +52,7 @@ func (linux *systemDRecord) checkRunning() (string, bool) {
 }
 
 // Install the service
-func (linux *systemDRecord) Install() (string, error) {
+func (linux *systemDRecord) Install(args ...string) (string, error) {
 	installAction := "Install " + linux.description + ":"
 
 	if ok, err := checkPrivileges(); !ok {
@@ -81,11 +81,17 @@ func (linux *systemDRecord) Install() (string, error) {
 		return installAction + failed, err
 	}
 
+	path := append([]string{execPatch}, args...)
 	if err := templ.Execute(
 		file,
 		&struct {
 			Name, Description, Dependencies, Path string
-		}{linux.name, linux.description, strings.Join(linux.dependencies, " "), execPatch},
+		}{
+			linux.name,
+			linux.description,
+			strings.Join(linux.dependencies, " "),
+			strings.Join(path, " "),
+		},
 	); err != nil {
 		return installAction + failed, err
 	}

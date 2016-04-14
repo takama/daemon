@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/exec"
 	"regexp"
+	"strings"
 	"text/template"
 )
 
@@ -51,7 +52,7 @@ func (linux *systemVRecord) checkRunning() (string, bool) {
 }
 
 // Install the service
-func (linux *systemVRecord) Install() (string, error) {
+func (linux *systemVRecord) Install(args ...string) (string, error) {
 	installAction := "Install " + linux.description + ":"
 
 	if ok, err := checkPrivileges(); !ok {
@@ -83,8 +84,8 @@ func (linux *systemVRecord) Install() (string, error) {
 	if err := templ.Execute(
 		file,
 		&struct {
-			Name, Description, Path string
-		}{linux.name, linux.description, execPatch},
+			Name, Description, Path, Args string
+		}{linux.name, linux.description, execPatch, strings.Join(args, " ")},
 	); err != nil {
 		return installAction + failed, err
 	}
@@ -244,7 +245,7 @@ start() {
     if ! [ -f $pidfile ]; then
         printf "Starting $servname:\t"
         echo "$(date)" >> $stdoutlog
-        $exec >> $stdoutlog 2>> $stderrlog &
+        $exec {{.Args}} >> $stdoutlog 2>> $stderrlog &
         echo $! > $pidfile
         touch $lockfile
         success
