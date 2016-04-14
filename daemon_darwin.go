@@ -63,7 +63,7 @@ func (darwin *darwinRecord) checkRunning() (string, bool) {
 }
 
 // Install the service
-func (darwin *darwinRecord) Install() (string, error) {
+func (darwin *darwinRecord) Install(args ...string) (string, error) {
 	installAction := "Install " + darwin.description + ":"
 
 	if ok, err := checkPrivileges(); !ok {
@@ -96,7 +96,8 @@ func (darwin *darwinRecord) Install() (string, error) {
 		file,
 		&struct {
 			Name, Path string
-		}{darwin.name, execPatch},
+			Args       []string
+		}{darwin.name, execPatch, args},
 	); err != nil {
 		return installAction + failed, err
 	}
@@ -196,6 +197,8 @@ var propertyList = `<?xml version="1.0" encoding="UTF-8"?>
 	<key>ProgramArguments</key>
 	<array>
 	    <string>{{.Path}}</string>
+		{{range .Args}}<string>{{.}}</string>
+		{{end}}
 	</array>
 	<key>RunAtLoad</key>
 	<true/>

@@ -161,7 +161,7 @@ import "strings"
 type Daemon interface {
 
 	// Install the service into the system
-	Install() (string, error)
+	Install(args ...string) (string, error)
 
 	// Remove the service and all corresponded files from the system
 	Remove() (string, error)

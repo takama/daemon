@@ -24,7 +24,7 @@ func newDaemon(name, description string, dependencies []string) (Daemon, error) 
 }
 
 // Install the service
-func (windows *windowsRecord) Install() (string, error) {
+func (windows *windowsRecord) Install(args ...string) (string, error) {
 	installAction := "Install " + windows.description + ":"
 
 	return installAction + failed, ErrWindowsUnsupported
