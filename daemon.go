@@ -157,13 +157,13 @@ package daemon
 
 import "strings"
 
-// Daemon interface has standard set of a methods/commands
+// Daemon interface has a standard set of methods/commands
 type Daemon interface {
 
 	// Install the service into the system
 	Install(args ...string) (string, error)
 
-	// Remove the service and all corresponded files from the system
+	// Remove the service and all corresponding files from the system
 	Remove() (string, error)
 
 	// Start the service
@@ -179,6 +179,7 @@ type Daemon interface {
 // New - Create a new daemon
 //
 // name: name of the service
+//
 // description: any explanation, what is the service, its purpose
 func New(name, description string, dependencies ...string) (Daemon, error) {
 	return newDaemon(strings.Join(strings.Fields(name), "_"), description, dependencies)
