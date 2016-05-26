@@ -242,6 +242,12 @@ stderrlog="/var/log/$proc.err"
 start() {
     [ -x $exec ] || exit 5
 
+    if [ -f $pidfile ]; then
+        if ! [ -d "/proc/$(cat $pidfile)" ]; then
+            rm $pidfile
+        fi
+    fi
+
     if ! [ -f $pidfile ]; then
         printf "Starting $servname:\t"
         echo "$(date)" >> $stdoutlog
