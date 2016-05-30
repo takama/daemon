@@ -83,7 +83,7 @@ func (windows *windowsRecord) Status() (string, error) {
 	cmd := exec.Command("nssm.exe status \"" + windows.name + "\"")
 	out, err := cmd.Output()
 	if err != nil {
-		return stopAction + failed, err
+		return "Getting status:" + failed, err
 	}
 	return "Status: " + string(out), nil
 }

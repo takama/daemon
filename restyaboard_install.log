@@ -1,0 +1,3593 @@
+++ whoami
+root
++++ cat /etc/issue
+++ echo Ubuntu 14.04.4 LTS '\n' '\l'
+Ubuntu 14.04.4 LTS \n \l
++++ cat /etc/issue
++++ awk '{print $1}'
++++ sed s/Kernel//g
+++ OS_REQUIREMENT=Ubuntu
+++ '[' Ubuntu = Ubuntu ']'
+++ apt-get install -y curl unzip
+Reading package lists...
+Building dependency tree...
+Reading state information...
+curl is already the newest version.
+unzip is already the newest version.
+0 upgraded, 0 newly installed, 0 to remove and 50 not upgraded.
++++ curl --silent https://api.github.com/repos/RestyaPlatform/board/releases
++++ grep tag_name -m 1
++++ awk '{print $2}'
++++ sed -e 's/[^v0-9.]//g'
+++ RESTYABOARD_VERSION=v0.2.1
+++ POSTGRES_DBHOST=localhost
+++ POSTGRES_DBNAME=restyaboard
+++ POSTGRES_DBUSER=restya
+++ POSTGRES_DBPASS='hjVl2!rGd'
+++ POSTGRES_DBPORT=5432
+++ DOWNLOAD_DIR=/opt/restyaboard
+++ '[' -d /opt/restyaboard ']'
+++ set +x
+Is Restyaboard already installed y/n?
+++ case "${answer}" in
+++ '[' Ubuntu = Ubuntu ']'
+++ set +x
+Setup script will install version v0.2.1 and create database restyaboard with user restya and password hjVl2!rGd. To continue enter "y" or to quit the process and edit the version and database details enter "n" (y/n)?
+++ case "${answer}" in
+++ set +x
+++ whoami
+root
++++ cat /etc/issue
+++ echo Ubuntu 14.04.4 LTS '\n' '\l'
+Ubuntu 14.04.4 LTS \n \l
++++ cat /etc/issue
++++ awk '{print $1}'
++++ sed s/Kernel//g
+++ OS_REQUIREMENT=Ubuntu
+++ '[' Ubuntu = Ubuntu ']'
+++ apt-get install -y curl unzip
+Reading package lists...
+Building dependency tree...
+Reading state information...
+curl is already the newest version.
+unzip is already the newest version.
+0 upgraded, 0 newly installed, 0 to remove and 50 not upgraded.
++++ curl --silent https://api.github.com/repos/RestyaPlatform/board/releases
++++ grep tag_name -m 1
++++ awk '{print $2}'
++++ sed -e 's/[^v0-9.]//g'
+++ RESTYABOARD_VERSION=v0.2.1
+++ POSTGRES_DBHOST=localhost
+++ POSTGRES_DBNAME=restyaboard
+++ POSTGRES_DBUSER=restya
+++ POSTGRES_DBPASS='hjVl2!rGd'
+++ POSTGRES_DBPORT=5432
+++ DOWNLOAD_DIR=/opt/restyaboard
+++ '[' -d /opt/restyaboard ']'
+++ set +x
+Is Restyaboard already installed y/n?
+++ case "${answer}" in
+++ '[' Ubuntu = Ubuntu ']'
+++ set +x
+Setup script will install version v0.2.1 and create database restyaboard with user restya and password hjVl2!rGd. To continue enter "y" or to quit the process and edit the version and database details enter "n" (y/n)?
+++ case "${answer}" in
+++ echo 'deb http://mirrors.linode.com/debian/ wheezy main contrib non-free'
+++ echo 'deb-src http://mirrors.linode.com/debian/ wheezy main contrib non-free'
+++ echo 'deb http://mirrors.linode.com/debian-security/ wheezy/updates main contrib non-free'
+++ echo 'deb-src http://mirrors.linode.com/debian-security/ wheezy/updates main contrib non-free'
+++ echo 'deb http://mirrors.linode.com/debian/ wheezy-updates main'
+++ echo 'deb-src http://mirrors.linode.com/debian/ wheezy-updates main'
+++ sed -i -e 's/deb cdrom/#deb cdrom/g' /etc/apt/sources.list
+++ apt-get install debian-keyring debian-archive-keyring
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following NEW packages will be installed:
+  debian-archive-keyring debian-keyring
+0 upgraded, 2 newly installed, 0 to remove and 50 not upgraded.
+Need to get 48.7 MB of archives.
+After this operation, 55.7 MB of additional disk space will be used.
+Get:1 http://mirror.hetzner.de/ubuntu/packages/ trusty/universe debian-archive-keyring all 2012.4 [34.4 kB]
+Get:2 http://mirror.hetzner.de/ubuntu/packages/ trusty/universe debian-keyring all 2014.03.03 [48.7 MB]
+Fetched 48.7 MB in 1s (25.0 MB/s)
+Selecting previously unselected package debian-archive-keyring.
+(Reading database ... 107431 files and directories currently installed.)
+Preparing to unpack .../debian-archive-keyring_2012.4_all.deb ...
+Unpacking debian-archive-keyring (2012.4) ...
+Selecting previously unselected package debian-keyring.
+Preparing to unpack .../debian-keyring_2014.03.03_all.deb ...
+Unpacking debian-keyring (2014.03.03) ...
+Setting up debian-archive-keyring (2012.4) ...
+Setting up debian-keyring (2014.03.03) ...
+++ apt-get update -y
+Ign http://mirror.hetzner.de trusty InRelease
+Hit http://mirror.hetzner.de trusty-backports InRelease
+Get:1 http://mirror.hetzner.de trusty-updates InRelease [65.9 kB]
+Get:2 http://mirror.hetzner.de trusty-security InRelease [65.9 kB]
+Ign http://dl.google.com stable InRelease
+Hit http://mirror.hetzner.de trusty Release.gpg
+Hit http://mirror.hetzner.de trusty Release
+Get:3 http://security.ubuntu.com trusty-security InRelease [65.9 kB]
+Ign http://de.archive.ubuntu.com trusty InRelease
+Hit http://ppa.launchpad.net trusty InRelease
+Get:4 http://dl.google.com stable Release.gpg [916 B]
+Get:5 http://de.archive.ubuntu.com trusty-updates InRelease [65.9 kB]
+Get:6 http://dl.google.com stable Release [1,189 B]
+Get:7 http://ppa.launchpad.net trusty InRelease [15.5 kB]
+Hit http://repo.ajenti.org main InRelease
+Hit http://repo.ajenti.org main InRelease
+Hit http://mirror.hetzner.de trusty-backports/main amd64 Packages
+Hit http://mirror.hetzner.de trusty-backports/restricted amd64 Packages
+Hit http://mirror.hetzner.de trusty-backports/universe amd64 Packages
+Hit http://de.archive.ubuntu.com trusty-backports InRelease
+Hit http://mirror.hetzner.de trusty-backports/multiverse amd64 Packages
+Hit http://mirror.hetzner.de trusty-backports/main i386 Packages
+Hit http://mirror.hetzner.de trusty-backports/restricted i386 Packages
+Hit http://mirror.hetzner.de trusty-backports/universe i386 Packages
+Hit http://mirror.hetzner.de trusty-backports/multiverse i386 Packages
+Hit http://de.archive.ubuntu.com trusty Release.gpg
+Hit http://de.archive.ubuntu.com trusty Release
+Ign http://repo.mongodb.org trusty/mongodb-org/3.2 InRelease
+Get:8 http://mirror.hetzner.de trusty-updates/main amd64 Packages [963 kB]
+Hit http://ppa.launchpad.net trusty/main amd64 Packages
+Get:9 http://dl.google.com stable/main amd64 Packages [1,328 B]
+Hit http://mirror.hetzner.de trusty-updates/restricted amd64 Packages
+Get:10 http://mirror.hetzner.de trusty-updates/universe amd64 Packages [465 kB]
+Hit http://ppa.launchpad.net trusty/main i386 Packages
+Hit http://repo.ajenti.org main/main amd64 Packages
+Get:11 http://security.ubuntu.com trusty-security/main Sources [115 kB]
+Hit http://mirror.hetzner.de trusty-updates/multiverse amd64 Packages
+Get:12 http://mirror.hetzner.de trusty-updates/main i386 Packages [925 kB]
+Ign http://download.rethinkdb.com trusty InRelease
+Get:13 http://ppa.launchpad.net trusty/main amd64 Packages [3,390 B]
+Hit http://repo.ajenti.org main/ubuntu amd64 Packages
+Get:14 http://de.archive.ubuntu.com trusty-updates/main Sources [275 kB]
+Hit http://repo.mongodb.org trusty/mongodb-org/3.2 Release.gpg
+Get:15 http://ppa.launchpad.net trusty/main i386 Packages [3,390 B]
+Hit http://repo.ajenti.org main/main i386 Packages
+Get:16 http://security.ubuntu.com trusty-security/restricted Sources [4,035 B]
+Hit http://mirror.hetzner.de trusty-updates/restricted i386 Packages
+Get:17 http://mirror.hetzner.de trusty-updates/universe i386 Packages [467 kB]
+Get:18 http://security.ubuntu.com trusty-security/universe Sources [36.9 kB]
+Hit http://mirror.hetzner.de trusty-updates/multiverse i386 Packages
+Get:19 http://mirror.hetzner.de trusty-security/main amd64 Packages [602 kB]
+Get:20 http://security.ubuntu.com trusty-security/multiverse Sources [2,760 B]
+Get:21 http://de.archive.ubuntu.com trusty-updates/restricted Sources [5,352 B]
+Ign http://mirrors.linode.com wheezy InRelease
+Hit http://mirror.hetzner.de trusty-security/restricted amd64 Packages
+Get:22 http://mirror.hetzner.de trusty-security/universe amd64 Packages [168 kB]
+Get:23 http://security.ubuntu.com trusty-security/main amd64 Packages [480 kB]
+Hit http://mirror.hetzner.de trusty-security/multiverse amd64 Packages
+Get:24 http://de.archive.ubuntu.com trusty-updates/universe Sources [155 kB]
+Hit http://repo.ajenti.org main/ubuntu i386 Packages
+Hit http://repo.mongodb.org trusty/mongodb-org/3.2 Release
+Hit http://download.rethinkdb.com trusty Release.gpg
+Get:25 http://de.archive.ubuntu.com trusty-updates/multiverse Sources [5,939 B]
+Get:26 http://security.ubuntu.com trusty-security/restricted amd64 Packages [13.0 kB]
+Get:27 http://mirror.hetzner.de trusty-security/main i386 Packages [565 kB]
+Get:28 http://de.archive.ubuntu.com trusty-updates/main amd64 Packages [768 kB]
+Hit http://repo.ajenti.org main/main amd64 Packages
+Get:29 http://security.ubuntu.com trusty-security/universe amd64 Packages [129 kB]
+Hit http://mirror.hetzner.de trusty-security/restricted i386 Packages
+Get:30 http://mirror.hetzner.de trusty-security/universe i386 Packages [167 kB]
+Hit http://repo.ajenti.org main/ubuntu amd64 Packages
+Hit http://mirror.hetzner.de trusty-security/multiverse i386 Packages
+Hit http://mirror.hetzner.de trusty/main amd64 Packages
+Hit http://mirror.hetzner.de trusty/restricted amd64 Packages
+Hit http://mirror.hetzner.de trusty/universe amd64 Packages
+Hit http://mirror.hetzner.de trusty/multiverse amd64 Packages
+Hit http://mirror.hetzner.de trusty/main i386 Packages
+Hit http://mirror.hetzner.de trusty/restricted i386 Packages
+Hit http://mirror.hetzner.de trusty/universe i386 Packages
+Hit http://mirror.hetzner.de trusty/multiverse i386 Packages
+Get:31 http://mirrors.linode.com wheezy/updates InRelease [40.6 kB]
+Hit http://repo.ajenti.org main/main i386 Packages
+Get:32 http://de.archive.ubuntu.com trusty-updates/restricted amd64 Packages [15.9 kB]
+Get:33 http://security.ubuntu.com trusty-security/multiverse amd64 Packages [4,978 B]
+Hit http://repo.ajenti.org main/ubuntu i386 Packages
+Get:34 http://security.ubuntu.com trusty-security/main i386 Packages [454 kB]
+Get:35 http://de.archive.ubuntu.com trusty-updates/universe amd64 Packages [360 kB]
+Get:36 http://de.archive.ubuntu.com trusty-updates/multiverse amd64 Packages [13.2 kB]
+Hit http://repo.mongodb.org trusty/mongodb-org/3.2/multiverse amd64 Packages
+Hit http://download.rethinkdb.com trusty Release
+Get:37 http://security.ubuntu.com trusty-security/restricted i386 Packages [12.7 kB]
+Get:38 http://de.archive.ubuntu.com trusty-updates/main i386 Packages [736 kB]
+Get:39 http://security.ubuntu.com trusty-security/universe i386 Packages [129 kB]
+Get:40 http://security.ubuntu.com trusty-security/multiverse i386 Packages [5,168 B]
+Get:41 http://de.archive.ubuntu.com trusty-updates/restricted i386 Packages [15.6 kB]
+Get:42 http://de.archive.ubuntu.com trusty-updates/universe i386 Packages [361 kB]
+Hit http://repo.mongodb.org trusty/mongodb-org/3.2/multiverse i386 Packages
+Get:43 http://de.archive.ubuntu.com trusty-updates/multiverse i386 Packages [13.6 kB]
+Hit http://de.archive.ubuntu.com trusty-backports/main Sources
+Ign http://package.mapr.com binary/ InRelease
+Get:44 http://mirrors.linode.com wheezy-updates InRelease [153 kB]
+Hit http://download.rethinkdb.com trusty/main amd64 Packages
+Hit http://de.archive.ubuntu.com trusty-backports/restricted Sources
+Hit http://de.archive.ubuntu.com trusty-backports/universe Sources
+Ign http://package.mapr.com binary/ Release.gpg
+Hit http://de.archive.ubuntu.com trusty-backports/multiverse Sources
+Hit http://de.archive.ubuntu.com trusty-backports/main amd64 Packages
+Hit http://download.rethinkdb.com trusty/main i386 Packages
+Hit http://de.archive.ubuntu.com trusty-backports/restricted amd64 Packages
+Hit http://de.archive.ubuntu.com trusty-backports/universe amd64 Packages
+Hit http://de.archive.ubuntu.com trusty-backports/multiverse amd64 Packages
+Ign http://package.mapr.com binary/ Release
+Hit http://de.archive.ubuntu.com trusty-backports/main i386 Packages
+Hit http://de.archive.ubuntu.com trusty-backports/restricted i386 Packages
+Hit http://de.archive.ubuntu.com trusty-backports/universe i386 Packages
+Hit http://de.archive.ubuntu.com trusty-backports/multiverse i386 Packages
+Hit http://de.archive.ubuntu.com trusty/main Sources
+Hit http://package.mapr.com binary/ Packages
+Hit http://de.archive.ubuntu.com trusty/restricted Sources
+Get:45 http://mirrors.linode.com wheezy Release.gpg [2,373 B]
+Hit http://de.archive.ubuntu.com trusty/universe Sources
+Hit http://de.archive.ubuntu.com trusty/multiverse Sources
+Hit http://de.archive.ubuntu.com trusty/main amd64 Packages
+Hit http://de.archive.ubuntu.com trusty/restricted amd64 Packages
+Hit http://de.archive.ubuntu.com trusty/universe amd64 Packages
+Get:46 http://mirrors.linode.com wheezy/updates/main Sources [233 kB]
+Hit http://de.archive.ubuntu.com trusty/multiverse amd64 Packages
+Hit http://de.archive.ubuntu.com trusty/main i386 Packages
+Hit http://de.archive.ubuntu.com trusty/restricted i386 Packages
+Hit http://de.archive.ubuntu.com trusty/universe i386 Packages
+Get:47 https://apt.dockerproject.org ubuntu-trusty InRelease
+Hit http://de.archive.ubuntu.com trusty/multiverse i386 Packages
+Get:48 http://mirrors.linode.com wheezy/updates/contrib Sources [14 B]
+Get:49 http://mirrors.linode.com wheezy/updates/non-free Sources [14 B]
+Hit https://apt.dockerproject.org ubuntu-trusty/main amd64 Packages
+Hit https://apt.dockerproject.org ubuntu-trusty/main i386 Packages
+Get:50 http://mirrors.linode.com wheezy/updates/main amd64 Packages [369 kB]
+Get:51 http://mirrors.linode.com wheezy/updates/contrib amd64 Packages [14 B]
+Get:52 http://mirrors.linode.com wheezy/updates/non-free amd64 Packages [14 B]
+Get:53 http://mirrors.linode.com wheezy/updates/main i386 Packages [371 kB]
+Get:54 http://mirrors.linode.com wheezy/updates/contrib i386 Packages [14 B]
+Get:55 http://mirrors.linode.com wheezy/updates/non-free i386 Packages [14 B]
+Get:56 http://mirrors.linode.com wheezy-updates/main Sources [5,505 B]
+Get:57 http://mirrors.linode.com wheezy-updates/main amd64 Packages [7,047 B]
+Get:58 http://mirrors.linode.com wheezy-updates/main i386 Packages [7,051 B]
+Get:59 http://mirrors.linode.com wheezy Release [191 kB]
+Get:60 http://mirrors.linode.com wheezy/main Sources [5,984 kB]
+Get:61 http://mirrors.linode.com wheezy/contrib Sources [47.7 kB]
+Get:62 http://mirrors.linode.com wheezy/non-free Sources [93.4 kB]
+Get:63 http://mirrors.linode.com wheezy/main amd64 Packages [5,838 kB]
+Get:64 http://mirrors.linode.com wheezy/contrib amd64 Packages [42.0 kB]
+Get:65 http://mirrors.linode.com wheezy/non-free amd64 Packages [80.8 kB]
+Get:66 http://mirrors.linode.com wheezy/main i386 Packages [5,857 kB]
+Get:67 http://mirrors.linode.com wheezy/contrib i386 Packages [42.3 kB]
+Get:68 http://mirrors.linode.com wheezy/non-free i386 Packages [77.6 kB]
+Fetched 28.2 MB in 6s (4,490 kB/s)
+Reading package lists...
+W: There is no public key available for the following key IDs:
+9D6D8F6BC857C906
+W: There is no public key available for the following key IDs:
+7638D0442B90D010
+W: There is no public key available for the following key IDs:
+7638D0442B90D010
+++ apt-get upgrade -y
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following package was automatically installed and is no longer required:
+  mysql-client-core-5.5
+Use 'apt-get autoremove' to remove it.
+The following packages have been kept back:
+  console-setup initramfs-tools initscripts keyboard-configuration
+  libalgorithm-diff-xs-perl libatomic1 libcilkrts5 libgcc1 libgccjit0
+  libgnomevfs2-0 libgnomevfs2-common libgomp1 libitm1 liblocale-gettext-perl
+  liblsan0 libnetpbm10 libnih-dbus1 libnih1 libobjc4 libquadmath0 libstdc++6
+  libsub-name-perl libtext-charwidth-perl libtsan0 libubsan0
+  linux-image-generic-lts-wily mysql-server-5.5 netpbm openjdk-7-jdk
+  openjdk-7-jre openjdk-7-jre-headless xdg-utils
+The following packages will be upgraded:
+  apport apt apt-transport-https apt-utils bash-completion binutils bsdutils
+  debian-archive-keyring docker-engine dpkg dpkg-dev google-chrome-stable
+  klibc-utils libapache2-mod-php5 libapt-inst1.5 libapt-pkg4.12 libblkid-dev
+  libblkid1 libc-bin libc-dev-bin libc6 libc6-dbg libc6-dev libdpkg-perl
+  libexpat1 libexpat1-dev libjbig-dev libjbig0 libjpeg8 libjpeg8-dev libklibc
+  liblcms2-2 liblcms2-dev libldap-2.4-2 libldap2-dev libmount1
+  libmysqlclient-dev libmysqlclient18 libnl-3-200 libnl-genl-3-200
+  libnl-route-3-200 libpq-dev libpq5 libssl1.0.0 libtasn1-6 libtasn1-6-dev
+  libuuid1 libwmf-dev libwmf0.2-7 linux-libc-dev linux-tools-common lsb-base
+  lsb-release mapr-installer mapr-installer-definitions mount
+  multiarch-support mysql-client-5.5 mysql-common mysql-server
+  mysql-server-core-5.5 nano openssh-client openssh-server openssh-sftp-server
+  php5 php5-cli php5-common php5-curl php5-fpm php5-gd php5-mysql
+  php5-readline policykit-1-gnome ppp python-yaml python3-apport
+  python3-problem-report rethinkdb sysv-rc sysvinit-utils tasksel tasksel-data
+  thermald tzdata tzdata-java util-linux uuid-dev uuid-runtime wireless-regdb
+  x11-common
+91 upgraded, 0 newly installed, 0 to remove and 32 not upgraded.
+Need to get 191 MB of archives.
+After this operation, 15.1 MB of additional disk space will be used.
+WARNING: The following packages cannot be authenticated!
+  mapr-installer-definitions mapr-installer
+E: There are problems and -y was used without --force-yes
+++ echo 'Checking nginx...'
+Checking nginx...
+++ which nginx
+++ echo 'Checking PHP...'
+Checking PHP...
+++ hash php
+++ echo 'Installing PHP fpm and cli extension...'
+Installing PHP fpm and cli extension...
+++ apt-get install -y php5-fpm php5-cli
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following extra packages will be installed:
+  libapache2-mod-php5 php5-common php5-curl php5-gd php5-mysql php5-readline
+Suggested packages:
+  php-pear php5-user-cache
+The following packages will be upgraded:
+  libapache2-mod-php5 php5-cli php5-common php5-curl php5-fpm php5-gd
+  php5-mysql php5-readline
+8 upgraded, 0 newly installed, 0 to remove and 115 not upgraded.
+Need to get 7,139 kB of archives.
+After this operation, 23.6 kB disk space will be freed.
+Get:1 http://mirror.hetzner.de/ubuntu/packages/ trusty-updates/main php5-mysql amd64 5.5.9+dfsg-1ubuntu4.17 [63.0 kB]
+Get:2 http://mirror.hetzner.de/ubuntu/packages/ trusty-updates/main php5-readline amd64 5.5.9+dfsg-1ubuntu4.17 [12.1 kB]
+Get:3 http://mirror.hetzner.de/ubuntu/packages/ trusty-updates/main php5-cli amd64 5.5.9+dfsg-1ubuntu4.17 [2,162 kB]
+Get:4 http://mirror.hetzner.de/ubuntu/packages/ trusty-updates/main libapache2-mod-php5 amd64 5.5.9+dfsg-1ubuntu4.17 [2,212 kB]
+Get:5 http://mirror.hetzner.de/ubuntu/packages/ trusty-updates/universe php5-fpm amd64 5.5.9+dfsg-1ubuntu4.17 [2,190 kB]
+Get:6 http://mirror.hetzner.de/ubuntu/packages/ trusty-updates/main php5-gd amd64 5.5.9+dfsg-1ubuntu4.17 [27.9 kB]
+Get:7 http://mirror.hetzner.de/ubuntu/packages/ trusty-updates/main php5-curl amd64 5.5.9+dfsg-1ubuntu4.17 [27.3 kB]
+Get:8 http://mirror.hetzner.de/ubuntu/packages/ trusty-updates/main php5-common amd64 5.5.9+dfsg-1ubuntu4.17 [444 kB]
+Fetched 7,139 kB in 0s (22.7 MB/s)
+(Reading database ... 107451 files and directories currently installed.)
+Preparing to unpack .../php5-mysql_5.5.9+dfsg-1ubuntu4.17_amd64.deb ...
+Unpacking php5-mysql (5.5.9+dfsg-1ubuntu4.17) over (5.5.9+dfsg-1ubuntu4.16) ...
+Preparing to unpack .../php5-readline_5.5.9+dfsg-1ubuntu4.17_amd64.deb ...
+Unpacking php5-readline (5.5.9+dfsg-1ubuntu4.17) over (5.5.9+dfsg-1ubuntu4.16) ...
+Preparing to unpack .../php5-cli_5.5.9+dfsg-1ubuntu4.17_amd64.deb ...
+Unpacking php5-cli (5.5.9+dfsg-1ubuntu4.17) over (5.5.9+dfsg-1ubuntu4.16) ...
+Preparing to unpack .../libapache2-mod-php5_5.5.9+dfsg-1ubuntu4.17_amd64.deb ...
+Unpacking libapache2-mod-php5 (5.5.9+dfsg-1ubuntu4.17) over (5.5.9+dfsg-1ubuntu4.16) ...
+Preparing to unpack .../php5-fpm_5.5.9+dfsg-1ubuntu4.17_amd64.deb ...
+php5-fpm stop/waiting
+Unpacking php5-fpm (5.5.9+dfsg-1ubuntu4.17) over (5.5.9+dfsg-1ubuntu4.16) ...
+Preparing to unpack .../php5-gd_5.5.9+dfsg-1ubuntu4.17_amd64.deb ...
+Unpacking php5-gd (5.5.9+dfsg-1ubuntu4.17) over (5.5.9+dfsg-1ubuntu4.16) ...
+Preparing to unpack .../php5-curl_5.5.9+dfsg-1ubuntu4.17_amd64.deb ...
+Unpacking php5-curl (5.5.9+dfsg-1ubuntu4.17) over (5.5.9+dfsg-1ubuntu4.16) ...
+Preparing to unpack .../php5-common_5.5.9+dfsg-1ubuntu4.17_amd64.deb ...
+Unpacking php5-common (5.5.9+dfsg-1ubuntu4.17) over (5.5.9+dfsg-1ubuntu4.16) ...
+Processing triggers for man-db (2.6.7.1-1ubuntu1) ...
+Processing triggers for ureadahead (0.100.0-16) ...
+ureadahead will be reprofiled on next reboot
+Setting up php5-common (5.5.9+dfsg-1ubuntu4.17) ...
+php5_invoke pdo: already enabled for fpm SAPI
+php5_invoke pdo: already enabled for cli SAPI
+php5_invoke pdo: already enabled for apache2 SAPI
+php5_invoke opcache: already enabled for fpm SAPI
+php5_invoke opcache: already enabled for cli SAPI
+php5_invoke opcache: already enabled for apache2 SAPI
+Setting up php5-mysql (5.5.9+dfsg-1ubuntu4.17) ...
+php5_invoke mysql: already enabled for fpm SAPI
+php5_invoke mysql: already enabled for cli SAPI
+php5_invoke mysql: already enabled for apache2 SAPI
+php5_invoke mysqli: already enabled for fpm SAPI
+php5_invoke mysqli: already enabled for cli SAPI
+php5_invoke mysqli: already enabled for apache2 SAPI
+php5_invoke pdo_mysql: already enabled for fpm SAPI
+php5_invoke pdo_mysql: already enabled for cli SAPI
+php5_invoke pdo_mysql: already enabled for apache2 SAPI
+Setting up php5-cli (5.5.9+dfsg-1ubuntu4.17) ...
+php5_invoke pdo: already enabled for cli SAPI
+php5_invoke pdo_mysql: already enabled for cli SAPI
+php5_invoke gd: already enabled for cli SAPI
+php5_invoke imagick: already enabled for cli SAPI
+php5_invoke json: already enabled for cli SAPI
+php5_invoke readline: already enabled for cli SAPI
+php5_invoke curl: already enabled for cli SAPI
+php5_invoke opcache: already enabled for cli SAPI
+php5_invoke mysql: already enabled for cli SAPI
+php5_invoke mysqli: already enabled for cli SAPI
+Setting up php5-readline (5.5.9+dfsg-1ubuntu4.17) ...
+php5_invoke readline: already enabled for fpm SAPI
+php5_invoke readline: already enabled for cli SAPI
+php5_invoke readline: already enabled for apache2 SAPI
+Setting up libapache2-mod-php5 (5.5.9+dfsg-1ubuntu4.17) ...
+php5_invoke pdo: already enabled for apache2 SAPI
+php5_invoke pdo_mysql: already enabled for apache2 SAPI
+php5_invoke gd: already enabled for apache2 SAPI
+php5_invoke imagick: already enabled for apache2 SAPI
+php5_invoke json: already enabled for apache2 SAPI
+php5_invoke readline: already enabled for apache2 SAPI
+php5_invoke curl: already enabled for apache2 SAPI
+php5_invoke opcache: already enabled for apache2 SAPI
+php5_invoke mysql: already enabled for apache2 SAPI
+php5_invoke mysqli: already enabled for apache2 SAPI
+apache2_invoke php5: already enabled
+ * Restarting web server apache2
+(98)Address already in use: AH00072: make_sock: could not bind to address [::]:80
+(98)Address already in use: AH00072: make_sock: could not bind to address 0.0.0.0:80
+no listening sockets available, shutting down
+AH00015: Unable to open logs
+Action 'start' failed.
+The Apache error log may have more information.
+   ...fail!
+ * The apache2 instance did not start within 20 seconds. Please read the log files to discover problems
+invoke-rc.d: initscript apache2, action "restart" failed.
+Setting up php5-fpm (5.5.9+dfsg-1ubuntu4.17) ...
+php5_invoke pdo: already enabled for fpm SAPI
+php5_invoke pdo_mysql: already enabled for fpm SAPI
+php5_invoke gd: already enabled for fpm SAPI
+php5_invoke imagick: already enabled for fpm SAPI
+php5_invoke json: already enabled for fpm SAPI
+php5_invoke readline: already enabled for fpm SAPI
+php5_invoke curl: already enabled for fpm SAPI
+php5_invoke opcache: already enabled for fpm SAPI
+php5_invoke mysql: already enabled for fpm SAPI
+php5_invoke mysqli: already enabled for fpm SAPI
+php5-fpm start/running, process 10325
+Setting up php5-gd (5.5.9+dfsg-1ubuntu4.17) ...
+php5_invoke gd: already enabled for fpm SAPI
+php5_invoke gd: already enabled for cli SAPI
+php5_invoke gd: already enabled for apache2 SAPI
+Setting up php5-curl (5.5.9+dfsg-1ubuntu4.17) ...
+php5_invoke curl: already enabled for fpm SAPI
+php5_invoke curl: already enabled for cli SAPI
+php5_invoke curl: already enabled for apache2 SAPI
+Processing triggers for libapache2-mod-php5 (5.5.9+dfsg-1ubuntu4.17) ...
+Processing triggers for php5-fpm (5.5.9+dfsg-1ubuntu4.17) ...
+php5-fpm stop/waiting
+php5-fpm start/running, process 10723
+++ service php5-fpm start
+start: Job is already running: php5-fpm
+++ echo 'Checking PHP curl extension...'
+Checking PHP curl extension...
+++ php -m
+++ grep curl
+curl
+++ '[' 0 -gt 0 ']'
+++ echo 'Checking PHP pgsql extension...'
+Checking PHP pgsql extension...
+++ php -m
+++ grep pgsql
+++ '[' 1 -gt 0 ']'
+++ echo 'Installing php5-pgsql...'
+Installing php5-pgsql...
+++ apt-get install -y php5-pgsql
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following NEW packages will be installed:
+  php5-pgsql
+0 upgraded, 1 newly installed, 0 to remove and 115 not upgraded.
+Need to get 51.6 kB of archives.
+After this operation, 224 kB of additional disk space will be used.
+Get:1 http://mirror.hetzner.de/ubuntu/packages/ trusty-updates/main php5-pgsql amd64 5.5.9+dfsg-1ubuntu4.17 [51.6 kB]
+Fetched 51.6 kB in 0s (3,923 kB/s)
+Selecting previously unselected package php5-pgsql.
+(Reading database ... 107451 files and directories currently installed.)
+Preparing to unpack .../php5-pgsql_5.5.9+dfsg-1ubuntu4.17_amd64.deb ...
+Unpacking php5-pgsql (5.5.9+dfsg-1ubuntu4.17) ...
+Processing triggers for libapache2-mod-php5 (5.5.9+dfsg-1ubuntu4.17) ...
+Processing triggers for php5-fpm (5.5.9+dfsg-1ubuntu4.17) ...
+php5-fpm stop/waiting
+php5-fpm start/running, process 10846
+Setting up php5-pgsql (5.5.9+dfsg-1ubuntu4.17) ...
+
+Creating config file /etc/php5/mods-available/pgsql.ini with new version
+php5_invoke: Enable module pgsql for fpm SAPI
+php5_invoke: Enable module pgsql for cli SAPI
+php5_invoke: Enable module pgsql for apache2 SAPI
+
+Creating config file /etc/php5/mods-available/pdo_pgsql.ini with new version
+php5_invoke: Enable module pdo_pgsql for fpm SAPI
+php5_invoke: Enable module pdo_pgsql for cli SAPI
+php5_invoke: Enable module pdo_pgsql for apache2 SAPI
+Processing triggers for libapache2-mod-php5 (5.5.9+dfsg-1ubuntu4.17) ...
+Processing triggers for php5-fpm (5.5.9+dfsg-1ubuntu4.17) ...
+php5-fpm stop/waiting
+php5-fpm start/running, process 11348
+++ echo 'Checking PHP mbstring extension...'
+Checking PHP mbstring extension...
+++ php -m
+++ grep mbstring
+mbstring
+++ '[' 0 -gt 0 ']'
+++ echo 'Checking PHP ldap extension...'
+Checking PHP ldap extension...
+++ php -m
+++ grep ldap
+++ '[' 1 -gt 0 ']'
+++ echo 'Installing php5-ldap...'
+Installing php5-ldap...
+++ apt-get install -y php5-ldap
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following NEW packages will be installed:
+  php5-ldap
+0 upgraded, 1 newly installed, 0 to remove and 115 not upgraded.
+Need to get 19.0 kB of archives.
+After this operation, 114 kB of additional disk space will be used.
+Get:1 http://mirror.hetzner.de/ubuntu/packages/ trusty-updates/main php5-ldap amd64 5.5.9+dfsg-1ubuntu4.17 [19.0 kB]
+Fetched 19.0 kB in 0s (1,644 kB/s)
+Selecting previously unselected package php5-ldap.
+(Reading database ... 107460 files and directories currently installed.)
+Preparing to unpack .../php5-ldap_5.5.9+dfsg-1ubuntu4.17_amd64.deb ...
+Unpacking php5-ldap (5.5.9+dfsg-1ubuntu4.17) ...
+Processing triggers for libapache2-mod-php5 (5.5.9+dfsg-1ubuntu4.17) ...
+Processing triggers for php5-fpm (5.5.9+dfsg-1ubuntu4.17) ...
+php5-fpm stop/waiting
+php5-fpm start/running, process 11463
+Setting up php5-ldap (5.5.9+dfsg-1ubuntu4.17) ...
+
+Creating config file /etc/php5/mods-available/ldap.ini with new version
+php5_invoke: Enable module ldap for fpm SAPI
+php5_invoke: Enable module ldap for cli SAPI
+php5_invoke: Enable module ldap for apache2 SAPI
+Processing triggers for libapache2-mod-php5 (5.5.9+dfsg-1ubuntu4.17) ...
+Processing triggers for php5-fpm (5.5.9+dfsg-1ubuntu4.17) ...
+php5-fpm stop/waiting
+php5-fpm start/running, process 11753
+++ echo 'Checking PHP imagick extension...'
+Checking PHP imagick extension...
+++ php -m
+++ grep imagick
+imagick
+++ '[' 0 -gt 0 ']'
+++ echo 'Checking PHP imap extension...'
+Checking PHP imap extension...
+++ php -m
+++ grep imap
+++ '[' 1 -gt 0 ']'
+++ echo 'Installing php5-imap...'
+Installing php5-imap...
+++ apt-get install -y php5-imap
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Some packages could not be installed. This may mean that you have
+requested an impossible situation or if you are using the unstable
+distribution that some required packages have not yet been created
+or been moved out of Incoming.
+The following information may help to resolve the situation:
+
+The following packages have unmet dependencies:
+ php5-imap : Depends: phpapi-20100525
+             Depends: php5-common (= 5.4.45-0+deb7u2) but 5.5.9+dfsg-1ubuntu4.17 is to be installed
+E: Unable to correct problems, you have held broken packages.
+++ echo 'Setting up timezone...'
+Setting up timezone...
++++ cat /etc/timezone
+++ timezone=Etc/UTC
+++ sed -i -e 's/date.timezone/;date.timezone/g' /etc/php5/fpm/php.ini
+++ echo 'date.timezone = Etc/UTC'
+++ echo 'Checking PostgreSQL...'
+Checking PostgreSQL...
+++ id -a postgres
+id: postgres: no such user
+++ '[' 1 '!=' 0 ']'
+++ echo 'PostgreSQL not installed!'
+PostgreSQL not installed!
+++ set +x
+Do you want to install PostgreSQL (y/n)?
+++ case "${answer}" in
+++ echo 'Installing PostgreSQL...'
+Installing PostgreSQL...
+++ sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+++ apt-get install wget ca-certificates
+Reading package lists...
+Building dependency tree...
+Reading state information...
+ca-certificates is already the newest version.
+wget is already the newest version.
+0 upgraded, 0 newly installed, 0 to remove and 115 not upgraded.
+++ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v1
+
+mQINBE6XR8IBEACVdDKT2HEH1IyHzXkb4nIWAY7echjRxo7MTcj4vbXAyBKOfjja
+UrBEJWHN6fjKJXOYWXHLIYg0hOGeW9qcSiaa1/rYIbOzjfGfhE4x0Y+NJHS1db0V
+G6GUj3qXaeyqIJGS2z7m0Thy4Lgr/LpZlZ78Nf1fliSzBlMo1sV7PpP/7zUO+aA4
+bKa8Rio3weMXQOZgclzgeSdqtwKnyKTQdXY5MkH1QXyFIk1nTfWwyqpJjHlgtwMi
+c2cxjqG5nnV9rIYlTTjYG6RBglq0SmzF/raBnF4Lwjxq4qRqvRllBXdFu5+2pMfC
+IZ10HPRdqDCTN60DUix+BTzBUT30NzaLhZbOMT5RvQtvTVgWpeIn20i2NrPWNCUh
+hj490dKDLpK/v+A5/i8zPvN4c6MkDHi1FZfaoz3863dylUBR3Ip26oM0hHXf4/2U
+A/oA4pCl2W0hc4aNtozjKHkVjRx5Q8/hVYu+39csFWxo6YSB/KgIEw+0W8DiTII3
+RQj/OlD68ZDmGLyQPiJvaEtY9fDrcSpI0Esm0i4sjkNbuuh0Cvwwwqo5EF1zfkVj
+Tqz2REYQGMJGc5LUbIpk5sMHo1HWV038TWxlDRwtOdzw08zQA6BeWe9FOokRPeR2
+AqhyaJJwOZJodKZ76S+LDwFkTLzEKnYPCzkoRwLrEdNt1M7wQBThnC5z6wARAQAB
+tBxQb3N0Z3JlU1FMIERlYmlhbiBSZXBvc2l0b3J5iQI9BBMBCAAnAhsDBQsJCAcD
+BRUKCQgLBRYCAwEAAh4BAheABQJS6RUZBQkOhCctAAoJEH/MfUaszEz4zmQP/2ad
+HtuaXL5Xu3C3NGLha/aQb9iSJC8z5vN55HMCpsWlmslCBuEr+qR+oZvPkvwh0Io/
+8hQl/qN54DMNifRwVL2n2eG52yNERie9BrAMK2kNFZZCH4OxlMN0876BmDuNq2U6
+7vUtCv+pxT+g9R1LvlPgLCTjS3m+qMqUICJ310BMT2cpYlJx3YqXouFkdWBVurI0
+pGU/+QtydcJALz5eZbzlbYSPWbOm2ZSS2cLrCsVNFDOAbYLtUn955yXB5s4rIscE
+vTzBxPgID1iBknnPzdu2tCpk07yJleiupxI1yXstCtvhGCbiAbGFDaKzhgcAxSIX
+0ZPahpaYLdCkcoLlfgD+ar4K8veSK2LazrhO99O0onRG0p7zuXszXphO4E/WdbTO
+yDD35qCqYeAX6TaB+2l4kIdVqPgoXT/doWVLUK2NjZtd3JpMWI0OGYDFn2DAvgwP
+xqKEoGTOYuoWKssnwLlA/ZMETegak27gFAKfoQlmHjeA/PLC2KRYd6Wg2DSifhn+
+2MouoE4XFfeekVBQx98rOQ5NLwy/TYlsHXm1n0RW86ETN3chj/PPWjsi80t5oepx
+82azRoVu95LJUkHpPLYyqwfueoVzp2+B2hJU2Rg7w+cJq64TfeJG8hrc93MnSKIb
+zTvXfdPtvYdHhhA2LYu4+5mh5ASlAMJXD7zIOZt2iEYEEBEIAAYFAk6XSO4ACgkQ
+xa93SlhRC1qmjwCg9U7U+XN7Gc/dhY/eymJqmzUGT/gAn0guvoX75Y+BsZlI6dWn
+qaFU6N8HiQIcBBABCAAGBQJOl0kLAAoJEExaa6sS0qeuBfEP/3AnLrcKx+dFKERX
+o4NBCGWr+i1CnowupKS3rm2xLbmiB969szG5TxnOIvnjECqPz6skK3HkV3jTZaju
+v3sR6M2ItpnrncWuiLnYcCSDp9TEMpCWzTEgtrBlKdVuTNTeRGILeIcvqoZX5w+u
+i0eBvvbeRbHEyUsvOEnYjrqoAjqUJj5FUZtR1+V9fnZp8zDgpOSxx0LomnFdKnhj
+uyXAQlRCA6/roVNR9ruRjxTR5ubteZ9ubTsVYr2/eMYOjQ46LhAgR+3Alblu/WHB
+MR/9F9//RuOa43R5Sjx9TiFCYol+Ozk8XRt3QGweEH51YkSYY3oRbHBb2Fkql6N6
+YFqlLBL7/aiWnNmRDEs/cdpo9HpFsbjOv4RlsSXQfvvfOayHpT5nO1UQFzoyMVpJ
+615zwmQDJT5Qy7uvr2eQYRV9AXt8t/H+xjQsRZCc5YVmeAo91qIzI/tA2gtXik49
+6yeziZbfUvcZzuzjjxFExss4DSAwMgorvBeIbiz2k2qXukbqcTjB2XqAlZasd6Ll
+nLXpQdqDV3McYkP/MvttWh3w+J/woiBcA7yEI5e3YJk97uS6+ssbqLEd0CcdT+qz
++Waw0z/ZIU99Lfh2Qm77OT6vr//Zulw5ovjZVO2boRIcve7S97gQ4KC+G/+QaRS+
+VPZ67j5UMxqtT/Y4+NHcQGgwF/1iiQI9BBMBCAAnAhsDBQsJCAcDBRUKCQgLBRYC
+AwEAAh4BAheABQJQeSssBQkDwxbfAAoJEH/MfUaszEz4bgkP/0AI0UgDgkNNqplA
+IpE/pkwem2jgGpJGKurh2xDu6j2ZL+BPzPhzyCeMHZwTXkkI373TXGQQP8dIa+RD
+HAZ3iijw4+ISdKWpziEUJjUk04UMPTlN+dYJt2EHLQDD0VLtX0yQC/wLmVEH/REp
+oclbVjZR/+ehwX2IxOIlXmkZJDSycl975FnSUjMAvyzty8P9DN0fIrQ7Ju+BfMOM
+TnUkOdp0kRUYez7pxbURJfkM0NxAP1geACI91aISBpFg3zxQs1d3MmUIhJ4wHvYB
+uaR7Fx1FkLAxWddre/OCYJBsjucE9uqc04rgKVjN5P/VfqNxyUoB+YZ+8Lk4t03p
+RBcD9XzcyOYlFLWXbcWxTn1jJ2QMqRIWi5lzZIOMw5B+OK9LLPX0dAwIFGr9WtuV
+J2zp+D4CBEMtn4Byh8EaQsttHeqAkpZoMlrEeNBDz2L7RquPQNmiuom15nb7xU/k
+7PGfqtkpBaaGBV9tJkdp7BdH27dZXx+uT+uHbpMXkRrXliHjWpAw+NGwADh/Pjmq
+ExlQSdgAiXy1TTOdzxKH7WrwMFGDK0fddKr8GH3f+Oq4eOoNRa6/UhTCmBPbryCS
+IA7EAd0Aae9YaLlOB+eTORg/F1EWLPm34kKSRtae3gfHuY2cdUmoDVnOF8C9hc0P
+bL65G4NWPt+fW7lIj+0+kF19s2PviQI9BBMBCAAnAhsDBQsJCAcDBRUKCQgLBRYC
+AwEAAh4BAheABQJRKm2VBQkINsBBAAoJEH/MfUaszEz4RTEP/1sQHyjHaUiAPaCA
+v8jw/3SaWP/g8qLjpY6ROjLnDMvwKwRAoxUwcIv4/TWDOMpwJN+CJIbjXsXNYvf9
+OX+UTOvq4iwi4ADrAAw2xw+Jomc6EsYla+hkN2FzGzhpXfZFfUsuphjY3FKL+4hX
+H+R8ucNwIz3yrkfc17MMn8yFNWFzm4omU9/JeeaafwUoLxlULL2zY7H3+QmxCl0u
+6t8VvlszdEFhemLHzVYRY0Ro/ISrR78CnANNsMIy3i11U5uvdeWVCoWV1BXNLzOD
+4+BIDbMB/Do8PQCWiliSGZi8lvmj/sKbumMFQonMQWOfQswTtqTyQ3yhUM1LaxK5
+PYq13rggi3rA8oq8SYb/KNCQL5pzACji4TRVK0kNpvtxJxe84X8+9IB1vhBvF/Ji
+/xDd/3VDNPY+k1a47cON0S8Qc8DA3mq4hRfcgvuWy7ZxoMY7AfSJOhleb9+PzRBB
+n9agYgMxZg1RUWZazQ5KuoJqbxpwOYVFja/stItNS4xsmi0lh2I4MNlBEDqnFLUx
+SvTDc22c3uJlWhzBM/f2jH19uUeqm4jaggob3iJvJmK+Q7Ns3WcfhuWwCnc1+58d
+iFAMRUCRBPeFS0qd56QGk1r97B6+3UfLUslCfaaA8IMOFvQSHJwDO87xWGyxeRTY
+IIP9up4xwgje9LB7fMxsSkCDTHOk
+=s3DI
+-----END PGP PUBLIC KEY BLOCK-----
+++ apt-key add ACCC4CF8.asc
+gpg: can't open `ACCC4CF8.asc': No such file or directory
+++ apt-get update
+Ign http://mirror.hetzner.de trusty InRelease
+Hit http://mirror.hetzner.de trusty-backports InRelease
+Hit http://mirror.hetzner.de trusty-updates InRelease
+Hit http://mirror.hetzner.de trusty-security InRelease
+Hit http://mirror.hetzner.de trusty Release.gpg
+Hit http://mirror.hetzner.de trusty Release
+Get:1 http://apt.postgresql.org trusty-pgdg InRelease [33.8 kB]
+Ign http://dl.google.com stable InRelease
+Hit http://mirror.hetzner.de trusty-backports/main amd64 Packages
+Hit http://mirror.hetzner.de trusty-backports/restricted amd64 Packages
+Hit http://mirror.hetzner.de trusty-backports/universe amd64 Packages
+Hit http://repo.ajenti.org main InRelease
+Ign http://de.archive.ubuntu.com trusty InRelease
+Hit http://dl.google.com stable Release.gpg
+Hit http://security.ubuntu.com trusty-security InRelease
+Hit http://ppa.launchpad.net trusty InRelease
+Hit http://repo.ajenti.org main InRelease
+Hit http://de.archive.ubuntu.com trusty-updates InRelease
+Hit http://ppa.launchpad.net trusty InRelease
+Hit http://mirror.hetzner.de trusty-backports/multiverse amd64 Packages
+Hit http://mirror.hetzner.de trusty-backports/main i386 Packages
+Hit http://mirror.hetzner.de trusty-backports/restricted i386 Packages
+Hit http://mirror.hetzner.de trusty-backports/universe i386 Packages
+Hit http://de.archive.ubuntu.com trusty-backports InRelease
+Hit http://mirror.hetzner.de trusty-backports/multiverse i386 Packages
+Hit http://repo.ajenti.org main/main amd64 Packages
+Hit http://de.archive.ubuntu.com trusty Release.gpg
+Hit http://repo.ajenti.org main/ubuntu amd64 Packages
+Hit http://security.ubuntu.com trusty-security/main Sources
+Hit http://ppa.launchpad.net trusty/main amd64 Packages
+Hit http://de.archive.ubuntu.com trusty Release
+Hit http://repo.ajenti.org main/main i386 Packages
+Ign http://apt.postgresql.org trusty-pgdg InRelease
+Hit http://security.ubuntu.com trusty-security/restricted Sources
+Hit http://repo.ajenti.org main/ubuntu i386 Packages
+Get:2 http://apt.postgresql.org trusty-pgdg/main amd64 Packages [58.8 kB]
+Hit http://de.archive.ubuntu.com trusty-updates/main Sources
+Hit http://ppa.launchpad.net trusty/main i386 Packages
+Hit http://mirror.hetzner.de trusty-updates/main amd64 Packages
+Hit http://mirror.hetzner.de trusty-updates/restricted amd64 Packages
+Hit http://mirror.hetzner.de trusty-updates/universe amd64 Packages
+Hit http://mirror.hetzner.de trusty-updates/multiverse amd64 Packages
+Hit http://mirror.hetzner.de trusty-updates/main i386 Packages
+Hit http://mirror.hetzner.de trusty-updates/restricted i386 Packages
+Hit http://security.ubuntu.com trusty-security/universe Sources
+Hit http://de.archive.ubuntu.com trusty-updates/restricted Sources
+Hit http://ppa.launchpad.net trusty/main amd64 Packages
+Get:3 http://apt.postgresql.org trusty-pgdg/main i386 Packages [58.7 kB]
+Hit http://de.archive.ubuntu.com trusty-updates/universe Sources
+Hit http://security.ubuntu.com trusty-security/multiverse Sources
+Hit http://repo.ajenti.org main/main amd64 Packages
+Hit http://ppa.launchpad.net trusty/main i386 Packages
+Hit http://mirror.hetzner.de trusty-updates/universe i386 Packages
+Hit http://mirror.hetzner.de trusty-updates/multiverse i386 Packages
+Hit http://mirror.hetzner.de trusty-security/main amd64 Packages
+Hit http://mirror.hetzner.de trusty-security/restricted amd64 Packages
+Hit http://mirror.hetzner.de trusty-security/universe amd64 Packages
+Hit http://mirror.hetzner.de trusty-security/multiverse amd64 Packages
+Hit http://mirror.hetzner.de trusty-security/main i386 Packages
+Hit http://mirror.hetzner.de trusty-security/restricted i386 Packages
+Hit http://mirror.hetzner.de trusty-security/universe i386 Packages
+Hit http://mirror.hetzner.de trusty-security/multiverse i386 Packages
+Hit http://mirror.hetzner.de trusty/main amd64 Packages
+Hit http://mirror.hetzner.de trusty/restricted amd64 Packages
+Hit http://mirror.hetzner.de trusty/universe amd64 Packages
+Hit http://mirror.hetzner.de trusty/multiverse amd64 Packages
+Hit http://de.archive.ubuntu.com trusty-updates/multiverse Sources
+Hit http://mirror.hetzner.de trusty/main i386 Packages
+Hit http://mirror.hetzner.de trusty/restricted i386 Packages
+Hit http://mirror.hetzner.de trusty/universe i386 Packages
+Hit http://mirror.hetzner.de trusty/multiverse i386 Packages
+Hit http://repo.ajenti.org main/ubuntu amd64 Packages
+Ign http://repo.mongodb.org trusty/mongodb-org/3.2 InRelease
+Hit http://security.ubuntu.com trusty-security/main amd64 Packages
+Hit http://repo.ajenti.org main/main i386 Packages
+Hit http://de.archive.ubuntu.com trusty-updates/main amd64 Packages
+Hit http://security.ubuntu.com trusty-security/restricted amd64 Packages
+Hit http://repo.ajenti.org main/ubuntu i386 Packages
+Hit http://de.archive.ubuntu.com trusty-updates/restricted amd64 Packages
+Hit http://security.ubuntu.com trusty-security/universe amd64 Packages
+Hit http://de.archive.ubuntu.com trusty-updates/universe amd64 Packages
+Hit http://security.ubuntu.com trusty-security/multiverse amd64 Packages
+Ign http://download.rethinkdb.com trusty InRelease
+Hit http://de.archive.ubuntu.com trusty-updates/multiverse amd64 Packages
+Ign http://mirrors.linode.com wheezy InRelease
+Hit http://security.ubuntu.com trusty-security/main i386 Packages
+Hit http://de.archive.ubuntu.com trusty-updates/main i386 Packages
+Hit http://repo.mongodb.org trusty/mongodb-org/3.2 Release.gpg
+Hit http://de.archive.ubuntu.com trusty-updates/restricted i386 Packages
+Hit http://security.ubuntu.com trusty-security/restricted i386 Packages
+Hit http://de.archive.ubuntu.com trusty-updates/universe i386 Packages
+Hit http://security.ubuntu.com trusty-security/universe i386 Packages
+Hit http://de.archive.ubuntu.com trusty-updates/multiverse i386 Packages
+Hit http://security.ubuntu.com trusty-security/multiverse i386 Packages
+Hit http://de.archive.ubuntu.com trusty-backports/main Sources
+Hit http://repo.mongodb.org trusty/mongodb-org/3.2 Release
+Hit http://download.rethinkdb.com trusty Release.gpg
+Hit http://mirrors.linode.com wheezy/updates InRelease
+Hit http://de.archive.ubuntu.com trusty-backports/restricted Sources
+Hit http://de.archive.ubuntu.com trusty-backports/universe Sources
+Hit http://de.archive.ubuntu.com trusty-backports/multiverse Sources
+Hit http://repo.mongodb.org trusty/mongodb-org/3.2/multiverse amd64 Packages
+Hit http://de.archive.ubuntu.com trusty-backports/main amd64 Packages
+Hit http://de.archive.ubuntu.com trusty-backports/restricted amd64 Packages
+Ign http://package.mapr.com binary/ InRelease
+Hit http://download.rethinkdb.com trusty Release
+Hit http://de.archive.ubuntu.com trusty-backports/universe amd64 Packages
+Hit http://mirrors.linode.com wheezy-updates InRelease
+Hit http://de.archive.ubuntu.com trusty-backports/multiverse amd64 Packages
+Hit http://de.archive.ubuntu.com trusty-backports/main i386 Packages
+Hit http://repo.mongodb.org trusty/mongodb-org/3.2/multiverse i386 Packages
+Hit http://de.archive.ubuntu.com trusty-backports/restricted i386 Packages
+Hit http://de.archive.ubuntu.com trusty-backports/universe i386 Packages
+Ign http://package.mapr.com binary/ Release.gpg
+Hit http://de.archive.ubuntu.com trusty-backports/multiverse i386 Packages
+Hit http://de.archive.ubuntu.com trusty/main Sources
+Hit http://download.rethinkdb.com trusty/main amd64 Packages
+Hit http://de.archive.ubuntu.com trusty/restricted Sources
+Hit http://mirrors.linode.com wheezy Release.gpg
+Hit https://apt.dockerproject.org ubuntu-trusty InRelease
+Hit http://de.archive.ubuntu.com trusty/universe Sources
+Hit http://de.archive.ubuntu.com trusty/multiverse Sources
+Ign http://package.mapr.com binary/ Release
+Hit http://de.archive.ubuntu.com trusty/main amd64 Packages
+Hit http://de.archive.ubuntu.com trusty/restricted amd64 Packages
+Hit http://de.archive.ubuntu.com trusty/universe amd64 Packages
+Hit https://apt.dockerproject.org ubuntu-trusty/main amd64 Packages
+Hit http://download.rethinkdb.com trusty/main i386 Packages
+Hit http://mirrors.linode.com wheezy/updates/main Sources
+Hit http://de.archive.ubuntu.com trusty/multiverse amd64 Packages
+Hit http://package.mapr.com binary/ Packages
+Hit http://de.archive.ubuntu.com trusty/main i386 Packages
+Hit https://apt.dockerproject.org ubuntu-trusty/main i386 Packages
+Hit http://de.archive.ubuntu.com trusty/restricted i386 Packages
+Hit http://de.archive.ubuntu.com trusty/universe i386 Packages
+Hit http://de.archive.ubuntu.com trusty/multiverse i386 Packages
+Hit http://mirrors.linode.com wheezy/updates/contrib Sources
+Hit http://mirrors.linode.com wheezy/updates/non-free Sources
+Hit http://mirrors.linode.com wheezy/updates/main amd64 Packages
+Hit http://mirrors.linode.com wheezy/updates/contrib amd64 Packages
+Hit http://mirrors.linode.com wheezy/updates/non-free amd64 Packages
+Hit http://mirrors.linode.com wheezy/updates/main i386 Packages
+Hit http://dl.google.com stable Release
+Hit http://dl.google.com stable/main amd64 Packages
+Hit http://mirrors.linode.com wheezy/updates/contrib i386 Packages
+Hit http://mirrors.linode.com wheezy/updates/non-free i386 Packages
+Hit http://mirrors.linode.com wheezy-updates/main Sources
+Hit http://mirrors.linode.com wheezy-updates/main amd64 Packages
+Hit http://mirrors.linode.com wheezy-updates/main i386 Packages
+Hit http://mirrors.linode.com wheezy Release
+Hit http://mirrors.linode.com wheezy/main Sources
+Hit http://mirrors.linode.com wheezy/contrib Sources
+Hit http://mirrors.linode.com wheezy/non-free Sources
+Hit http://mirrors.linode.com wheezy/main amd64 Packages
+Hit http://mirrors.linode.com wheezy/contrib amd64 Packages
+Hit http://mirrors.linode.com wheezy/non-free amd64 Packages
+Hit http://mirrors.linode.com wheezy/main i386 Packages
+Hit http://mirrors.linode.com wheezy/contrib i386 Packages
+Hit http://mirrors.linode.com wheezy/non-free i386 Packages
+Fetched 151 kB in 5s (26.4 kB/s)
+Reading package lists...
+W: GPG error: http://apt.postgresql.org trusty-pgdg InRelease: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 7FCC7D46ACCC4CF8
+W: There is no public key available for the following key IDs:
+9D6D8F6BC857C906
+W: There is no public key available for the following key IDs:
+7638D0442B90D010
+W: There is no public key available for the following key IDs:
+7638D0442B90D010
+++ apt-get install postgresql-9.4
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following extra packages will be installed:
+  libpq-dev libpq5 pgdg-keyring postgresql-client-9.4 postgresql-client-common
+  postgresql-common postgresql-contrib-9.4 sysstat
+Suggested packages:
+  postgresql-doc-9.5 locales-all postgresql-doc-9.4 libdbd-pg-perl isag
+The following NEW packages will be installed:
+  pgdg-keyring postgresql-9.4 postgresql-client-9.4 postgresql-client-common
+  postgresql-common postgresql-contrib-9.4 sysstat
+The following packages will be upgraded:
+  libpq-dev libpq5
+2 upgraded, 7 newly installed, 0 to remove and 113 not upgraded.
+Need to get 6,069 kB of archives.
+After this operation, 26.4 MB of additional disk space will be used.
+Do you want to continue? [Y/n] WARNING: The following packages cannot be authenticated!
+  libpq-dev libpq5 pgdg-keyring postgresql-client-common postgresql-client-9.4
+  postgresql-common postgresql-9.4 postgresql-contrib-9.4
+Install these packages without verification? [y/N] Get:1 http://mirror.hetzner.de/ubuntu/packages/ trusty/main sysstat amd64 10.2.0-1 [283 kB]
+Get:2 http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg/main libpq-dev amd64 9.5.3-1.pgdg14.04+1 [174 kB]
+Get:3 http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg/main libpq5 amd64 9.5.3-1.pgdg14.04+1 [126 kB]
+Get:4 http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg/main pgdg-keyring all 2014.1 [5,898 B]
+Get:5 http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg/main postgresql-client-common all 174.pgdg14.04+1 [77.3 kB]
+Get:6 http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg/main postgresql-client-9.4 amd64 9.4.8-1.pgdg14.04+1 [1,073 kB]
+Get:7 http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg/main postgresql-common all 174.pgdg14.04+1 [212 kB]
+Get:8 http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg/main postgresql-9.4 amd64 9.4.8-1.pgdg14.04+1 [3,673 kB]
+Get:9 http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg/main postgresql-contrib-9.4 amd64 9.4.8-1.pgdg14.04+1 [445 kB]
+Preconfiguring packages ...
+Fetched 6,069 kB in 0s (19.9 MB/s)
+(Reading database ... 107467 files and directories currently installed.)
+Preparing to unpack .../libpq-dev_9.5.3-1.pgdg14.04+1_amd64.deb ...
+Unpacking libpq-dev (9.5.3-1.pgdg14.04+1) over (9.3.12-0ubuntu0.14.04) ...
+Preparing to unpack .../libpq5_9.5.3-1.pgdg14.04+1_amd64.deb ...
+Unpacking libpq5:amd64 (9.5.3-1.pgdg14.04+1) over (9.3.12-0ubuntu0.14.04) ...
+Selecting previously unselected package pgdg-keyring.
+Preparing to unpack .../pgdg-keyring_2014.1_all.deb ...
+Unpacking pgdg-keyring (2014.1) ...
+Selecting previously unselected package postgresql-client-common.
+Preparing to unpack .../postgresql-client-common_174.pgdg14.04+1_all.deb ...
+Unpacking postgresql-client-common (174.pgdg14.04+1) ...
+Selecting previously unselected package postgresql-client-9.4.
+Preparing to unpack .../postgresql-client-9.4_9.4.8-1.pgdg14.04+1_amd64.deb ...
+Unpacking postgresql-client-9.4 (9.4.8-1.pgdg14.04+1) ...
+Selecting previously unselected package postgresql-common.
+Preparing to unpack .../postgresql-common_174.pgdg14.04+1_all.deb ...
+Adding 'diversion of /usr/bin/pg_config to /usr/bin/pg_config.libpq-dev by postgresql-common'
+Unpacking postgresql-common (174.pgdg14.04+1) ...
+Selecting previously unselected package postgresql-9.4.
+Preparing to unpack .../postgresql-9.4_9.4.8-1.pgdg14.04+1_amd64.deb ...
+Unpacking postgresql-9.4 (9.4.8-1.pgdg14.04+1) ...
+Selecting previously unselected package postgresql-contrib-9.4.
+Preparing to unpack .../postgresql-contrib-9.4_9.4.8-1.pgdg14.04+1_amd64.deb ...
+Unpacking postgresql-contrib-9.4 (9.4.8-1.pgdg14.04+1) ...
+Selecting previously unselected package sysstat.
+Preparing to unpack .../sysstat_10.2.0-1_amd64.deb ...
+Unpacking sysstat (10.2.0-1) ...
+Processing triggers for man-db (2.6.7.1-1ubuntu1) ...
+Processing triggers for ureadahead (0.100.0-16) ...
+Setting up libpq5:amd64 (9.5.3-1.pgdg14.04+1) ...
+Setting up libpq-dev (9.5.3-1.pgdg14.04+1) ...
+Setting up pgdg-keyring (2014.1) ...
+Importing apt.postgresql.org key: OK
+Setting up postgresql-client-common (174.pgdg14.04+1) ...
+Setting up postgresql-client-9.4 (9.4.8-1.pgdg14.04+1) ...
+update-alternatives: using /usr/share/postgresql/9.4/man/man1/psql.1.gz to provide /usr/share/man/man1/psql.1.gz (psql.1.gz) in auto mode
+Setting up postgresql-common (174.pgdg14.04+1) ...
+chage: the shadow password file is not present
+/usr/bin/chage failed with return code 15, shadow not enabled, password aging cannot be set. Continuing.
+Adding user postgres to group ssl-cert
+
+Creating config file /etc/postgresql-common/createcluster.conf with new version
+
+Creating config file /etc/logrotate.d/postgresql-common with new version
+Building PostgreSQL dictionaries from installed myspell/hunspell packages...
+Removing obsolete dictionary files:
+ * No PostgreSQL clusters exist; see "man pg_createcluster"
+Setting up sysstat (10.2.0-1) ...
+
+Creating config file /etc/default/sysstat with new version
+update-alternatives: using /usr/bin/sar.sysstat to provide /usr/bin/sar (sar) in auto mode
+Processing triggers for ureadahead (0.100.0-16) ...
+Setting up postgresql-9.4 (9.4.8-1.pgdg14.04+1) ...
+Creating new cluster 9.4/main ...
+  config /etc/postgresql/9.4/main
+  data   /var/lib/postgresql/9.4/main
+  locale en_US.UTF-8
+  socket /var/run/postgresql
+  port   5432
+update-alternatives: using /usr/share/postgresql/9.4/man/man1/postmaster.1.gz to provide /usr/share/man/man1/postmaster.1.gz (postmaster.1.gz) in auto mode
+ * Starting PostgreSQL 9.4 database server
+   ...done.
+Setting up postgresql-contrib-9.4 (9.4.8-1.pgdg14.04+1) ...
+Processing triggers for libc-bin (2.19-0ubuntu6.7) ...
+/sbin/ldconfig.real: /usr/lib/libduktape.so.1 is not a symbolic link
+
+++ sed -e s/peer/trust/g -e s/ident/trust/g
+++ cd /etc/postgresql/9.4/main
+++ mv pg_hba.conf pg_hba.conf_old
+++ mv pg_hba.conf.1 pg_hba.conf
+++ service postgresql restart
+ * Restarting PostgreSQL 9.4 database server
+   ...done.
+++ echo 'Checking ElasticSearch...'
+Checking ElasticSearch...
+++ curl http://localhost:9200
+++ echo 'ElasticSearch not installed!'
+ElasticSearch not installed!
+++ set +x
+Do you want to install ElasticSearch (y/n)?
+++ case "${answer}" in
+++ echo 'Installing ElasticSearch...'
+Installing ElasticSearch...
+++ apt-get install openjdk-6-jre
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following extra packages will be installed:
+  icedtea-6-jre-cacao icedtea-6-jre-jamvm icedtea-netx icedtea-netx-common
+  openjdk-6-jre-headless openjdk-6-jre-lib ttf-dejavu-extra
+Suggested packages:
+  icedtea-plugin libnss-mdns sun-java6-fonts fonts-ipafont-gothic
+  fonts-ipafont-mincho ttf-wqy-microhei ttf-wqy-zenhei ttf-indic-fonts-core
+  ttf-telugu-fonts ttf-oriya-fonts ttf-kannada-fonts ttf-bengali-fonts
+The following NEW packages will be installed:
+  icedtea-6-jre-cacao icedtea-6-jre-jamvm icedtea-netx icedtea-netx-common
+  openjdk-6-jre openjdk-6-jre-headless openjdk-6-jre-lib ttf-dejavu-extra
+0 upgraded, 8 newly installed, 0 to remove and 113 not upgraded.
+Need to get 39.0 MB/39.0 MB of archives.
+After this operation, 60.1 MB of additional disk space will be used.
+Do you want to continue? [Y/n] Get:1 http://mirror.hetzner.de/ubuntu/packages/ trusty-updates/universe openjdk-6-jre-lib all 6b39-1.13.11-0ubuntu0.14.04.1 [5,998 kB]
+Get:2 http://mirror.hetzner.de/ubuntu/packages/ trusty-updates/universe openjdk-6-jre-headless amd64 6b39-1.13.11-0ubuntu0.14.04.1 [31.0 MB]
+Get:3 http://mirror.hetzner.de/ubuntu/packages/ trusty-updates/universe icedtea-6-jre-cacao amd64 6b39-1.13.11-0ubuntu0.14.04.1 [333 kB]
+Get:4 http://mirror.hetzner.de/ubuntu/packages/ trusty-updates/universe icedtea-6-jre-jamvm amd64 6b39-1.13.11-0ubuntu0.14.04.1 [400 kB]
+Get:5 http://mirror.hetzner.de/ubuntu/packages/ trusty-updates/universe openjdk-6-jre amd64 6b39-1.13.11-0ubuntu0.14.04.1 [192 kB]
+Get:6 http://mirror.hetzner.de/ubuntu/packages/ trusty-updates/main icedtea-netx-common all 1.5.3-0ubuntu0.14.04.1 [1,121 kB]
+Get:7 http://mirror.hetzner.de/ubuntu/packages/ trusty-updates/main icedtea-netx amd64 1.5.3-0ubuntu0.14.04.1 [20.4 kB]
+Fetched 39.0 MB in 1s (25.0 MB/s)
+Selecting previously unselected package openjdk-6-jre-lib.
+(Reading database ... 108330 files and directories currently installed.)
+Preparing to unpack .../openjdk-6-jre-lib_6b39-1.13.11-0ubuntu0.14.04.1_all.deb ...
+Unpacking openjdk-6-jre-lib (6b39-1.13.11-0ubuntu0.14.04.1) ...
+Selecting previously unselected package openjdk-6-jre-headless:amd64.
+Preparing to unpack .../openjdk-6-jre-headless_6b39-1.13.11-0ubuntu0.14.04.1_amd64.deb ...
+Unpacking openjdk-6-jre-headless:amd64 (6b39-1.13.11-0ubuntu0.14.04.1) ...
+Selecting previously unselected package ttf-dejavu-extra.
+Preparing to unpack .../ttf-dejavu-extra_2.34-1ubuntu1_all.deb ...
+Unpacking ttf-dejavu-extra (2.34-1ubuntu1) ...
+Selecting previously unselected package icedtea-6-jre-cacao:amd64.
+Preparing to unpack .../icedtea-6-jre-cacao_6b39-1.13.11-0ubuntu0.14.04.1_amd64.deb ...
+Unpacking icedtea-6-jre-cacao:amd64 (6b39-1.13.11-0ubuntu0.14.04.1) ...
+Selecting previously unselected package icedtea-6-jre-jamvm:amd64.
+Preparing to unpack .../icedtea-6-jre-jamvm_6b39-1.13.11-0ubuntu0.14.04.1_amd64.deb ...
+Unpacking icedtea-6-jre-jamvm:amd64 (6b39-1.13.11-0ubuntu0.14.04.1) ...
+Selecting previously unselected package openjdk-6-jre:amd64.
+Preparing to unpack .../openjdk-6-jre_6b39-1.13.11-0ubuntu0.14.04.1_amd64.deb ...
+Unpacking openjdk-6-jre:amd64 (6b39-1.13.11-0ubuntu0.14.04.1) ...
+Selecting previously unselected package icedtea-netx-common.
+Preparing to unpack .../icedtea-netx-common_1.5.3-0ubuntu0.14.04.1_all.deb ...
+Unpacking icedtea-netx-common (1.5.3-0ubuntu0.14.04.1) ...
+Selecting previously unselected package icedtea-netx:amd64.
+Preparing to unpack .../icedtea-netx_1.5.3-0ubuntu0.14.04.1_amd64.deb ...
+Unpacking icedtea-netx:amd64 (1.5.3-0ubuntu0.14.04.1) ...
+Processing triggers for fontconfig (2.11.0-0ubuntu4.1) ...
+Processing triggers for desktop-file-utils (0.22-1ubuntu1) ...
+Processing triggers for mime-support (3.54ubuntu1.1) ...
+Processing triggers for hicolor-icon-theme (0.13-1) ...
+Processing triggers for man-db (2.6.7.1-1ubuntu1) ...
+Setting up ttf-dejavu-extra (2.34-1ubuntu1) ...
+Setting up icedtea-netx-common (1.5.3-0ubuntu0.14.04.1) ...
+Setting up icedtea-netx:amd64 (1.5.3-0ubuntu0.14.04.1) ...
+update-alternatives: using /usr/lib/jvm/java-6-openjdk-amd64/jre/bin/itweb-settings to provide /usr/bin/itweb-settings (itweb-settings) in auto mode
+update-alternatives: warning: not replacing /usr/share/man/man1/itweb-settings.1.gz with a link
+update-alternatives: using /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/itweb-settings to provide /usr/bin/itweb-settings (itweb-settings) in auto mode
+update-alternatives: warning: not replacing /usr/share/man/man1/itweb-settings.1.gz with a link
+Setting up openjdk-6-jre-headless:amd64 (6b39-1.13.11-0ubuntu0.14.04.1) ...
+Setting up icedtea-6-jre-cacao:amd64 (6b39-1.13.11-0ubuntu0.14.04.1) ...
+Setting up icedtea-6-jre-jamvm:amd64 (6b39-1.13.11-0ubuntu0.14.04.1) ...
+Setting up openjdk-6-jre:amd64 (6b39-1.13.11-0ubuntu0.14.04.1) ...
+Setting up openjdk-6-jre-lib (6b39-1.13.11-0ubuntu0.14.04.1) ...
+++ wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.7.deb
+--2016-05-28 19:36:38--  https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.7.deb
+Resolving download.elasticsearch.org (download.elasticsearch.org)... 2406:da00:ff00::36f3:f65c, 2406:da00:ff00::6b14:d7c5, 2406:da00:ff00::6b14:f723, ...
+Connecting to download.elasticsearch.org (download.elasticsearch.org)|2406:da00:ff00::36f3:f65c|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 17093902 (16M) [application/x-debian-package]
+Saving to: ‘elasticsearch-0.90.7.deb’
+
+     0K .......... .......... .......... .......... ..........  0%  252K 66s
+    50K .......... .......... .......... .......... ..........  0%  213K 72s
+   100K .......... .......... .......... .......... ..........  0%  308K 66s
+   150K .......... .......... .......... .......... ..........  1%  502K 57s
+   200K .......... .......... .......... .......... ..........  1%  504K 52s
+   250K .......... .......... .......... .......... ..........  1%  504K 49s
+   300K .......... .......... .......... .......... ..........  2%  505K 46s
+   350K .......... .......... .......... .......... ..........  2%  504K 44s
+   400K .......... .......... .......... .......... ..........  2% 95.3M 39s
+   450K .......... .......... .......... .......... ..........  2%  505K 39s
+   500K .......... .......... .......... .......... ..........  3%  506K 38s
+   550K .......... .......... .......... .......... ..........  3% 77.8M 35s
+   600K .......... .......... .......... .......... ..........  3%  507K 34s
+   650K .......... .......... .......... .......... ..........  4% 78.2M 32s
+   700K .......... .......... .......... .......... ..........  4%  505K 32s
+   750K .......... .......... .......... .......... ..........  4% 49.0M 30s
+   800K .......... .......... .......... .......... ..........  5%  508K 30s
+   850K .......... .......... .......... .......... ..........  5% 84.6M 28s
+   900K .......... .......... .......... .......... ..........  5% 1.27M 27s
+   950K .......... .......... .......... .......... ..........  5%  826K 26s
+  1000K .......... .......... .......... .......... ..........  6% 89.5M 25s
+  1050K .......... .......... .......... .......... ..........  6%  508K 25s
+  1100K .......... .......... .......... .......... ..........  6% 68.1M 24s
+  1150K .......... .......... .......... .......... ..........  7% 61.0M 23s
+  1200K .......... .......... .......... .......... ..........  7%  512K 23s
+  1250K .......... .......... .......... .......... ..........  7% 74.5M 22s
+  1300K .......... .......... .......... .......... ..........  8% 73.6M 21s
+  1350K .......... .......... .......... .......... ..........  8% 1.28M 21s
+  1400K .......... .......... .......... .......... ..........  8%  829K 21s
+  1450K .......... .......... .......... .......... ..........  8% 66.7M 20s
+  1500K .......... .......... .......... .......... ..........  9% 91.5M 19s
+  1550K .......... .......... .......... .......... ..........  9%  511K 20s
+  1600K .......... .......... .......... .......... ..........  9% 91.5M 19s
+  1650K .......... .......... .......... .......... .......... 10% 85.2M 18s
+  1700K .......... .......... .......... .......... .......... 10% 1.30M 18s
+  1750K .......... .......... .......... .......... .......... 10%  825K 18s
+  1800K .......... .......... .......... .......... .......... 11% 77.5M 18s
+  1850K .......... .......... .......... .......... .......... 11% 78.3M 17s
+  1900K .......... .......... .......... .......... .......... 11% 95.9M 17s
+  1950K .......... .......... .......... .......... .......... 11%  514K 17s
+  2000K .......... .......... .......... .......... .......... 12%  107M 16s
+  2050K .......... .......... .......... .......... .......... 12% 66.7M 16s
+  2100K .......... .......... .......... .......... .......... 12%  123M 15s
+  2150K .......... .......... .......... .......... .......... 13% 1.31M 15s
+  2200K .......... .......... .......... .......... .......... 13%  829K 15s
+  2250K .......... .......... .......... .......... .......... 13% 70.9M 15s
+  2300K .......... .......... .......... .......... .......... 14% 68.6M 15s
+  2350K .......... .......... .......... .......... .......... 14% 69.3M 14s
+  2400K .......... .......... .......... .......... .......... 14% 1.32M 14s
+  2450K .......... .......... .......... .......... .......... 14%  830K 14s
+  2500K .......... .......... .......... .......... .......... 15% 73.3M 14s
+  2550K .......... .......... .......... .......... .......... 15% 64.1M 13s
+  2600K .......... .......... .......... .......... .......... 15% 85.5M 13s
+  2650K .......... .......... .......... .......... .......... 16% 1.33M 13s
+  2700K .......... .......... .......... .......... .......... 16%  825K 13s
+  2750K .......... .......... .......... .......... .......... 16% 66.2M 13s
+  2800K .......... .......... .......... .......... .......... 17% 65.3M 13s
+  2850K .......... .......... .......... .......... .......... 17% 83.3M 12s
+  2900K .......... .......... .......... .......... .......... 17% 69.9M 12s
+  2950K .......... .......... .......... .......... .......... 17% 1.36M 12s
+  3000K .......... .......... .......... .......... .......... 18%  825K 12s
+  3050K .......... .......... .......... .......... .......... 18% 90.4M 12s
+  3100K .......... .......... .......... .......... .......... 18% 80.4M 12s
+  3150K .......... .......... .......... .......... .......... 19% 65.2M 11s
+  3200K .......... .......... .......... .......... .......... 19% 79.8M 11s
+  3250K .......... .......... .......... .......... .......... 19% 1.36M 11s
+  3300K .......... .......... .......... .......... .......... 20% 93.9M 11s
+  3350K .......... .......... .......... .......... .......... 20%  826K 11s
+  3400K .......... .......... .......... .......... .......... 20% 78.4M 11s
+  3450K .......... .......... .......... .......... .......... 20% 96.5M 10s
+  3500K .......... .......... .......... .......... .......... 21% 78.5M 10s
+  3550K .......... .......... .......... .......... .......... 21% 63.4M 10s
+  3600K .......... .......... .......... .......... .......... 21% 1.37M 10s
+  3650K .......... .......... .......... .......... .......... 22%  824K 10s
+  3700K .......... .......... .......... .......... .......... 22% 81.6M 10s
+  3750K .......... .......... .......... .......... .......... 22% 68.4M 10s
+  3800K .......... .......... .......... .......... .......... 23% 65.8M 10s
+  3850K .......... .......... .......... .......... .......... 23% 73.7M 9s
+  3900K .......... .......... .......... .......... .......... 23% 86.5M 9s
+  3950K .......... .......... .......... .......... .......... 23% 81.7M 9s
+  4000K .......... .......... .......... .......... .......... 24% 1.39M 9s
+  4050K .......... .......... .......... .......... .......... 24%  827K 9s
+  4100K .......... .......... .......... .......... .......... 24% 77.1M 9s
+  4150K .......... .......... .......... .......... .......... 25% 54.3M 9s
+  4200K .......... .......... .......... .......... .......... 25% 67.9M 9s
+  4250K .......... .......... .......... .......... .......... 25% 76.2M 9s
+  4300K .......... .......... .......... .......... .......... 26% 90.9M 8s
+  4350K .......... .......... .......... .......... .......... 26% 80.5M 8s
+  4400K .......... .......... .......... .......... .......... 26% 1.41M 8s
+  4450K .......... .......... .......... .......... .......... 26%  829K 8s
+  4500K .......... .......... .......... .......... .......... 27% 78.0M 8s
+  4550K .......... .......... .......... .......... .......... 27% 73.8M 8s
+  4600K .......... .......... .......... .......... .......... 27% 56.3M 8s
+  4650K .......... .......... .......... .......... .......... 28% 88.3M 8s
+  4700K .......... .......... .......... .......... .......... 28% 85.9M 8s
+  4750K .......... .......... .......... .......... .......... 28% 76.8M 8s
+  4800K .......... .......... .......... .......... .......... 29%  102M 8s
+  4850K .......... .......... .......... .......... .......... 29% 1.41M 7s
+  4900K .......... .......... .......... .......... .......... 29%  831K 8s
+  4950K .......... .......... .......... .......... .......... 29% 76.4M 7s
+  5000K .......... .......... .......... .......... .......... 30% 98.6M 7s
+  5050K .......... .......... .......... .......... .......... 30% 85.2M 7s
+  5100K .......... .......... .......... .......... .......... 30% 79.6M 7s
+  5150K .......... .......... .......... .......... .......... 31% 55.9M 7s
+  5200K .......... .......... .......... .......... .......... 31% 93.4M 7s
+  5250K .......... .......... .......... .......... .......... 31%  120M 7s
+  5300K .......... .......... .......... .......... .......... 32% 1.43M 7s
+  5350K .......... .......... .......... .......... .......... 32% 62.7M 7s
+  5400K .......... .......... .......... .......... .......... 32%  828K 7s
+  5450K .......... .......... .......... .......... .......... 32% 89.2M 7s
+  5500K .......... .......... .......... .......... .......... 33%  102M 7s
+  5550K .......... .......... .......... .......... .......... 33% 91.4M 6s
+  5600K .......... .......... .......... .......... .......... 33%  112M 6s
+  5650K .......... .......... .......... .......... .......... 34% 69.3M 6s
+  5700K .......... .......... .......... .......... .......... 34% 65.6M 6s
+  5750K .......... .......... .......... .......... .......... 34% 94.8M 6s
+  5800K .......... .......... .......... .......... .......... 35% 98.0M 6s
+  5850K .......... .......... .......... .......... .......... 35% 1.44M 6s
+  5900K .......... .......... .......... .......... .......... 35% 74.0M 6s
+  5950K .......... .......... .......... .......... .......... 35%  827K 6s
+  6000K .......... .......... .......... .......... .......... 36%  115M 6s
+  6050K .......... .......... .......... .......... .......... 36% 78.6M 6s
+  6100K .......... .......... .......... .......... .......... 36% 93.5M 6s
+  6150K .......... .......... .......... .......... .......... 37% 96.1M 6s
+  6200K .......... .......... .......... .......... .......... 37% 72.4M 6s
+  6250K .......... .......... .......... .......... .......... 37% 76.3M 6s
+  6300K .......... .......... .......... .......... .......... 38%  118M 6s
+  6350K .......... .......... .......... .......... .......... 38% 75.2M 5s
+  6400K .......... .......... .......... .......... .......... 38% 1.46M 5s
+  6450K .......... .......... .......... .......... .......... 38% 69.2M 5s
+  6500K .......... .......... .......... .......... .......... 39%  830K 5s
+  6550K .......... .......... .......... .......... .......... 39% 65.1M 5s
+  6600K .......... .......... .......... .......... .......... 39% 80.6M 5s
+  6650K .......... .......... .......... .......... .......... 40% 87.4M 5s
+  6700K .......... .......... .......... .......... .......... 40% 80.3M 5s
+  6750K .......... .......... .......... .......... .......... 40% 62.8M 5s
+  6800K .......... .......... .......... .......... .......... 41% 76.8M 5s
+  6850K .......... .......... .......... .......... .......... 41% 77.6M 5s
+  6900K .......... .......... .......... .......... .......... 41% 84.1M 5s
+  6950K .......... .......... .......... .......... .......... 41%  104M 5s
+  7000K .......... .......... .......... .......... .......... 42% 1.50M 5s
+  7050K .......... .......... .......... .......... .......... 42% 67.5M 5s
+  7100K .......... .......... .......... .......... .......... 42%  828K 5s
+  7150K .......... .......... .......... .......... .......... 43% 60.9M 5s
+  7200K .......... .......... .......... .......... .......... 43% 70.9M 5s
+  7250K .......... .......... .......... .......... .......... 43% 77.2M 5s
+  7300K .......... .......... .......... .......... .......... 44% 78.7M 5s
+  7350K .......... .......... .......... .......... .......... 44% 67.8M 4s
+  7400K .......... .......... .......... .......... .......... 44% 74.2M 4s
+  7450K .......... .......... .......... .......... .......... 44% 73.5M 4s
+  7500K .......... .......... .......... .......... .......... 45% 76.9M 4s
+  7550K .......... .......... .......... .......... .......... 45% 69.2M 4s
+  7600K .......... .......... .......... .......... .......... 45% 96.0M 4s
+  7650K .......... .......... .......... .......... .......... 46% 1.55M 4s
+  7700K .......... .......... .......... .......... .......... 46% 81.8M 4s
+  7750K .......... .......... .......... .......... .......... 46% 55.7M 4s
+  7800K .......... .......... .......... .......... .......... 47%  833K 4s
+  7850K .......... .......... .......... .......... .......... 47% 82.5M 4s
+  7900K .......... .......... .......... .......... .......... 47% 95.2M 4s
+  7950K .......... .......... .......... .......... .......... 47% 60.5M 4s
+  8000K .......... .......... .......... .......... .......... 48% 76.3M 4s
+  8050K .......... .......... .......... .......... .......... 48% 79.2M 4s
+  8100K .......... .......... .......... .......... .......... 48% 84.7M 4s
+  8150K .......... .......... .......... .......... .......... 49% 75.4M 4s
+  8200K .......... .......... .......... .......... .......... 49% 80.2M 4s
+  8250K .......... .......... .......... .......... .......... 49% 86.2M 4s
+  8300K .......... .......... .......... .......... .......... 50%  102M 4s
+  8350K .......... .......... .......... .......... .......... 50% 1.55M 4s
+  8400K .......... .......... .......... .......... .......... 50% 84.4M 4s
+  8450K .......... .......... .......... .......... .......... 50% 69.4M 4s
+  8500K .......... .......... .......... .......... .......... 51%  832K 4s
+  8550K .......... .......... .......... .......... .......... 51% 74.2M 4s
+  8600K .......... .......... .......... .......... .......... 51% 83.2M 4s
+  8650K .......... .......... .......... .......... .......... 52% 84.6M 3s
+  8700K .......... .......... .......... .......... .......... 52% 67.7M 3s
+  8750K .......... .......... .......... .......... .......... 52% 56.5M 3s
+  8800K .......... .......... .......... .......... .......... 53% 57.2M 3s
+  8850K .......... .......... .......... .......... .......... 53% 62.8M 3s
+  8900K .......... .......... .......... .......... .......... 53% 80.3M 3s
+  8950K .......... .......... .......... .......... .......... 53% 64.4M 3s
+  9000K .......... .......... .......... .......... .......... 54% 66.2M 3s
+  9050K .......... .......... .......... .......... .......... 54% 97.4M 3s
+  9100K .......... .......... .......... .......... .......... 54%  133M 3s
+  9150K .......... .......... .......... .......... .......... 55% 1.60M 3s
+  9200K .......... .......... .......... .......... .......... 55%  105M 3s
+  9250K .......... .......... .......... .......... .......... 55%  832K 3s
+  9300K .......... .......... .......... .......... .......... 56% 80.1M 3s
+  9350K .......... .......... .......... .......... .......... 56% 96.1M 3s
+  9400K .......... .......... .......... .......... .......... 56%  103M 3s
+  9450K .......... .......... .......... .......... .......... 56% 78.0M 3s
+  9500K .......... .......... .......... .......... .......... 57%  101M 3s
+  9550K .......... .......... .......... .......... .......... 57% 52.7M 3s
+  9600K .......... .......... .......... .......... .......... 57%  104M 3s
+  9650K .......... .......... .......... .......... .......... 58%  105M 3s
+  9700K .......... .......... .......... .......... .......... 58% 80.8M 3s
+  9750K .......... .......... .......... .......... .......... 58% 96.8M 3s
+  9800K .......... .......... .......... .......... .......... 59% 85.8M 3s
+  9850K .......... .......... .......... .......... .......... 59% 82.0M 3s
+  9900K .......... .......... .......... .......... .......... 59% 90.8M 3s
+  9950K .......... .......... .......... .......... .......... 59% 1.59M 3s
+ 10000K .......... .......... .......... .......... .......... 60% 67.4M 3s
+ 10050K .......... .......... .......... .......... .......... 60%  112M 3s
+ 10100K .......... .......... .......... .......... .......... 60%  834K 3s
+ 10150K .......... .......... .......... .......... .......... 61% 73.6M 3s
+ 10200K .......... .......... .......... .......... .......... 61%  100M 2s
+ 10250K .......... .......... .......... .......... .......... 61% 87.1M 2s
+ 10300K .......... .......... .......... .......... .......... 62% 76.3M 2s
+ 10350K .......... .......... .......... .......... .......... 62% 57.5M 2s
+ 10400K .......... .......... .......... .......... .......... 62% 83.3M 2s
+ 10450K .......... .......... .......... .......... .......... 62% 94.1M 2s
+ 10500K .......... .......... .......... .......... .......... 63% 84.4M 2s
+ 10550K .......... .......... .......... .......... .......... 63% 75.8M 2s
+ 10600K .......... .......... .......... .......... .......... 63% 80.5M 2s
+ 10650K .......... .......... .......... .......... .......... 64% 90.8M 2s
+ 10700K .......... .......... .......... .......... .......... 64% 77.0M 2s
+ 10750K .......... .......... .......... .......... .......... 64% 58.3M 2s
+ 10800K .......... .......... .......... .......... .......... 64%  114M 2s
+ 10850K .......... .......... .......... .......... .......... 65% 1.65M 2s
+ 10900K .......... .......... .......... .......... .......... 65% 72.7M 2s
+ 10950K .......... .......... .......... .......... .......... 65% 68.8M 2s
+ 11000K .......... .......... .......... .......... .......... 66%  115M 2s
+ 11050K .......... .......... .......... .......... .......... 66%  836K 2s
+ 11100K .......... .......... .......... .......... .......... 66%  105M 2s
+ 11150K .......... .......... .......... .......... .......... 67% 84.0M 2s
+ 11200K .......... .......... .......... .......... .......... 67% 87.1M 2s
+ 11250K .......... .......... .......... .......... .......... 67% 62.2M 2s
+ 11300K .......... .......... .......... .......... .......... 67%  103M 2s
+ 11350K .......... .......... .......... .......... .......... 68% 95.9M 2s
+ 11400K .......... .......... .......... .......... .......... 68% 94.0M 2s
+ 11450K .......... .......... .......... .......... .......... 68% 89.9M 2s
+ 11500K .......... .......... .......... .......... .......... 69% 81.8M 2s
+ 11550K .......... .......... .......... .......... .......... 69% 68.6M 2s
+ 11600K .......... .......... .......... .......... .......... 69% 94.2M 2s
+ 11650K .......... .......... .......... .......... .......... 70%  113M 2s
+ 11700K .......... .......... .......... .......... .......... 70% 78.8M 2s
+ 11750K .......... .......... .......... .......... .......... 70% 76.5M 2s
+ 11800K .......... .......... .......... .......... .......... 70%  110M 2s
+ 11850K .......... .......... .......... .......... .......... 71% 1.66M 2s
+ 11900K .......... .......... .......... .......... .......... 71% 81.2M 2s
+ 11950K .......... .......... .......... .......... .......... 71% 74.5M 2s
+ 12000K .......... .......... .......... .......... .......... 72%  836K 2s
+ 12050K .......... .......... .......... .......... .......... 72% 65.5M 2s
+ 12100K .......... .......... .......... .......... .......... 72% 59.7M 2s
+ 12150K .......... .......... .......... .......... .......... 73% 51.2M 2s
+ 12200K .......... .......... .......... .......... .......... 73% 50.2M 2s
+ 12250K .......... .......... .......... .......... .......... 73% 53.9M 1s
+ 12300K .......... .......... .......... .......... .......... 73% 61.1M 1s
+ 12350K .......... .......... .......... .......... .......... 74% 43.7M 1s
+ 12400K .......... .......... .......... .......... .......... 74% 57.9M 1s
+ 12450K .......... .......... .......... .......... .......... 74% 57.7M 1s
+ 12500K .......... .......... .......... .......... .......... 75% 58.5M 1s
+ 12550K .......... .......... .......... .......... .......... 75% 71.5M 1s
+ 12600K .......... .......... .......... .......... .......... 75% 59.8M 1s
+ 12650K .......... .......... .......... .......... .......... 76% 58.3M 1s
+ 12700K .......... .......... .......... .......... .......... 76% 70.6M 1s
+ 12750K .......... .......... .......... .......... .......... 76% 38.4M 1s
+ 12800K .......... .......... .......... .......... .......... 76% 78.0M 1s
+ 12850K .......... .......... .......... .......... .......... 77% 2.04M 1s
+ 12900K .......... .......... .......... .......... .......... 77%  121M 1s
+ 12950K .......... .......... .......... .......... .......... 77% 69.0M 1s
+ 13000K .......... .......... .......... .......... .......... 78% 84.6M 1s
+ 13050K .......... .......... .......... .......... .......... 78%  837K 1s
+ 13100K .......... .......... .......... .......... .......... 78% 73.5M 1s
+ 13150K .......... .......... .......... .......... .......... 79% 91.4M 1s
+ 13200K .......... .......... .......... .......... .......... 79% 55.0M 1s
+ 13250K .......... .......... .......... .......... .......... 79% 71.5M 1s
+ 13300K .......... .......... .......... .......... .......... 79% 53.7M 1s
+ 13350K .......... .......... .......... .......... .......... 80% 51.6M 1s
+ 13400K .......... .......... .......... .......... .......... 80% 68.7M 1s
+ 13450K .......... .......... .......... .......... .......... 80% 56.0M 1s
+ 13500K .......... .......... .......... .......... .......... 81% 80.0M 1s
+ 13550K .......... .......... .......... .......... .......... 81% 45.9M 1s
+ 13600K .......... .......... .......... .......... .......... 81% 78.4M 1s
+ 13650K .......... .......... .......... .......... .......... 82% 58.4M 1s
+ 13700K .......... .......... .......... .......... .......... 82% 88.3M 1s
+ 13750K .......... .......... .......... .......... .......... 82% 75.2M 1s
+ 13800K .......... .......... .......... .......... .......... 82% 51.7M 1s
+ 13850K .......... .......... .......... .......... .......... 83% 73.7M 1s
+ 13900K .......... .......... .......... .......... .......... 83% 55.3M 1s
+ 13950K .......... .......... .......... .......... .......... 83% 47.1M 1s
+ 14000K .......... .......... .......... .......... .......... 84% 2.06M 1s
+ 14050K .......... .......... .......... .......... .......... 84%  100M 1s
+ 14100K .......... .......... .......... .......... .......... 84% 86.5M 1s
+ 14150K .......... .......... .......... .......... .......... 85% 70.6M 1s
+ 14200K .......... .......... .......... .......... .......... 85% 79.9M 1s
+ 14250K .......... .......... .......... .......... .......... 85%  842K 1s
+ 14300K .......... .......... .......... .......... .......... 85% 92.8M 1s
+ 14350K .......... .......... .......... .......... .......... 86% 60.2M 1s
+ 14400K .......... .......... .......... .......... .......... 86% 98.4M 1s
+ 14450K .......... .......... .......... .......... .......... 86% 62.7M 1s
+ 14500K .......... .......... .......... .......... .......... 87% 60.4M 1s
+ 14550K .......... .......... .......... .......... .......... 87% 50.2M 1s
+ 14600K .......... .......... .......... .......... .......... 87% 69.1M 1s
+ 14650K .......... .......... .......... .......... .......... 88% 74.0M 1s
+ 14700K .......... .......... .......... .......... .......... 88% 70.4M 1s
+ 14750K .......... .......... .......... .......... .......... 88% 44.1M 1s
+ 14800K .......... .......... .......... .......... .......... 88%  113M 1s
+ 14850K .......... .......... .......... .......... .......... 89% 59.2M 1s
+ 14900K .......... .......... .......... .......... .......... 89% 76.5M 1s
+ 14950K .......... .......... .......... .......... .......... 89%  101M 0s
+ 15000K .......... .......... .......... .......... .......... 90% 61.4M 0s
+ 15050K .......... .......... .......... .......... .......... 90% 80.1M 0s
+ 15100K .......... .......... .......... .......... .......... 90% 72.1M 0s
+ 15150K .......... .......... .......... .......... .......... 91% 51.6M 0s
+ 15200K .......... .......... .......... .......... .......... 91% 63.7M 0s
+ 15250K .......... .......... .......... .......... .......... 91% 71.8M 0s
+ 15300K .......... .......... .......... .......... .......... 91% 2.10M 0s
+ 15350K .......... .......... .......... .......... .......... 92% 83.8M 0s
+ 15400K .......... .......... .......... .......... .......... 92% 83.5M 0s
+ 15450K .......... .......... .......... .......... .......... 92% 68.2M 0s
+ 15500K .......... .......... .......... .......... .......... 93%  843K 0s
+ 15550K .......... .......... .......... .......... .......... 93% 95.7M 0s
+ 15600K .......... .......... .......... .......... .......... 93% 83.9M 0s
+ 15650K .......... .......... .......... .......... .......... 94% 99.5M 0s
+ 15700K .......... .......... .......... .......... .......... 94% 83.5M 0s
+ 15750K .......... .......... .......... .......... .......... 94% 72.0M 0s
+ 15800K .......... .......... .......... .......... .......... 94% 68.9M 0s
+ 15850K .......... .......... .......... .......... .......... 95% 56.7M 0s
+ 15900K .......... .......... .......... .......... .......... 95% 66.3M 0s
+ 15950K .......... .......... .......... .......... .......... 95% 58.3M 0s
+ 16000K .......... .......... .......... .......... .......... 96% 91.7M 0s
+ 16050K .......... .......... .......... .......... .......... 96% 93.6M 0s
+ 16100K .......... .......... .......... .......... .......... 96% 57.5M 0s
+ 16150K .......... .......... .......... .......... .......... 97%  101M 0s
+ 16200K .......... .......... .......... .......... .......... 97% 70.3M 0s
+ 16250K .......... .......... .......... .......... .......... 97% 78.5M 0s
+ 16300K .......... .......... .......... .......... .......... 97% 84.1M 0s
+ 16350K .......... .......... .......... .......... .......... 98% 57.0M 0s
+ 16400K .......... .......... .......... .......... .......... 98%  114M 0s
+ 16450K .......... .......... .......... .......... .......... 98% 88.7M 0s
+ 16500K .......... .......... .......... .......... .......... 99% 77.8M 0s
+ 16550K .......... .......... .......... .......... .......... 99% 59.5M 0s
+ 16600K .......... .......... .......... .......... .......... 99% 95.3M 0s
+ 16650K .......... .......... .......... .......... ...       100% 91.9M=4.5s
+
+2016-05-28 19:36:43 (3.64 MB/s) - ‘elasticsearch-0.90.7.deb’ saved [17093902/17093902]
+
+++ dpkg -i elasticsearch-0.90.7.deb
+Selecting previously unselected package elasticsearch.
+(Reading database ... 108686 files and directories currently installed.)
+Preparing to unpack elasticsearch-0.90.7.deb ...
+Unpacking elasticsearch (0.90.7) ...
+Setting up elasticsearch (0.90.7) ...
+Adding system user `elasticsearch' (UID 112) ...
+Adding new user `elasticsearch' (UID 112) with group `elasticsearch' ...
+chage: the shadow password file is not present
+/usr/bin/chage failed with return code 15, shadow not enabled, password aging cannot be set. Continuing.
+Not creating home directory `/usr/share/elasticsearch'.
+ * Starting ElasticSearch Server
+   ...done.
+Processing triggers for ureadahead (0.100.0-16) ...
+++ service elasticsearch restart
+ * Stopping ElasticSearch Server
+   ...done.
+ * Starting ElasticSearch Server
+   ...done.
+++ echo 'Downloading Restyaboard script...'
+Downloading Restyaboard script...
+++ mkdir /opt/restyaboard
+++ curl -v -L -G -d 'app=board&ver=v0.2.1' -o /tmp/restyaboard.zip http://restya.com/download.php
+* Hostname was NOT found in DNS cache
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 95.211.218.166...
+* Connected to restya.com (95.211.218.166) port 80 (#0)
+> GET /download.php?app=board&ver=v0.2.1 HTTP/1.1
+> User-Agent: curl/7.35.0
+> Host: restya.com
+> Accept: */*
+> 
+< HTTP/1.1 302 Moved Temporarily
+* Server nginx is not blacklisted
+< Server: nginx
+< Date: Sat, 28 May 2016 19:36:46 GMT
+< Content-Type: text/html
+< Transfer-Encoding: chunked
+< Connection: keep-alive
+< X-Powered-By: PHP/5.3.19
+< location: https://github.com/RestyaPlatform/board/releases/download/v0.2.1/board-v0.2.1.zip
+< 
+* Ignoring the response-body
+{ [data not shown]
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+* Connection #0 to host restya.com left intact
+* Issue another request to this URL: 'https://github.com/RestyaPlatform/board/releases/download/v0.2.1/board-v0.2.1.zip'
+* Hostname was NOT found in DNS cache
+*   Trying 192.30.252.128...
+* Connected to github.com (192.30.252.128) port 443 (#1)
+* successfully set certificate verify locations:
+*   CAfile: none
+  CApath: /etc/ssl/certs
+* SSLv3, TLS handshake, Client hello (1):
+} [data not shown]
+* SSLv3, TLS handshake, Server hello (2):
+{ [data not shown]
+* SSLv3, TLS handshake, CERT (11):
+{ [data not shown]
+* SSLv3, TLS handshake, Server key exchange (12):
+{ [data not shown]
+* SSLv3, TLS handshake, Server finished (14):
+{ [data not shown]
+* SSLv3, TLS handshake, Client key exchange (16):
+} [data not shown]
+* SSLv3, TLS change cipher, Client hello (1):
+} [data not shown]
+* SSLv3, TLS handshake, Finished (20):
+} [data not shown]
+* SSLv3, TLS change cipher, Client hello (1):
+{ [data not shown]
+* SSLv3, TLS handshake, Finished (20):
+{ [data not shown]
+* SSL connection using ECDHE-RSA-AES128-GCM-SHA256
+* Server certificate:
+* 	 subject: businessCategory=Private Organization; 1.3.6.1.4.1.311.60.2.1.3=US; 1.3.6.1.4.1.311.60.2.1.2=Delaware; serialNumber=5157550; street=88 Colin P Kelly, Jr Street; postalCode=94107; C=US; ST=California; L=San Francisco; O=GitHub, Inc.; CN=github.com
+* 	 start date: 2016-03-10 00:00:00 GMT
+* 	 expire date: 2018-05-17 12:00:00 GMT
+* 	 subjectAltName: github.com matched
+* 	 issuer: C=US; O=DigiCert Inc; OU=www.digicert.com; CN=DigiCert SHA2 Extended Validation Server CA
+* 	 SSL certificate verify ok.
+> GET /RestyaPlatform/board/releases/download/v0.2.1/board-v0.2.1.zip HTTP/1.1
+> User-Agent: curl/7.35.0
+> Host: github.com
+> Accept: */*
+> 
+< HTTP/1.1 302 Found
+* Server GitHub.com is not blacklisted
+< Server: GitHub.com
+< Date: Sat, 28 May 2016 19:36:47 GMT
+< Content-Type: text/html; charset=utf-8
+< Transfer-Encoding: chunked
+< Status: 302 Found
+< Cache-Control: no-cache
+< Vary: X-PJAX
+< Location: https://github-cloud.s3.amazonaws.com/releases/36856044/bfa9ae7a-eba9-11e5-9a91-d5b69f5f1ca6.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAISTNZFOVBIJMK3TQ%2F20160528%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20160528T193647Z&X-Amz-Expires=300&X-Amz-Signature=07f3ce0496b9cd60f1d770bbbe39a81e617f51228fd57364b259decc55a4d6e8&X-Amz-SignedHeaders=host&actor_id=0&response-content-disposition=attachment%3B%20filename%3Dboard-v0.2.1.zip&response-content-type=application%2Foctet-stream
+< X-UA-Compatible: IE=Edge,chrome=1
+< Set-Cookie: logged_in=no; domain=.github.com; path=/; expires=Wed, 28 May 2036 19:36:47 -0000; secure; HttpOnly
+< Set-Cookie: _gh_sess=eyJzZXNzaW9uX2lkIjoiNDhhMjc1ZDMyYzkxMWY0ZDc2ZTYwZTJlZTdiOTk5YjIiLCJzcHlfcmVwbyI6IlJlc3R5YVBsYXRmb3JtL2JvYXJkIiwic3B5X3JlcG9fYXQiOjE0NjQ0NjQyMDd9--3740cdc1d9c572316c000fe1e468f5cc6cb8ba7a; path=/; secure; HttpOnly
+< X-Request-Id: acb07c304e43be3c0db91df54afd5a0c
+< X-Runtime: 0.017225
+< Content-Security-Policy: default-src 'none'; base-uri 'self'; block-all-mixed-content; child-src render.githubusercontent.com; connect-src 'self' uploads.github.com status.github.com api.github.com www.google-analytics.com github-cloud.s3.amazonaws.com wss://live.github.com; font-src assets-cdn.github.com; form-action 'self' github.com gist.github.com; frame-ancestors 'none'; frame-src render.githubusercontent.com; img-src 'self' data: assets-cdn.github.com identicons.github.com www.google-analytics.com collector.githubapp.com *.gravatar.com *.wp.com *.githubusercontent.com; media-src 'none'; object-src assets-cdn.github.com; plugin-types application/x-shockwave-flash; script-src assets-cdn.github.com; style-src 'unsafe-inline' assets-cdn.github.com
+< Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+< Public-Key-Pins: max-age=5184000; pin-sha256="WoiWRyIOVNa9ihaBciRSC7XHjliYS9VwUGOIud4PB18="; pin-sha256="RRM1dGqnDFsCJXBTHky16vi1obOlCgFFn/yOhI/y+ho="; pin-sha256="k2v657xBsOVe1PQRwOsHsw3bsGT2VzIqz5K+59sNQws="; pin-sha256="K87oWBWM9UZfyddvDfoxL+8lpNyoUB2ptGtn0fv6G2Q="; pin-sha256="IQBnNBEiFuhj+8x6X8XLgh01V9Ic5/V3IRQLNFFc7v4="; pin-sha256="iie1VXtL7HzAMF+/PVPR9xzT80kQxdZeJ+zduCB3uj0="; pin-sha256="LvRiGEjRqfzurezaWuj8Wie2gyHMrW5Q06LspMnox7A="; includeSubDomains
+< X-Content-Type-Options: nosniff
+< X-Frame-Options: deny
+< X-XSS-Protection: 1; mode=block
+< Vary: Accept-Encoding
+< X-Served-By: cbc5fb89a0e5c9db5298b4b976ca7aca
+< X-GitHub-Request-Id: B0099414:18C0:B69A489:5749F34F
+< 
+* Ignoring the response-body
+{ [data not shown]
+  0     0    0   593    0     0    852      0 --:--:-- --:--:-- --:--:--   852
+* Connection #1 to host github.com left intact
+* Issue another request to this URL: 'https://github-cloud.s3.amazonaws.com/releases/36856044/bfa9ae7a-eba9-11e5-9a91-d5b69f5f1ca6.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAISTNZFOVBIJMK3TQ%2F20160528%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20160528T193647Z&X-Amz-Expires=300&X-Amz-Signature=07f3ce0496b9cd60f1d770bbbe39a81e617f51228fd57364b259decc55a4d6e8&X-Amz-SignedHeaders=host&actor_id=0&response-content-disposition=attachment%3B%20filename%3Dboard-v0.2.1.zip&response-content-type=application%2Foctet-stream'
+* Hostname was NOT found in DNS cache
+*   Trying 54.231.11.104...
+* Connected to github-cloud.s3.amazonaws.com (54.231.11.104) port 443 (#2)
+* successfully set certificate verify locations:
+*   CAfile: none
+  CApath: /etc/ssl/certs
+* SSLv3, TLS handshake, Client hello (1):
+} [data not shown]
+* SSLv3, TLS handshake, Server hello (2):
+{ [data not shown]
+* SSLv3, TLS handshake, CERT (11):
+{ [data not shown]
+* SSLv3, TLS handshake, Server key exchange (12):
+{ [data not shown]
+* SSLv3, TLS handshake, Server finished (14):
+{ [data not shown]
+* SSLv3, TLS handshake, Client key exchange (16):
+} [data not shown]
+* SSLv3, TLS change cipher, Client hello (1):
+} [data not shown]
+* SSLv3, TLS handshake, Finished (20):
+} [data not shown]
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* SSLv3, TLS change cipher, Client hello (1):
+{ [data not shown]
+* SSLv3, TLS handshake, Finished (20):
+{ [data not shown]
+* SSL connection using ECDHE-RSA-AES128-SHA
+* Server certificate:
+* 	 subject: C=US; ST=Washington; L=Seattle; O=Amazon.com Inc.; CN=*.s3.amazonaws.com
+* 	 start date: 2015-12-08 12:05:08 GMT
+* 	 expire date: 2016-10-25 12:00:00 GMT
+* 	 subjectAltName: github-cloud.s3.amazonaws.com matched
+* 	 issuer: C=US; O=DigiCert Inc; OU=www.digicert.com; CN=DigiCert Baltimore CA-2 G2
+* 	 SSL certificate verify ok.
+> GET /releases/36856044/bfa9ae7a-eba9-11e5-9a91-d5b69f5f1ca6.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAISTNZFOVBIJMK3TQ%2F20160528%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20160528T193647Z&X-Amz-Expires=300&X-Amz-Signature=07f3ce0496b9cd60f1d770bbbe39a81e617f51228fd57364b259decc55a4d6e8&X-Amz-SignedHeaders=host&actor_id=0&response-content-disposition=attachment%3B%20filename%3Dboard-v0.2.1.zip&response-content-type=application%2Foctet-stream HTTP/1.1
+> User-Agent: curl/7.35.0
+> Host: github-cloud.s3.amazonaws.com
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< x-amz-id-2: VibyjnzGnDPzp0cHQWuE5LUQx5IyROsAdbKSt8lJZYxg++XeF0+Sc1rmqalJ5Y8+
+< x-amz-request-id: E048D27BC844131D
+< Date: Sat, 28 May 2016 19:36:48 GMT
+< Content-Disposition: attachment; filename=board-v0.2.1.zip
+< Last-Modified: Wed, 16 Mar 2016 13:33:22 GMT
+< ETag: "e8b0b6c3b6c2da75667d1ffc72866e07"
+< Accept-Ranges: bytes
+< Content-Type: application/octet-stream
+< Content-Length: 6224375
+* Server AmazonS3 is not blacklisted
+< Server: AmazonS3
+< 
+{ [data not shown]
+  3 6078k    3  202k    0     0   107k      0  0:00:56  0:00:01  0:00:55  204k 20 6078k   20 1273k    0     0   440k      0  0:00:13  0:00:02  0:00:11  635k 67 6078k   67 4078k    0     0  1039k      0  0:00:05  0:00:03  0:00:02 1342k100 6078k  100 6078k    0     0  1418k      0  0:00:04  0:00:04 --:--:-- 1789k
+* Connection #2 to host github-cloud.s3.amazonaws.com left intact
+++ unzip /tmp/restyaboard.zip -d /opt/restyaboard
+Archive:  /tmp/restyaboard.zip
+   creating: /opt/restyaboard/client/api_explorer/
+  inflating: /opt/restyaboard/client/api_explorer/api.json  
+   creating: /opt/restyaboard/client/api_explorer/css/
+  inflating: /opt/restyaboard/client/api_explorer/css/print.css  
+  inflating: /opt/restyaboard/client/api_explorer/css/reset.css  
+  inflating: /opt/restyaboard/client/api_explorer/css/screen.css  
+  inflating: /opt/restyaboard/client/api_explorer/css/style.css  
+  inflating: /opt/restyaboard/client/api_explorer/css/typography.css  
+   creating: /opt/restyaboard/client/api_explorer/fonts/
+  inflating: /opt/restyaboard/client/api_explorer/fonts/DroidSans.ttf  
+  inflating: /opt/restyaboard/client/api_explorer/fonts/DroidSans-Bold.ttf  
+   creating: /opt/restyaboard/client/api_explorer/images/
+  inflating: /opt/restyaboard/client/api_explorer/images/collapse.gif  
+  inflating: /opt/restyaboard/client/api_explorer/images/expand.gif  
+  inflating: /opt/restyaboard/client/api_explorer/images/explorer_icons.png  
+  inflating: /opt/restyaboard/client/api_explorer/images/favicon.ico  
+ extracting: /opt/restyaboard/client/api_explorer/images/favicon-16x16.png  
+ extracting: /opt/restyaboard/client/api_explorer/images/favicon-32x32.png  
+ extracting: /opt/restyaboard/client/api_explorer/images/logo_small.png  
+ extracting: /opt/restyaboard/client/api_explorer/images/pet_store_api.png  
+  inflating: /opt/restyaboard/client/api_explorer/images/throbber.gif  
+ extracting: /opt/restyaboard/client/api_explorer/images/wordnik_api.png  
+  inflating: /opt/restyaboard/client/api_explorer/index.html  
+   creating: /opt/restyaboard/client/api_explorer/lang/
+  inflating: /opt/restyaboard/client/api_explorer/lang/en.js  
+  inflating: /opt/restyaboard/client/api_explorer/lang/es.js  
+  inflating: /opt/restyaboard/client/api_explorer/lang/fr.js  
+  inflating: /opt/restyaboard/client/api_explorer/lang/it.js  
+  inflating: /opt/restyaboard/client/api_explorer/lang/ja.js  
+  inflating: /opt/restyaboard/client/api_explorer/lang/pl.js  
+  inflating: /opt/restyaboard/client/api_explorer/lang/pt.js  
+  inflating: /opt/restyaboard/client/api_explorer/lang/ru.js  
+  inflating: /opt/restyaboard/client/api_explorer/lang/tr.js  
+  inflating: /opt/restyaboard/client/api_explorer/lang/translator.js  
+  inflating: /opt/restyaboard/client/api_explorer/lang/zh-cn.js  
+   creating: /opt/restyaboard/client/api_explorer/lib/
+  inflating: /opt/restyaboard/client/api_explorer/lib/backbone-min.js  
+  inflating: /opt/restyaboard/client/api_explorer/lib/handlebars-2.0.0.js  
+  inflating: /opt/restyaboard/client/api_explorer/lib/highlight.7.3.pack.js  
+  inflating: /opt/restyaboard/client/api_explorer/lib/jquery.ba-bbq.min.js  
+  inflating: /opt/restyaboard/client/api_explorer/lib/jquery.slideto.min.js  
+  inflating: /opt/restyaboard/client/api_explorer/lib/jquery.wiggle.min.js  
+  inflating: /opt/restyaboard/client/api_explorer/lib/jquery-1.8.0.min.js  
+  inflating: /opt/restyaboard/client/api_explorer/lib/jsoneditor.min.js  
+  inflating: /opt/restyaboard/client/api_explorer/lib/marked.js  
+  inflating: /opt/restyaboard/client/api_explorer/lib/swagger.js  
+  inflating: /opt/restyaboard/client/api_explorer/lib/swagger-oauth.js  
+  inflating: /opt/restyaboard/client/api_explorer/lib/underscore-min.js  
+  inflating: /opt/restyaboard/client/api_explorer/lib/underscore-min.map  
+  inflating: /opt/restyaboard/client/api_explorer/o2c.html  
+  inflating: /opt/restyaboard/client/api_explorer/swagger-ui.js  
+  inflating: /opt/restyaboard/client/api_explorer/swagger-ui.min.js  
+ extracting: /opt/restyaboard/client/apple-touch-icon.png  
+ extracting: /opt/restyaboard/client/apple-touch-icon-114x114.png  
+ extracting: /opt/restyaboard/client/apple-touch-icon-72x72.png  
+   creating: /opt/restyaboard/client/css/
+  inflating: /opt/restyaboard/client/css/authorize.css  
+  inflating: /opt/restyaboard/client/css/default.cache.a4664637.css  
+  inflating: /opt/restyaboard/client/default.appcache  
+  inflating: /opt/restyaboard/client/favicon.ico  
+   creating: /opt/restyaboard/client/font/
+  inflating: /opt/restyaboard/client/font/FontAwesome.otf  
+  inflating: /opt/restyaboard/client/font/fontawesome-corp-webfont.eot  
+  inflating: /opt/restyaboard/client/font/fontawesome-corp-webfont.svg  
+  inflating: /opt/restyaboard/client/font/fontawesome-corp-webfont.ttf  
+  inflating: /opt/restyaboard/client/font/fontawesome-corp-webfont.woff  
+  inflating: /opt/restyaboard/client/font/fontawesome-webfont.eot  
+  inflating: /opt/restyaboard/client/font/fontawesome-webfont.svg  
+  inflating: /opt/restyaboard/client/font/fontawesome-webfont.ttf  
+  inflating: /opt/restyaboard/client/font/fontawesome-webfont.woff  
+   creating: /opt/restyaboard/client/img/
+  inflating: /opt/restyaboard/client/img/ajax-loader.gif  
+ extracting: /opt/restyaboard/client/img/appstore.png  
+  inflating: /opt/restyaboard/client/img/default-organization.png  
+ extracting: /opt/restyaboard/client/img/default-organization-thumb.png  
+   creating: /opt/restyaboard/client/img/emoji/
+ extracting: /opt/restyaboard/client/img/emoji/+1.png  
+ extracting: /opt/restyaboard/client/img/emoji/-1.png  
+ extracting: /opt/restyaboard/client/img/emoji/100.png  
+ extracting: /opt/restyaboard/client/img/emoji/1234.png  
+ extracting: /opt/restyaboard/client/img/emoji/8ball.png  
+ extracting: /opt/restyaboard/client/img/emoji/a.png  
+ extracting: /opt/restyaboard/client/img/emoji/ab.png  
+ extracting: /opt/restyaboard/client/img/emoji/abc.png  
+ extracting: /opt/restyaboard/client/img/emoji/abcd.png  
+ extracting: /opt/restyaboard/client/img/emoji/accept.png  
+ extracting: /opt/restyaboard/client/img/emoji/aerial_tramway.png  
+ extracting: /opt/restyaboard/client/img/emoji/airplane.png  
+ extracting: /opt/restyaboard/client/img/emoji/alarm_clock.png  
+  inflating: /opt/restyaboard/client/img/emoji/alien.png  
+ extracting: /opt/restyaboard/client/img/emoji/ambulance.png  
+ extracting: /opt/restyaboard/client/img/emoji/anchor.png  
+ extracting: /opt/restyaboard/client/img/emoji/angel.png  
+  inflating: /opt/restyaboard/client/img/emoji/anger.png  
+ extracting: /opt/restyaboard/client/img/emoji/angry.png  
+  inflating: /opt/restyaboard/client/img/emoji/anguished.png  
+ extracting: /opt/restyaboard/client/img/emoji/ant.png  
+ extracting: /opt/restyaboard/client/img/emoji/apple.png  
+ extracting: /opt/restyaboard/client/img/emoji/aquarius.png  
+  inflating: /opt/restyaboard/client/img/emoji/aries.png  
+ extracting: /opt/restyaboard/client/img/emoji/arrow_backward.png  
+  inflating: /opt/restyaboard/client/img/emoji/arrow_double_down.png  
+  inflating: /opt/restyaboard/client/img/emoji/arrow_double_up.png  
+  inflating: /opt/restyaboard/client/img/emoji/arrow_down.png  
+ extracting: /opt/restyaboard/client/img/emoji/arrow_down_small.png  
+ extracting: /opt/restyaboard/client/img/emoji/arrow_forward.png  
+ extracting: /opt/restyaboard/client/img/emoji/arrow_heading_down.png  
+ extracting: /opt/restyaboard/client/img/emoji/arrow_heading_up.png  
+  inflating: /opt/restyaboard/client/img/emoji/arrow_left.png  
+  inflating: /opt/restyaboard/client/img/emoji/arrow_lower_left.png  
+  inflating: /opt/restyaboard/client/img/emoji/arrow_lower_right.png  
+  inflating: /opt/restyaboard/client/img/emoji/arrow_right.png  
+ extracting: /opt/restyaboard/client/img/emoji/arrow_right_hook.png  
+  inflating: /opt/restyaboard/client/img/emoji/arrow_up.png  
+  inflating: /opt/restyaboard/client/img/emoji/arrow_up_down.png  
+  inflating: /opt/restyaboard/client/img/emoji/arrow_up_small.png  
+  inflating: /opt/restyaboard/client/img/emoji/arrow_upper_left.png  
+  inflating: /opt/restyaboard/client/img/emoji/arrow_upper_right.png  
+ extracting: /opt/restyaboard/client/img/emoji/arrows_clockwise.png  
+  inflating: /opt/restyaboard/client/img/emoji/arrows_counterclockwise.png  
+ extracting: /opt/restyaboard/client/img/emoji/art.png  
+ extracting: /opt/restyaboard/client/img/emoji/articulated_lorry.png  
+ extracting: /opt/restyaboard/client/img/emoji/astonished.png  
+ extracting: /opt/restyaboard/client/img/emoji/atm.png  
+ extracting: /opt/restyaboard/client/img/emoji/b.png  
+ extracting: /opt/restyaboard/client/img/emoji/baby.png  
+ extracting: /opt/restyaboard/client/img/emoji/baby_bottle.png  
+ extracting: /opt/restyaboard/client/img/emoji/baby_chick.png  
+ extracting: /opt/restyaboard/client/img/emoji/baby_symbol.png  
+  inflating: /opt/restyaboard/client/img/emoji/back.png  
+ extracting: /opt/restyaboard/client/img/emoji/baggage_claim.png  
+ extracting: /opt/restyaboard/client/img/emoji/balloon.png  
+ extracting: /opt/restyaboard/client/img/emoji/ballot_box_with_check.png  
+ extracting: /opt/restyaboard/client/img/emoji/bamboo.png  
+ extracting: /opt/restyaboard/client/img/emoji/banana.png  
+ extracting: /opt/restyaboard/client/img/emoji/bangbang.png  
+ extracting: /opt/restyaboard/client/img/emoji/bank.png  
+ extracting: /opt/restyaboard/client/img/emoji/bar_chart.png  
+ extracting: /opt/restyaboard/client/img/emoji/barber.png  
+ extracting: /opt/restyaboard/client/img/emoji/baseball.png  
+ extracting: /opt/restyaboard/client/img/emoji/basketball.png  
+ extracting: /opt/restyaboard/client/img/emoji/bath.png  
+ extracting: /opt/restyaboard/client/img/emoji/bathtub.png  
+ extracting: /opt/restyaboard/client/img/emoji/battery.png  
+ extracting: /opt/restyaboard/client/img/emoji/bear.png  
+ extracting: /opt/restyaboard/client/img/emoji/bee.png  
+ extracting: /opt/restyaboard/client/img/emoji/beer.png  
+ extracting: /opt/restyaboard/client/img/emoji/beers.png  
+ extracting: /opt/restyaboard/client/img/emoji/beetle.png  
+ extracting: /opt/restyaboard/client/img/emoji/beginner.png  
+ extracting: /opt/restyaboard/client/img/emoji/bell.png  
+ extracting: /opt/restyaboard/client/img/emoji/bento.png  
+ extracting: /opt/restyaboard/client/img/emoji/bicyclist.png  
+ extracting: /opt/restyaboard/client/img/emoji/bike.png  
+ extracting: /opt/restyaboard/client/img/emoji/bikini.png  
+ extracting: /opt/restyaboard/client/img/emoji/bird.png  
+ extracting: /opt/restyaboard/client/img/emoji/birthday.png  
+  inflating: /opt/restyaboard/client/img/emoji/black_circle.png  
+ extracting: /opt/restyaboard/client/img/emoji/black_joker.png  
+  inflating: /opt/restyaboard/client/img/emoji/black_medium_small_square.png  
+  inflating: /opt/restyaboard/client/img/emoji/black_medium_square.png  
+ extracting: /opt/restyaboard/client/img/emoji/black_nib.png  
+  inflating: /opt/restyaboard/client/img/emoji/black_small_square.png  
+ extracting: /opt/restyaboard/client/img/emoji/black_square.png  
+ extracting: /opt/restyaboard/client/img/emoji/black_square_button.png  
+ extracting: /opt/restyaboard/client/img/emoji/blossom.png  
+ extracting: /opt/restyaboard/client/img/emoji/blowfish.png  
+ extracting: /opt/restyaboard/client/img/emoji/blue_book.png  
+ extracting: /opt/restyaboard/client/img/emoji/blue_car.png  
+ extracting: /opt/restyaboard/client/img/emoji/blue_heart.png  
+ extracting: /opt/restyaboard/client/img/emoji/blush.png  
+ extracting: /opt/restyaboard/client/img/emoji/boar.png  
+ extracting: /opt/restyaboard/client/img/emoji/boat.png  
+ extracting: /opt/restyaboard/client/img/emoji/bomb.png  
+ extracting: /opt/restyaboard/client/img/emoji/book.png  
+ extracting: /opt/restyaboard/client/img/emoji/bookmark.png  
+ extracting: /opt/restyaboard/client/img/emoji/bookmark_tabs.png  
+ extracting: /opt/restyaboard/client/img/emoji/books.png  
+ extracting: /opt/restyaboard/client/img/emoji/boom.png  
+ extracting: /opt/restyaboard/client/img/emoji/boot.png  
+ extracting: /opt/restyaboard/client/img/emoji/bouquet.png  
+ extracting: /opt/restyaboard/client/img/emoji/bow.png  
+ extracting: /opt/restyaboard/client/img/emoji/bowling.png  
+ extracting: /opt/restyaboard/client/img/emoji/bowtie.png  
+ extracting: /opt/restyaboard/client/img/emoji/boy.png  
+ extracting: /opt/restyaboard/client/img/emoji/bread.png  
+ extracting: /opt/restyaboard/client/img/emoji/bride_with_veil.png  
+ extracting: /opt/restyaboard/client/img/emoji/bridge_at_night.png  
+ extracting: /opt/restyaboard/client/img/emoji/briefcase.png  
+ extracting: /opt/restyaboard/client/img/emoji/broken_heart.png  
+ extracting: /opt/restyaboard/client/img/emoji/bug.png  
+ extracting: /opt/restyaboard/client/img/emoji/bulb.png  
+ extracting: /opt/restyaboard/client/img/emoji/bullettrain_front.png  
+ extracting: /opt/restyaboard/client/img/emoji/bullettrain_side.png  
+ extracting: /opt/restyaboard/client/img/emoji/bus.png  
+  inflating: /opt/restyaboard/client/img/emoji/busstop.png  
+ extracting: /opt/restyaboard/client/img/emoji/bust_in_silhouette.png  
+ extracting: /opt/restyaboard/client/img/emoji/busts_in_silhouette.png  
+ extracting: /opt/restyaboard/client/img/emoji/cactus.png  
+ extracting: /opt/restyaboard/client/img/emoji/cake.png  
+ extracting: /opt/restyaboard/client/img/emoji/calendar.png  
+ extracting: /opt/restyaboard/client/img/emoji/calling.png  
+ extracting: /opt/restyaboard/client/img/emoji/camel.png  
+ extracting: /opt/restyaboard/client/img/emoji/camera.png  
+ extracting: /opt/restyaboard/client/img/emoji/cancer.png  
+ extracting: /opt/restyaboard/client/img/emoji/candy.png  
+ extracting: /opt/restyaboard/client/img/emoji/capital_abcd.png  
+ extracting: /opt/restyaboard/client/img/emoji/capricorn.png  
+ extracting: /opt/restyaboard/client/img/emoji/car.png  
+ extracting: /opt/restyaboard/client/img/emoji/card_index.png  
+ extracting: /opt/restyaboard/client/img/emoji/carousel_horse.png  
+ extracting: /opt/restyaboard/client/img/emoji/cat.png  
+ extracting: /opt/restyaboard/client/img/emoji/cat2.png  
+ extracting: /opt/restyaboard/client/img/emoji/cd.png  
+ extracting: /opt/restyaboard/client/img/emoji/chart.png  
+ extracting: /opt/restyaboard/client/img/emoji/chart_with_downwards_trend.png  
+ extracting: /opt/restyaboard/client/img/emoji/chart_with_upwards_trend.png  
+ extracting: /opt/restyaboard/client/img/emoji/checkered_flag.png  
+ extracting: /opt/restyaboard/client/img/emoji/cherries.png  
+ extracting: /opt/restyaboard/client/img/emoji/cherry_blossom.png  
+ extracting: /opt/restyaboard/client/img/emoji/chestnut.png  
+ extracting: /opt/restyaboard/client/img/emoji/chicken.png  
+ extracting: /opt/restyaboard/client/img/emoji/children_crossing.png  
+ extracting: /opt/restyaboard/client/img/emoji/chocolate_bar.png  
+ extracting: /opt/restyaboard/client/img/emoji/christmas_tree.png  
+ extracting: /opt/restyaboard/client/img/emoji/church.png  
+ extracting: /opt/restyaboard/client/img/emoji/cinema.png  
+ extracting: /opt/restyaboard/client/img/emoji/circus_tent.png  
+ extracting: /opt/restyaboard/client/img/emoji/city_sunrise.png  
+ extracting: /opt/restyaboard/client/img/emoji/city_sunset.png  
+ extracting: /opt/restyaboard/client/img/emoji/cl.png  
+ extracting: /opt/restyaboard/client/img/emoji/clap.png  
+ extracting: /opt/restyaboard/client/img/emoji/clapper.png  
+ extracting: /opt/restyaboard/client/img/emoji/clipboard.png  
+ extracting: /opt/restyaboard/client/img/emoji/clock1.png  
+ extracting: /opt/restyaboard/client/img/emoji/clock10.png  
+ extracting: /opt/restyaboard/client/img/emoji/clock1030.png  
+ extracting: /opt/restyaboard/client/img/emoji/clock11.png  
+ extracting: /opt/restyaboard/client/img/emoji/clock1130.png  
+ extracting: /opt/restyaboard/client/img/emoji/clock12.png  
+ extracting: /opt/restyaboard/client/img/emoji/clock1230.png  
+ extracting: /opt/restyaboard/client/img/emoji/clock130.png  
+ extracting: /opt/restyaboard/client/img/emoji/clock2.png  
+ extracting: /opt/restyaboard/client/img/emoji/clock230.png  
+ extracting: /opt/restyaboard/client/img/emoji/clock3.png  
+ extracting: /opt/restyaboard/client/img/emoji/clock330.png  
+ extracting: /opt/restyaboard/client/img/emoji/clock4.png  
+ extracting: /opt/restyaboard/client/img/emoji/clock430.png  
+ extracting: /opt/restyaboard/client/img/emoji/clock5.png  
+ extracting: /opt/restyaboard/client/img/emoji/clock530.png  
+ extracting: /opt/restyaboard/client/img/emoji/clock6.png  
+ extracting: /opt/restyaboard/client/img/emoji/clock630.png  
+ extracting: /opt/restyaboard/client/img/emoji/clock7.png  
+ extracting: /opt/restyaboard/client/img/emoji/clock730.png  
+ extracting: /opt/restyaboard/client/img/emoji/clock8.png  
+ extracting: /opt/restyaboard/client/img/emoji/clock830.png  
+ extracting: /opt/restyaboard/client/img/emoji/clock9.png  
+ extracting: /opt/restyaboard/client/img/emoji/clock930.png  
+ extracting: /opt/restyaboard/client/img/emoji/closed_book.png  
+ extracting: /opt/restyaboard/client/img/emoji/closed_lock_with_key.png  
+ extracting: /opt/restyaboard/client/img/emoji/closed_umbrella.png  
+ extracting: /opt/restyaboard/client/img/emoji/cloud.png  
+ extracting: /opt/restyaboard/client/img/emoji/clubs.png  
+ extracting: /opt/restyaboard/client/img/emoji/cn.png  
+ extracting: /opt/restyaboard/client/img/emoji/cocktail.png  
+ extracting: /opt/restyaboard/client/img/emoji/coffee.png  
+ extracting: /opt/restyaboard/client/img/emoji/cold_sweat.png  
+ extracting: /opt/restyaboard/client/img/emoji/collision.png  
+ extracting: /opt/restyaboard/client/img/emoji/computer.png  
+ extracting: /opt/restyaboard/client/img/emoji/confetti_ball.png  
+ extracting: /opt/restyaboard/client/img/emoji/confounded.png  
+  inflating: /opt/restyaboard/client/img/emoji/confused.png  
+  inflating: /opt/restyaboard/client/img/emoji/congratulations.png  
+ extracting: /opt/restyaboard/client/img/emoji/construction.png  
+ extracting: /opt/restyaboard/client/img/emoji/construction_worker.png  
+ extracting: /opt/restyaboard/client/img/emoji/convenience_store.png  
+ extracting: /opt/restyaboard/client/img/emoji/cookie.png  
+ extracting: /opt/restyaboard/client/img/emoji/cool.png  
+ extracting: /opt/restyaboard/client/img/emoji/cop.png  
+ extracting: /opt/restyaboard/client/img/emoji/copyright.png  
+ extracting: /opt/restyaboard/client/img/emoji/corn.png  
+ extracting: /opt/restyaboard/client/img/emoji/couple.png  
+ extracting: /opt/restyaboard/client/img/emoji/couple_with_heart.png  
+ extracting: /opt/restyaboard/client/img/emoji/couplekiss.png  
+ extracting: /opt/restyaboard/client/img/emoji/cow.png  
+ extracting: /opt/restyaboard/client/img/emoji/cow2.png  
+ extracting: /opt/restyaboard/client/img/emoji/credit_card.png  
+ extracting: /opt/restyaboard/client/img/emoji/crescent_moon.png  
+ extracting: /opt/restyaboard/client/img/emoji/crocodile.png  
+ extracting: /opt/restyaboard/client/img/emoji/crossed_flags.png  
+ extracting: /opt/restyaboard/client/img/emoji/crown.png  
+ extracting: /opt/restyaboard/client/img/emoji/cry.png  
+ extracting: /opt/restyaboard/client/img/emoji/crying_cat_face.png  
+ extracting: /opt/restyaboard/client/img/emoji/crystal_ball.png  
+ extracting: /opt/restyaboard/client/img/emoji/cupid.png  
+ extracting: /opt/restyaboard/client/img/emoji/curly_loop.png  
+ extracting: /opt/restyaboard/client/img/emoji/currency_exchange.png  
+ extracting: /opt/restyaboard/client/img/emoji/curry.png  
+ extracting: /opt/restyaboard/client/img/emoji/custard.png  
+ extracting: /opt/restyaboard/client/img/emoji/customs.png  
+ extracting: /opt/restyaboard/client/img/emoji/cyclone.png  
+ extracting: /opt/restyaboard/client/img/emoji/dancer.png  
+ extracting: /opt/restyaboard/client/img/emoji/dancers.png  
+ extracting: /opt/restyaboard/client/img/emoji/dango.png  
+  inflating: /opt/restyaboard/client/img/emoji/dart.png  
+ extracting: /opt/restyaboard/client/img/emoji/dash.png  
+ extracting: /opt/restyaboard/client/img/emoji/date.png  
+ extracting: /opt/restyaboard/client/img/emoji/de.png  
+ extracting: /opt/restyaboard/client/img/emoji/deciduous_tree.png  
+  inflating: /opt/restyaboard/client/img/emoji/department_store.png  
+ extracting: /opt/restyaboard/client/img/emoji/diamond_shape_with_a_dot_inside.png  
+ extracting: /opt/restyaboard/client/img/emoji/diamonds.png  
+ extracting: /opt/restyaboard/client/img/emoji/disappointed.png  
+ extracting: /opt/restyaboard/client/img/emoji/disappointed_relieved.png  
+ extracting: /opt/restyaboard/client/img/emoji/dizzy.png  
+  inflating: /opt/restyaboard/client/img/emoji/dizzy_face.png  
+  inflating: /opt/restyaboard/client/img/emoji/do_not_litter.png  
+ extracting: /opt/restyaboard/client/img/emoji/dog.png  
+ extracting: /opt/restyaboard/client/img/emoji/dog2.png  
+ extracting: /opt/restyaboard/client/img/emoji/dollar.png  
+ extracting: /opt/restyaboard/client/img/emoji/dolls.png  
+ extracting: /opt/restyaboard/client/img/emoji/dolphin.png  
+ extracting: /opt/restyaboard/client/img/emoji/donut.png  
+ extracting: /opt/restyaboard/client/img/emoji/door.png  
+ extracting: /opt/restyaboard/client/img/emoji/doughnut.png  
+ extracting: /opt/restyaboard/client/img/emoji/dragon.png  
+ extracting: /opt/restyaboard/client/img/emoji/dragon_face.png  
+ extracting: /opt/restyaboard/client/img/emoji/dress.png  
+ extracting: /opt/restyaboard/client/img/emoji/dromedary_camel.png  
+ extracting: /opt/restyaboard/client/img/emoji/droplet.png  
+ extracting: /opt/restyaboard/client/img/emoji/dvd.png  
+ extracting: /opt/restyaboard/client/img/emoji/ear.png  
+ extracting: /opt/restyaboard/client/img/emoji/ear_of_rice.png  
+ extracting: /opt/restyaboard/client/img/emoji/earth_africa.png  
+ extracting: /opt/restyaboard/client/img/emoji/earth_americas.png  
+ extracting: /opt/restyaboard/client/img/emoji/earth_asia.png  
+ extracting: /opt/restyaboard/client/img/emoji/egg.png  
+ extracting: /opt/restyaboard/client/img/emoji/eggplant.png  
+ extracting: /opt/restyaboard/client/img/emoji/eight.png  
+  inflating: /opt/restyaboard/client/img/emoji/eight_pointed_black_star.png  
+  inflating: /opt/restyaboard/client/img/emoji/eight_spoked_asterisk.png  
+ extracting: /opt/restyaboard/client/img/emoji/electric_plug.png  
+ extracting: /opt/restyaboard/client/img/emoji/elephant.png  
+ extracting: /opt/restyaboard/client/img/emoji/email.png  
+ extracting: /opt/restyaboard/client/img/emoji/e-mail.png  
+ extracting: /opt/restyaboard/client/img/emoji/end.png  
+ extracting: /opt/restyaboard/client/img/emoji/envelope.png  
+ extracting: /opt/restyaboard/client/img/emoji/es.png  
+ extracting: /opt/restyaboard/client/img/emoji/euro.png  
+ extracting: /opt/restyaboard/client/img/emoji/european_castle.png  
+ extracting: /opt/restyaboard/client/img/emoji/european_post_office.png  
+ extracting: /opt/restyaboard/client/img/emoji/evergreen_tree.png  
+ extracting: /opt/restyaboard/client/img/emoji/exclamation.png  
+ extracting: /opt/restyaboard/client/img/emoji/expressionless.png  
+ extracting: /opt/restyaboard/client/img/emoji/eyeglasses.png  
+ extracting: /opt/restyaboard/client/img/emoji/eyes.png  
+ extracting: /opt/restyaboard/client/img/emoji/facepunch.png  
+ extracting: /opt/restyaboard/client/img/emoji/factory.png  
+ extracting: /opt/restyaboard/client/img/emoji/fallen_leaf.png  
+ extracting: /opt/restyaboard/client/img/emoji/family.png  
+  inflating: /opt/restyaboard/client/img/emoji/fast_forward.png  
+ extracting: /opt/restyaboard/client/img/emoji/fax.png  
+ extracting: /opt/restyaboard/client/img/emoji/fearful.png  
+ extracting: /opt/restyaboard/client/img/emoji/feelsgood.png  
+ extracting: /opt/restyaboard/client/img/emoji/feet.png  
+ extracting: /opt/restyaboard/client/img/emoji/ferris_wheel.png  
+ extracting: /opt/restyaboard/client/img/emoji/file_folder.png  
+ extracting: /opt/restyaboard/client/img/emoji/finnadie.png  
+ extracting: /opt/restyaboard/client/img/emoji/fire.png  
+ extracting: /opt/restyaboard/client/img/emoji/fire_engine.png  
+ extracting: /opt/restyaboard/client/img/emoji/fireworks.png  
+ extracting: /opt/restyaboard/client/img/emoji/first_quarter_moon.png  
+ extracting: /opt/restyaboard/client/img/emoji/first_quarter_moon_with_face.png  
+ extracting: /opt/restyaboard/client/img/emoji/fish.png  
+ extracting: /opt/restyaboard/client/img/emoji/fish_cake.png  
+ extracting: /opt/restyaboard/client/img/emoji/fishing_pole_and_fish.png  
+ extracting: /opt/restyaboard/client/img/emoji/fist.png  
+ extracting: /opt/restyaboard/client/img/emoji/five.png  
+ extracting: /opt/restyaboard/client/img/emoji/flags.png  
+ extracting: /opt/restyaboard/client/img/emoji/flashlight.png  
+ extracting: /opt/restyaboard/client/img/emoji/floppy_disk.png  
+ extracting: /opt/restyaboard/client/img/emoji/flower_playing_cards.png  
+  inflating: /opt/restyaboard/client/img/emoji/flushed.png  
+ extracting: /opt/restyaboard/client/img/emoji/foggy.png  
+ extracting: /opt/restyaboard/client/img/emoji/football.png  
+ extracting: /opt/restyaboard/client/img/emoji/fork_and_knife.png  
+ extracting: /opt/restyaboard/client/img/emoji/fountain.png  
+ extracting: /opt/restyaboard/client/img/emoji/four.png  
+ extracting: /opt/restyaboard/client/img/emoji/four_leaf_clover.png  
+ extracting: /opt/restyaboard/client/img/emoji/fr.png  
+ extracting: /opt/restyaboard/client/img/emoji/free.png  
+ extracting: /opt/restyaboard/client/img/emoji/fried_shrimp.png  
+ extracting: /opt/restyaboard/client/img/emoji/fries.png  
+ extracting: /opt/restyaboard/client/img/emoji/frog.png  
+  inflating: /opt/restyaboard/client/img/emoji/frowning.png  
+ extracting: /opt/restyaboard/client/img/emoji/fu.png  
+ extracting: /opt/restyaboard/client/img/emoji/fuelpump.png  
+ extracting: /opt/restyaboard/client/img/emoji/full_moon.png  
+ extracting: /opt/restyaboard/client/img/emoji/full_moon_with_face.png  
+ extracting: /opt/restyaboard/client/img/emoji/game_die.png  
+ extracting: /opt/restyaboard/client/img/emoji/gb.png  
+ extracting: /opt/restyaboard/client/img/emoji/gem.png  
+ extracting: /opt/restyaboard/client/img/emoji/gemini.png  
+ extracting: /opt/restyaboard/client/img/emoji/ghost.png  
+ extracting: /opt/restyaboard/client/img/emoji/gift.png  
+ extracting: /opt/restyaboard/client/img/emoji/gift_heart.png  
+ extracting: /opt/restyaboard/client/img/emoji/girl.png  
+  inflating: /opt/restyaboard/client/img/emoji/globe_with_meridians.png  
+ extracting: /opt/restyaboard/client/img/emoji/goat.png  
+ extracting: /opt/restyaboard/client/img/emoji/goberserk.png  
+ extracting: /opt/restyaboard/client/img/emoji/godmode.png  
+ extracting: /opt/restyaboard/client/img/emoji/golf.png  
+ extracting: /opt/restyaboard/client/img/emoji/grapes.png  
+ extracting: /opt/restyaboard/client/img/emoji/green_apple.png  
+ extracting: /opt/restyaboard/client/img/emoji/green_book.png  
+ extracting: /opt/restyaboard/client/img/emoji/green_heart.png  
+ extracting: /opt/restyaboard/client/img/emoji/grey_exclamation.png  
+ extracting: /opt/restyaboard/client/img/emoji/grey_question.png  
+  inflating: /opt/restyaboard/client/img/emoji/grimacing.png  
+ extracting: /opt/restyaboard/client/img/emoji/grin.png  
+ extracting: /opt/restyaboard/client/img/emoji/grinning.png  
+ extracting: /opt/restyaboard/client/img/emoji/guardsman.png  
+ extracting: /opt/restyaboard/client/img/emoji/guitar.png  
+ extracting: /opt/restyaboard/client/img/emoji/gun.png  
+ extracting: /opt/restyaboard/client/img/emoji/haircut.png  
+ extracting: /opt/restyaboard/client/img/emoji/hamburger.png  
+ extracting: /opt/restyaboard/client/img/emoji/hammer.png  
+ extracting: /opt/restyaboard/client/img/emoji/hamster.png  
+ extracting: /opt/restyaboard/client/img/emoji/hand.png  
+ extracting: /opt/restyaboard/client/img/emoji/handbag.png  
+ extracting: /opt/restyaboard/client/img/emoji/hankey.png  
+ extracting: /opt/restyaboard/client/img/emoji/hash.png  
+ extracting: /opt/restyaboard/client/img/emoji/hatched_chick.png  
+ extracting: /opt/restyaboard/client/img/emoji/hatching_chick.png  
+ extracting: /opt/restyaboard/client/img/emoji/headphones.png  
+ extracting: /opt/restyaboard/client/img/emoji/hear_no_evil.png  
+ extracting: /opt/restyaboard/client/img/emoji/heart.png  
+ extracting: /opt/restyaboard/client/img/emoji/heart_decoration.png  
+ extracting: /opt/restyaboard/client/img/emoji/heart_eyes.png  
+ extracting: /opt/restyaboard/client/img/emoji/heart_eyes_cat.png  
+ extracting: /opt/restyaboard/client/img/emoji/heartbeat.png  
+ extracting: /opt/restyaboard/client/img/emoji/heartpulse.png  
+ extracting: /opt/restyaboard/client/img/emoji/hearts.png  
+ extracting: /opt/restyaboard/client/img/emoji/heavy_check_mark.png  
+  inflating: /opt/restyaboard/client/img/emoji/heavy_division_sign.png  
+ extracting: /opt/restyaboard/client/img/emoji/heavy_dollar_sign.png  
+ extracting: /opt/restyaboard/client/img/emoji/heavy_exclamation_mark.png  
+  inflating: /opt/restyaboard/client/img/emoji/heavy_minus_sign.png  
+  inflating: /opt/restyaboard/client/img/emoji/heavy_multiplication_x.png  
+ extracting: /opt/restyaboard/client/img/emoji/heavy_plus_sign.png  
+ extracting: /opt/restyaboard/client/img/emoji/helicopter.png  
+ extracting: /opt/restyaboard/client/img/emoji/herb.png  
+ extracting: /opt/restyaboard/client/img/emoji/hibiscus.png  
+  inflating: /opt/restyaboard/client/img/emoji/high_brightness.png  
+ extracting: /opt/restyaboard/client/img/emoji/high_heel.png  
+ extracting: /opt/restyaboard/client/img/emoji/hocho.png  
+ extracting: /opt/restyaboard/client/img/emoji/honey_pot.png  
+ extracting: /opt/restyaboard/client/img/emoji/honeybee.png  
+ extracting: /opt/restyaboard/client/img/emoji/horse.png  
+ extracting: /opt/restyaboard/client/img/emoji/horse_racing.png  
+ extracting: /opt/restyaboard/client/img/emoji/hospital.png  
+ extracting: /opt/restyaboard/client/img/emoji/hotel.png  
+ extracting: /opt/restyaboard/client/img/emoji/hotsprings.png  
+ extracting: /opt/restyaboard/client/img/emoji/hourglass.png  
+ extracting: /opt/restyaboard/client/img/emoji/hourglass_flowing_sand.png  
+ extracting: /opt/restyaboard/client/img/emoji/house.png  
+ extracting: /opt/restyaboard/client/img/emoji/house_with_garden.png  
+ extracting: /opt/restyaboard/client/img/emoji/hurtrealbad.png  
+  inflating: /opt/restyaboard/client/img/emoji/hushed.png  
+ extracting: /opt/restyaboard/client/img/emoji/ice_cream.png  
+ extracting: /opt/restyaboard/client/img/emoji/icecream.png  
+ extracting: /opt/restyaboard/client/img/emoji/id.png  
+ extracting: /opt/restyaboard/client/img/emoji/ideograph_advantage.png  
+  inflating: /opt/restyaboard/client/img/emoji/imp.png  
+ extracting: /opt/restyaboard/client/img/emoji/inbox_tray.png  
+ extracting: /opt/restyaboard/client/img/emoji/incoming_envelope.png  
+ extracting: /opt/restyaboard/client/img/emoji/information_desk_person.png  
+ extracting: /opt/restyaboard/client/img/emoji/information_source.png  
+ extracting: /opt/restyaboard/client/img/emoji/innocent.png  
+ extracting: /opt/restyaboard/client/img/emoji/interrobang.png  
+ extracting: /opt/restyaboard/client/img/emoji/iphone.png  
+ extracting: /opt/restyaboard/client/img/emoji/it.png  
+ extracting: /opt/restyaboard/client/img/emoji/izakaya_lantern.png  
+ extracting: /opt/restyaboard/client/img/emoji/jack_o_lantern.png  
+ extracting: /opt/restyaboard/client/img/emoji/japan.png  
+ extracting: /opt/restyaboard/client/img/emoji/japanese_castle.png  
+ extracting: /opt/restyaboard/client/img/emoji/japanese_goblin.png  
+ extracting: /opt/restyaboard/client/img/emoji/japanese_ogre.png  
+ extracting: /opt/restyaboard/client/img/emoji/jeans.png  
+ extracting: /opt/restyaboard/client/img/emoji/joy.png  
+ extracting: /opt/restyaboard/client/img/emoji/joy_cat.png  
+ extracting: /opt/restyaboard/client/img/emoji/jp.png  
+ extracting: /opt/restyaboard/client/img/emoji/key.png  
+ extracting: /opt/restyaboard/client/img/emoji/keycap_ten.png  
+ extracting: /opt/restyaboard/client/img/emoji/kimono.png  
+ extracting: /opt/restyaboard/client/img/emoji/kiss.png  
+ extracting: /opt/restyaboard/client/img/emoji/kissing.png  
+ extracting: /opt/restyaboard/client/img/emoji/kissing_cat.png  
+ extracting: /opt/restyaboard/client/img/emoji/kissing_closed_eyes.png  
+ extracting: /opt/restyaboard/client/img/emoji/kissing_face.png  
+ extracting: /opt/restyaboard/client/img/emoji/kissing_heart.png  
+ extracting: /opt/restyaboard/client/img/emoji/kissing_smiling_eyes.png  
+ extracting: /opt/restyaboard/client/img/emoji/koala.png  
+ extracting: /opt/restyaboard/client/img/emoji/koko.png  
+ extracting: /opt/restyaboard/client/img/emoji/kr.png  
+ extracting: /opt/restyaboard/client/img/emoji/large_blue_circle.png  
+ extracting: /opt/restyaboard/client/img/emoji/large_blue_diamond.png  
+ extracting: /opt/restyaboard/client/img/emoji/large_orange_diamond.png  
+ extracting: /opt/restyaboard/client/img/emoji/last_quarter_moon.png  
+ extracting: /opt/restyaboard/client/img/emoji/last_quarter_moon_with_face.png  
+ extracting: /opt/restyaboard/client/img/emoji/laughing.png  
+ extracting: /opt/restyaboard/client/img/emoji/leaves.png  
+ extracting: /opt/restyaboard/client/img/emoji/ledger.png  
+ extracting: /opt/restyaboard/client/img/emoji/left_luggage.png  
+  inflating: /opt/restyaboard/client/img/emoji/left_right_arrow.png  
+ extracting: /opt/restyaboard/client/img/emoji/leftwards_arrow_with_hook.png  
+ extracting: /opt/restyaboard/client/img/emoji/lemon.png  
+ extracting: /opt/restyaboard/client/img/emoji/leo.png  
+ extracting: /opt/restyaboard/client/img/emoji/leopard.png  
+  inflating: /opt/restyaboard/client/img/emoji/libra.png  
+ extracting: /opt/restyaboard/client/img/emoji/light_rail.png  
+ extracting: /opt/restyaboard/client/img/emoji/link.png  
+ extracting: /opt/restyaboard/client/img/emoji/lips.png  
+ extracting: /opt/restyaboard/client/img/emoji/lipstick.png  
+ extracting: /opt/restyaboard/client/img/emoji/lock.png  
+ extracting: /opt/restyaboard/client/img/emoji/lock_with_ink_pen.png  
+ extracting: /opt/restyaboard/client/img/emoji/lollipop.png  
+  inflating: /opt/restyaboard/client/img/emoji/loop.png  
+ extracting: /opt/restyaboard/client/img/emoji/loudspeaker.png  
+ extracting: /opt/restyaboard/client/img/emoji/love_hotel.png  
+ extracting: /opt/restyaboard/client/img/emoji/love_letter.png  
+  inflating: /opt/restyaboard/client/img/emoji/low_brightness.png  
+  inflating: /opt/restyaboard/client/img/emoji/m.png  
+ extracting: /opt/restyaboard/client/img/emoji/mag.png  
+ extracting: /opt/restyaboard/client/img/emoji/mag_right.png  
+ extracting: /opt/restyaboard/client/img/emoji/mahjong.png  
+ extracting: /opt/restyaboard/client/img/emoji/mailbox.png  
+ extracting: /opt/restyaboard/client/img/emoji/mailbox_closed.png  
+ extracting: /opt/restyaboard/client/img/emoji/mailbox_with_mail.png  
+ extracting: /opt/restyaboard/client/img/emoji/mailbox_with_no_mail.png  
+ extracting: /opt/restyaboard/client/img/emoji/man.png  
+ extracting: /opt/restyaboard/client/img/emoji/man_with_gua_pi_mao.png  
+ extracting: /opt/restyaboard/client/img/emoji/man_with_turban.png  
+ extracting: /opt/restyaboard/client/img/emoji/mans_shoe.png  
+ extracting: /opt/restyaboard/client/img/emoji/maple_leaf.png  
+  inflating: /opt/restyaboard/client/img/emoji/mask.png  
+ extracting: /opt/restyaboard/client/img/emoji/massage.png  
+ extracting: /opt/restyaboard/client/img/emoji/meat_on_bone.png  
+ extracting: /opt/restyaboard/client/img/emoji/mega.png  
+ extracting: /opt/restyaboard/client/img/emoji/melon.png  
+ extracting: /opt/restyaboard/client/img/emoji/memo.png  
+ extracting: /opt/restyaboard/client/img/emoji/mens.png  
+ extracting: /opt/restyaboard/client/img/emoji/metal.png  
+ extracting: /opt/restyaboard/client/img/emoji/metro.png  
+ extracting: /opt/restyaboard/client/img/emoji/microphone.png  
+ extracting: /opt/restyaboard/client/img/emoji/microscope.png  
+ extracting: /opt/restyaboard/client/img/emoji/milky_way.png  
+ extracting: /opt/restyaboard/client/img/emoji/minibus.png  
+ extracting: /opt/restyaboard/client/img/emoji/minidisc.png  
+ extracting: /opt/restyaboard/client/img/emoji/mobile_phone_off.png  
+ extracting: /opt/restyaboard/client/img/emoji/money_with_wings.png  
+ extracting: /opt/restyaboard/client/img/emoji/moneybag.png  
+ extracting: /opt/restyaboard/client/img/emoji/monkey.png  
+ extracting: /opt/restyaboard/client/img/emoji/monkey_face.png  
+ extracting: /opt/restyaboard/client/img/emoji/monorail.png  
+  inflating: /opt/restyaboard/client/img/emoji/mortar_board.png  
+ extracting: /opt/restyaboard/client/img/emoji/mount_fuji.png  
+ extracting: /opt/restyaboard/client/img/emoji/mountain_bicyclist.png  
+ extracting: /opt/restyaboard/client/img/emoji/mountain_cableway.png  
+ extracting: /opt/restyaboard/client/img/emoji/mountain_railway.png  
+ extracting: /opt/restyaboard/client/img/emoji/mouse.png  
+ extracting: /opt/restyaboard/client/img/emoji/mouse2.png  
+ extracting: /opt/restyaboard/client/img/emoji/movie_camera.png  
+ extracting: /opt/restyaboard/client/img/emoji/moyai.png  
+ extracting: /opt/restyaboard/client/img/emoji/muscle.png  
+ extracting: /opt/restyaboard/client/img/emoji/mushroom.png  
+ extracting: /opt/restyaboard/client/img/emoji/musical_keyboard.png  
+ extracting: /opt/restyaboard/client/img/emoji/musical_note.png  
+ extracting: /opt/restyaboard/client/img/emoji/musical_score.png  
+ extracting: /opt/restyaboard/client/img/emoji/mute.png  
+ extracting: /opt/restyaboard/client/img/emoji/nail_care.png  
+ extracting: /opt/restyaboard/client/img/emoji/name_badge.png  
+ extracting: /opt/restyaboard/client/img/emoji/neckbeard.png  
+ extracting: /opt/restyaboard/client/img/emoji/necktie.png  
+  inflating: /opt/restyaboard/client/img/emoji/negative_squared_cross_mark.png  
+ extracting: /opt/restyaboard/client/img/emoji/neutral_face.png  
+ extracting: /opt/restyaboard/client/img/emoji/new.png  
+ extracting: /opt/restyaboard/client/img/emoji/new_moon.png  
+ extracting: /opt/restyaboard/client/img/emoji/new_moon_with_face.png  
+ extracting: /opt/restyaboard/client/img/emoji/newspaper.png  
+ extracting: /opt/restyaboard/client/img/emoji/ng.png  
+ extracting: /opt/restyaboard/client/img/emoji/nine.png  
+ extracting: /opt/restyaboard/client/img/emoji/no_bell.png  
+  inflating: /opt/restyaboard/client/img/emoji/no_bicycles.png  
+ extracting: /opt/restyaboard/client/img/emoji/no_entry.png  
+  inflating: /opt/restyaboard/client/img/emoji/no_entry_sign.png  
+ extracting: /opt/restyaboard/client/img/emoji/no_good.png  
+  inflating: /opt/restyaboard/client/img/emoji/no_mobile_phones.png  
+ extracting: /opt/restyaboard/client/img/emoji/no_mouth.png  
+  inflating: /opt/restyaboard/client/img/emoji/no_pedestrians.png  
+ extracting: /opt/restyaboard/client/img/emoji/no_smoking.png  
+  inflating: /opt/restyaboard/client/img/emoji/non-potable_water.png  
+ extracting: /opt/restyaboard/client/img/emoji/nose.png  
+ extracting: /opt/restyaboard/client/img/emoji/notebook.png  
+ extracting: /opt/restyaboard/client/img/emoji/notebook_with_decorative_cover.png  
+ extracting: /opt/restyaboard/client/img/emoji/notes.png  
+ extracting: /opt/restyaboard/client/img/emoji/nut_and_bolt.png  
+  inflating: /opt/restyaboard/client/img/emoji/o.png  
+ extracting: /opt/restyaboard/client/img/emoji/o2.png  
+ extracting: /opt/restyaboard/client/img/emoji/ocean.png  
+ extracting: /opt/restyaboard/client/img/emoji/octocat.png  
+  inflating: /opt/restyaboard/client/img/emoji/octopus.png  
+ extracting: /opt/restyaboard/client/img/emoji/oden.png  
+  inflating: /opt/restyaboard/client/img/emoji/office.png  
+ extracting: /opt/restyaboard/client/img/emoji/ok.png  
+ extracting: /opt/restyaboard/client/img/emoji/ok_hand.png  
+  inflating: /opt/restyaboard/client/img/emoji/ok_woman.png  
+ extracting: /opt/restyaboard/client/img/emoji/older_man.png  
+ extracting: /opt/restyaboard/client/img/emoji/older_woman.png  
+ extracting: /opt/restyaboard/client/img/emoji/on.png  
+ extracting: /opt/restyaboard/client/img/emoji/oncoming_automobile.png  
+ extracting: /opt/restyaboard/client/img/emoji/oncoming_bus.png  
+ extracting: /opt/restyaboard/client/img/emoji/oncoming_police_car.png  
+ extracting: /opt/restyaboard/client/img/emoji/oncoming_taxi.png  
+ extracting: /opt/restyaboard/client/img/emoji/one.png  
+ extracting: /opt/restyaboard/client/img/emoji/open_file_folder.png  
+  inflating: /opt/restyaboard/client/img/emoji/open_hands.png  
+ extracting: /opt/restyaboard/client/img/emoji/open_mouth.png  
+ extracting: /opt/restyaboard/client/img/emoji/ophiuchus.png  
+ extracting: /opt/restyaboard/client/img/emoji/orange_book.png  
+ extracting: /opt/restyaboard/client/img/emoji/outbox_tray.png  
+ extracting: /opt/restyaboard/client/img/emoji/ox.png  
+  inflating: /opt/restyaboard/client/img/emoji/package.png  
+  inflating: /opt/restyaboard/client/img/emoji/page_facing_up.png  
+ extracting: /opt/restyaboard/client/img/emoji/page_with_curl.png  
+ extracting: /opt/restyaboard/client/img/emoji/pager.png  
+ extracting: /opt/restyaboard/client/img/emoji/palm_tree.png  
+  inflating: /opt/restyaboard/client/img/emoji/panda_face.png  
+ extracting: /opt/restyaboard/client/img/emoji/paperclip.png  
+ extracting: /opt/restyaboard/client/img/emoji/parking.png  
+ extracting: /opt/restyaboard/client/img/emoji/part_alternation_mark.png  
+ extracting: /opt/restyaboard/client/img/emoji/partly_sunny.png  
+ extracting: /opt/restyaboard/client/img/emoji/passport_control.png  
+ extracting: /opt/restyaboard/client/img/emoji/paw_prints.png  
+ extracting: /opt/restyaboard/client/img/emoji/peach.png  
+ extracting: /opt/restyaboard/client/img/emoji/pear.png  
+ extracting: /opt/restyaboard/client/img/emoji/pencil.png  
+ extracting: /opt/restyaboard/client/img/emoji/pencil2.png  
+ extracting: /opt/restyaboard/client/img/emoji/penguin.png  
+ extracting: /opt/restyaboard/client/img/emoji/pensive.png  
+ extracting: /opt/restyaboard/client/img/emoji/performing_arts.png  
+  inflating: /opt/restyaboard/client/img/emoji/persevere.png  
+ extracting: /opt/restyaboard/client/img/emoji/person_frowning.png  
+ extracting: /opt/restyaboard/client/img/emoji/person_with_blond_hair.png  
+ extracting: /opt/restyaboard/client/img/emoji/person_with_pouting_face.png  
+ extracting: /opt/restyaboard/client/img/emoji/phone.png  
+ extracting: /opt/restyaboard/client/img/emoji/pig.png  
+ extracting: /opt/restyaboard/client/img/emoji/pig_nose.png  
+ extracting: /opt/restyaboard/client/img/emoji/pig2.png  
+ extracting: /opt/restyaboard/client/img/emoji/pill.png  
+ extracting: /opt/restyaboard/client/img/emoji/pineapple.png  
+  inflating: /opt/restyaboard/client/img/emoji/pisces.png  
+ extracting: /opt/restyaboard/client/img/emoji/pizza.png  
+ extracting: /opt/restyaboard/client/img/emoji/plus1.png  
+ extracting: /opt/restyaboard/client/img/emoji/point_down.png  
+ extracting: /opt/restyaboard/client/img/emoji/point_left.png  
+ extracting: /opt/restyaboard/client/img/emoji/point_right.png  
+ extracting: /opt/restyaboard/client/img/emoji/point_up.png  
+ extracting: /opt/restyaboard/client/img/emoji/point_up_2.png  
+ extracting: /opt/restyaboard/client/img/emoji/police_car.png  
+ extracting: /opt/restyaboard/client/img/emoji/poodle.png  
+ extracting: /opt/restyaboard/client/img/emoji/poop.png  
+ extracting: /opt/restyaboard/client/img/emoji/post_office.png  
+ extracting: /opt/restyaboard/client/img/emoji/postal_horn.png  
+ extracting: /opt/restyaboard/client/img/emoji/postbox.png  
+ extracting: /opt/restyaboard/client/img/emoji/potable_water.png  
+ extracting: /opt/restyaboard/client/img/emoji/pouch.png  
+ extracting: /opt/restyaboard/client/img/emoji/poultry_leg.png  
+ extracting: /opt/restyaboard/client/img/emoji/pound.png  
+ extracting: /opt/restyaboard/client/img/emoji/pouting_cat.png  
+ extracting: /opt/restyaboard/client/img/emoji/pray.png  
+ extracting: /opt/restyaboard/client/img/emoji/princess.png  
+ extracting: /opt/restyaboard/client/img/emoji/punch.png  
+ extracting: /opt/restyaboard/client/img/emoji/purple_heart.png  
+ extracting: /opt/restyaboard/client/img/emoji/purse.png  
+ extracting: /opt/restyaboard/client/img/emoji/pushpin.png  
+ extracting: /opt/restyaboard/client/img/emoji/put_litter_in_its_place.png  
+ extracting: /opt/restyaboard/client/img/emoji/question.png  
+ extracting: /opt/restyaboard/client/img/emoji/rabbit.png  
+ extracting: /opt/restyaboard/client/img/emoji/rabbit2.png  
+ extracting: /opt/restyaboard/client/img/emoji/racehorse.png  
+ extracting: /opt/restyaboard/client/img/emoji/radio.png  
+ extracting: /opt/restyaboard/client/img/emoji/radio_button.png  
+ extracting: /opt/restyaboard/client/img/emoji/rage.png  
+ extracting: /opt/restyaboard/client/img/emoji/rage1.png  
+ extracting: /opt/restyaboard/client/img/emoji/rage2.png  
+ extracting: /opt/restyaboard/client/img/emoji/rage3.png  
+ extracting: /opt/restyaboard/client/img/emoji/rage4.png  
+ extracting: /opt/restyaboard/client/img/emoji/railway_car.png  
+ extracting: /opt/restyaboard/client/img/emoji/rainbow.png  
+ extracting: /opt/restyaboard/client/img/emoji/raised_hand.png  
+  inflating: /opt/restyaboard/client/img/emoji/raised_hands.png  
+ extracting: /opt/restyaboard/client/img/emoji/raising_hand.png  
+ extracting: /opt/restyaboard/client/img/emoji/ram.png  
+ extracting: /opt/restyaboard/client/img/emoji/ramen.png  
+ extracting: /opt/restyaboard/client/img/emoji/rat.png  
+ extracting: /opt/restyaboard/client/img/emoji/recycle.png  
+ extracting: /opt/restyaboard/client/img/emoji/red_car.png  
+ extracting: /opt/restyaboard/client/img/emoji/red_circle.png  
+ extracting: /opt/restyaboard/client/img/emoji/registered.png  
+ extracting: /opt/restyaboard/client/img/emoji/relaxed.png  
+ extracting: /opt/restyaboard/client/img/emoji/relieved.png  
+ extracting: /opt/restyaboard/client/img/emoji/repeat.png  
+ extracting: /opt/restyaboard/client/img/emoji/repeat_one.png  
+ extracting: /opt/restyaboard/client/img/emoji/restroom.png  
+ extracting: /opt/restyaboard/client/img/emoji/revolving_hearts.png  
+  inflating: /opt/restyaboard/client/img/emoji/rewind.png  
+ extracting: /opt/restyaboard/client/img/emoji/ribbon.png  
+ extracting: /opt/restyaboard/client/img/emoji/rice.png  
+ extracting: /opt/restyaboard/client/img/emoji/rice_ball.png  
+ extracting: /opt/restyaboard/client/img/emoji/rice_cracker.png  
+ extracting: /opt/restyaboard/client/img/emoji/rice_scene.png  
+ extracting: /opt/restyaboard/client/img/emoji/ring.png  
+ extracting: /opt/restyaboard/client/img/emoji/rocket.png  
+ extracting: /opt/restyaboard/client/img/emoji/roller_coaster.png  
+ extracting: /opt/restyaboard/client/img/emoji/rooster.png  
+ extracting: /opt/restyaboard/client/img/emoji/rose.png  
+ extracting: /opt/restyaboard/client/img/emoji/rotating_light.png  
+ extracting: /opt/restyaboard/client/img/emoji/round_pushpin.png  
+ extracting: /opt/restyaboard/client/img/emoji/rowboat.png  
+ extracting: /opt/restyaboard/client/img/emoji/ru.png  
+ extracting: /opt/restyaboard/client/img/emoji/rugby_football.png  
+ extracting: /opt/restyaboard/client/img/emoji/runner.png  
+ extracting: /opt/restyaboard/client/img/emoji/running.png  
+ extracting: /opt/restyaboard/client/img/emoji/running_shirt_with_sash.png  
+ extracting: /opt/restyaboard/client/img/emoji/sa.png  
+ extracting: /opt/restyaboard/client/img/emoji/sagittarius.png  
+ extracting: /opt/restyaboard/client/img/emoji/sailboat.png  
+ extracting: /opt/restyaboard/client/img/emoji/sake.png  
+ extracting: /opt/restyaboard/client/img/emoji/sandal.png  
+ extracting: /opt/restyaboard/client/img/emoji/santa.png  
+ extracting: /opt/restyaboard/client/img/emoji/satellite.png  
+ extracting: /opt/restyaboard/client/img/emoji/satisfied.png  
+ extracting: /opt/restyaboard/client/img/emoji/saxophone.png  
+ extracting: /opt/restyaboard/client/img/emoji/school.png  
+ extracting: /opt/restyaboard/client/img/emoji/school_satchel.png  
+ extracting: /opt/restyaboard/client/img/emoji/scissors.png  
+ extracting: /opt/restyaboard/client/img/emoji/scorpius.png  
+  inflating: /opt/restyaboard/client/img/emoji/scream.png  
+ extracting: /opt/restyaboard/client/img/emoji/scream_cat.png  
+ extracting: /opt/restyaboard/client/img/emoji/scroll.png  
+ extracting: /opt/restyaboard/client/img/emoji/seat.png  
+  inflating: /opt/restyaboard/client/img/emoji/secret.png  
+ extracting: /opt/restyaboard/client/img/emoji/see_no_evil.png  
+ extracting: /opt/restyaboard/client/img/emoji/seedling.png  
+ extracting: /opt/restyaboard/client/img/emoji/seven.png  
+ extracting: /opt/restyaboard/client/img/emoji/shaved_ice.png  
+ extracting: /opt/restyaboard/client/img/emoji/sheep.png  
+ extracting: /opt/restyaboard/client/img/emoji/shell.png  
+ extracting: /opt/restyaboard/client/img/emoji/ship.png  
+ extracting: /opt/restyaboard/client/img/emoji/shipit.png  
+ extracting: /opt/restyaboard/client/img/emoji/shirt.png  
+ extracting: /opt/restyaboard/client/img/emoji/shit.png  
+ extracting: /opt/restyaboard/client/img/emoji/shoe.png  
+ extracting: /opt/restyaboard/client/img/emoji/shower.png  
+ extracting: /opt/restyaboard/client/img/emoji/signal_strength.png  
+ extracting: /opt/restyaboard/client/img/emoji/six.png  
+  inflating: /opt/restyaboard/client/img/emoji/six_pointed_star.png  
+ extracting: /opt/restyaboard/client/img/emoji/ski.png  
+ extracting: /opt/restyaboard/client/img/emoji/skull.png  
+ extracting: /opt/restyaboard/client/img/emoji/sleeping.png  
+ extracting: /opt/restyaboard/client/img/emoji/sleepy.png  
+ extracting: /opt/restyaboard/client/img/emoji/slot_machine.png  
+ extracting: /opt/restyaboard/client/img/emoji/small_blue_diamond.png  
+ extracting: /opt/restyaboard/client/img/emoji/small_orange_diamond.png  
+ extracting: /opt/restyaboard/client/img/emoji/small_red_triangle.png  
+ extracting: /opt/restyaboard/client/img/emoji/small_red_triangle_down.png  
+ extracting: /opt/restyaboard/client/img/emoji/smile.png  
+ extracting: /opt/restyaboard/client/img/emoji/smile_cat.png  
+ extracting: /opt/restyaboard/client/img/emoji/smiley.png  
+ extracting: /opt/restyaboard/client/img/emoji/smiley_cat.png  
+  inflating: /opt/restyaboard/client/img/emoji/smiling_imp.png  
+ extracting: /opt/restyaboard/client/img/emoji/smirk.png  
+ extracting: /opt/restyaboard/client/img/emoji/smirk_cat.png  
+ extracting: /opt/restyaboard/client/img/emoji/smoking.png  
+ extracting: /opt/restyaboard/client/img/emoji/snail.png  
+ extracting: /opt/restyaboard/client/img/emoji/snake.png  
+ extracting: /opt/restyaboard/client/img/emoji/snowboarder.png  
+ extracting: /opt/restyaboard/client/img/emoji/snowflake.png  
+ extracting: /opt/restyaboard/client/img/emoji/snowman.png  
+  inflating: /opt/restyaboard/client/img/emoji/sob.png  
+ extracting: /opt/restyaboard/client/img/emoji/soccer.png  
+ extracting: /opt/restyaboard/client/img/emoji/soon.png  
+ extracting: /opt/restyaboard/client/img/emoji/sos.png  
+ extracting: /opt/restyaboard/client/img/emoji/sound.png  
+ extracting: /opt/restyaboard/client/img/emoji/space_invader.png  
+ extracting: /opt/restyaboard/client/img/emoji/spades.png  
+ extracting: /opt/restyaboard/client/img/emoji/spaghetti.png  
+  inflating: /opt/restyaboard/client/img/emoji/sparkle.png  
+ extracting: /opt/restyaboard/client/img/emoji/sparkler.png  
+ extracting: /opt/restyaboard/client/img/emoji/sparkles.png  
+ extracting: /opt/restyaboard/client/img/emoji/sparkling_heart.png  
+ extracting: /opt/restyaboard/client/img/emoji/speak_no_evil.png  
+ extracting: /opt/restyaboard/client/img/emoji/speaker.png  
+ extracting: /opt/restyaboard/client/img/emoji/speech_balloon.png  
+ extracting: /opt/restyaboard/client/img/emoji/speedboat.png  
+ extracting: /opt/restyaboard/client/img/emoji/squirrel.png  
+ extracting: /opt/restyaboard/client/img/emoji/star.png  
+ extracting: /opt/restyaboard/client/img/emoji/star2.png  
+ extracting: /opt/restyaboard/client/img/emoji/stars.png  
+ extracting: /opt/restyaboard/client/img/emoji/station.png  
+ extracting: /opt/restyaboard/client/img/emoji/statue_of_liberty.png  
+ extracting: /opt/restyaboard/client/img/emoji/steam_locomotive.png  
+ extracting: /opt/restyaboard/client/img/emoji/stew.png  
+ extracting: /opt/restyaboard/client/img/emoji/straight_ruler.png  
+ extracting: /opt/restyaboard/client/img/emoji/strawberry.png  
+ extracting: /opt/restyaboard/client/img/emoji/stuck_out_tongue.png  
+ extracting: /opt/restyaboard/client/img/emoji/stuck_out_tongue_closed_eyes.png  
+ extracting: /opt/restyaboard/client/img/emoji/stuck_out_tongue_winking_eye.png  
+ extracting: /opt/restyaboard/client/img/emoji/sun_with_face.png  
+ extracting: /opt/restyaboard/client/img/emoji/sunflower.png  
+  inflating: /opt/restyaboard/client/img/emoji/sunglasses.png  
+ extracting: /opt/restyaboard/client/img/emoji/sunny.png  
+ extracting: /opt/restyaboard/client/img/emoji/sunrise.png  
+ extracting: /opt/restyaboard/client/img/emoji/sunrise_over_mountains.png  
+ extracting: /opt/restyaboard/client/img/emoji/surfer.png  
+ extracting: /opt/restyaboard/client/img/emoji/sushi.png  
+ extracting: /opt/restyaboard/client/img/emoji/suspect.png  
+ extracting: /opt/restyaboard/client/img/emoji/suspension_railway.png  
+ extracting: /opt/restyaboard/client/img/emoji/sweat.png  
+ extracting: /opt/restyaboard/client/img/emoji/sweat_drops.png  
+ extracting: /opt/restyaboard/client/img/emoji/sweat_smile.png  
+ extracting: /opt/restyaboard/client/img/emoji/sweet_potato.png  
+ extracting: /opt/restyaboard/client/img/emoji/swimmer.png  
+ extracting: /opt/restyaboard/client/img/emoji/symbols.png  
+ extracting: /opt/restyaboard/client/img/emoji/syringe.png  
+ extracting: /opt/restyaboard/client/img/emoji/tada.png  
+ extracting: /opt/restyaboard/client/img/emoji/tanabata_tree.png  
+ extracting: /opt/restyaboard/client/img/emoji/tangerine.png  
+ extracting: /opt/restyaboard/client/img/emoji/taurus.png  
+ extracting: /opt/restyaboard/client/img/emoji/taxi.png  
+ extracting: /opt/restyaboard/client/img/emoji/tea.png  
+ extracting: /opt/restyaboard/client/img/emoji/telephone.png  
+ extracting: /opt/restyaboard/client/img/emoji/telephone_receiver.png  
+ extracting: /opt/restyaboard/client/img/emoji/telescope.png  
+ extracting: /opt/restyaboard/client/img/emoji/tennis.png  
+ extracting: /opt/restyaboard/client/img/emoji/tent.png  
+ extracting: /opt/restyaboard/client/img/emoji/thought_balloon.png  
+ extracting: /opt/restyaboard/client/img/emoji/three.png  
+ extracting: /opt/restyaboard/client/img/emoji/thumbsdown.png  
+ extracting: /opt/restyaboard/client/img/emoji/thumbsup.png  
+ extracting: /opt/restyaboard/client/img/emoji/ticket.png  
+ extracting: /opt/restyaboard/client/img/emoji/tiger.png  
+ extracting: /opt/restyaboard/client/img/emoji/tiger2.png  
+  inflating: /opt/restyaboard/client/img/emoji/tired_face.png  
+ extracting: /opt/restyaboard/client/img/emoji/tm.png  
+ extracting: /opt/restyaboard/client/img/emoji/toilet.png  
+ extracting: /opt/restyaboard/client/img/emoji/tokyo_tower.png  
+ extracting: /opt/restyaboard/client/img/emoji/tomato.png  
+ extracting: /opt/restyaboard/client/img/emoji/tongue.png  
+ extracting: /opt/restyaboard/client/img/emoji/top.png  
+ extracting: /opt/restyaboard/client/img/emoji/tophat.png  
+ extracting: /opt/restyaboard/client/img/emoji/tractor.png  
+ extracting: /opt/restyaboard/client/img/emoji/traffic_light.png  
+ extracting: /opt/restyaboard/client/img/emoji/train.png  
+ extracting: /opt/restyaboard/client/img/emoji/train2.png  
+ extracting: /opt/restyaboard/client/img/emoji/tram.png  
+ extracting: /opt/restyaboard/client/img/emoji/triangular_flag_on_post.png  
+ extracting: /opt/restyaboard/client/img/emoji/triangular_ruler.png  
+ extracting: /opt/restyaboard/client/img/emoji/trident.png  
+  inflating: /opt/restyaboard/client/img/emoji/triumph.png  
+ extracting: /opt/restyaboard/client/img/emoji/trolleybus.png  
+ extracting: /opt/restyaboard/client/img/emoji/trollface.png  
+ extracting: /opt/restyaboard/client/img/emoji/trophy.png  
+ extracting: /opt/restyaboard/client/img/emoji/tropical_drink.png  
+ extracting: /opt/restyaboard/client/img/emoji/tropical_fish.png  
+ extracting: /opt/restyaboard/client/img/emoji/truck.png  
+ extracting: /opt/restyaboard/client/img/emoji/trumpet.png  
+ extracting: /opt/restyaboard/client/img/emoji/tshirt.png  
+ extracting: /opt/restyaboard/client/img/emoji/tulip.png  
+ extracting: /opt/restyaboard/client/img/emoji/turtle.png  
+ extracting: /opt/restyaboard/client/img/emoji/tv.png  
+  inflating: /opt/restyaboard/client/img/emoji/twisted_rightwards_arrows.png  
+ extracting: /opt/restyaboard/client/img/emoji/two.png  
+ extracting: /opt/restyaboard/client/img/emoji/two_hearts.png  
+ extracting: /opt/restyaboard/client/img/emoji/two_men_holding_hands.png  
+ extracting: /opt/restyaboard/client/img/emoji/two_women_holding_hands.png  
+ extracting: /opt/restyaboard/client/img/emoji/u5272.png  
+ extracting: /opt/restyaboard/client/img/emoji/u5408.png  
+ extracting: /opt/restyaboard/client/img/emoji/u55b6.png  
+ extracting: /opt/restyaboard/client/img/emoji/u6307.png  
+ extracting: /opt/restyaboard/client/img/emoji/u6708.png  
+ extracting: /opt/restyaboard/client/img/emoji/u6709.png  
+ extracting: /opt/restyaboard/client/img/emoji/u6e80.png  
+ extracting: /opt/restyaboard/client/img/emoji/u7121.png  
+ extracting: /opt/restyaboard/client/img/emoji/u7533.png  
+ extracting: /opt/restyaboard/client/img/emoji/u7981.png  
+ extracting: /opt/restyaboard/client/img/emoji/u7a7a.png  
+ extracting: /opt/restyaboard/client/img/emoji/uk.png  
+ extracting: /opt/restyaboard/client/img/emoji/umbrella.png  
+ extracting: /opt/restyaboard/client/img/emoji/unamused.png  
+  inflating: /opt/restyaboard/client/img/emoji/underage.png  
+ extracting: /opt/restyaboard/client/img/emoji/unlock.png  
+ extracting: /opt/restyaboard/client/img/emoji/up.png  
+ extracting: /opt/restyaboard/client/img/emoji/us.png  
+ extracting: /opt/restyaboard/client/img/emoji/v.png  
+ extracting: /opt/restyaboard/client/img/emoji/vertical_traffic_light.png  
+ extracting: /opt/restyaboard/client/img/emoji/vhs.png  
+ extracting: /opt/restyaboard/client/img/emoji/vibration_mode.png  
+ extracting: /opt/restyaboard/client/img/emoji/video_camera.png  
+ extracting: /opt/restyaboard/client/img/emoji/video_game.png  
+ extracting: /opt/restyaboard/client/img/emoji/violin.png  
+ extracting: /opt/restyaboard/client/img/emoji/virgo.png  
+ extracting: /opt/restyaboard/client/img/emoji/volcano.png  
+ extracting: /opt/restyaboard/client/img/emoji/vs.png  
+ extracting: /opt/restyaboard/client/img/emoji/walking.png  
+ extracting: /opt/restyaboard/client/img/emoji/waning_crescent_moon.png  
+ extracting: /opt/restyaboard/client/img/emoji/waning_gibbous_moon.png  
+ extracting: /opt/restyaboard/client/img/emoji/warning.png  
+ extracting: /opt/restyaboard/client/img/emoji/watch.png  
+ extracting: /opt/restyaboard/client/img/emoji/water_buffalo.png  
+ extracting: /opt/restyaboard/client/img/emoji/watermelon.png  
+ extracting: /opt/restyaboard/client/img/emoji/wave.png  
+ extracting: /opt/restyaboard/client/img/emoji/wavy_dash.png  
+ extracting: /opt/restyaboard/client/img/emoji/waxing_crescent_moon.png  
+ extracting: /opt/restyaboard/client/img/emoji/waxing_gibbous_moon.png  
+ extracting: /opt/restyaboard/client/img/emoji/wc.png  
+  inflating: /opt/restyaboard/client/img/emoji/weary.png  
+ extracting: /opt/restyaboard/client/img/emoji/wedding.png  
+ extracting: /opt/restyaboard/client/img/emoji/whale.png  
+ extracting: /opt/restyaboard/client/img/emoji/whale2.png  
+ extracting: /opt/restyaboard/client/img/emoji/wheelchair.png  
+ extracting: /opt/restyaboard/client/img/emoji/white_check_mark.png  
+ extracting: /opt/restyaboard/client/img/emoji/white_circle.png  
+ extracting: /opt/restyaboard/client/img/emoji/white_flower.png  
+ extracting: /opt/restyaboard/client/img/emoji/white_large_square.png  
+  inflating: /opt/restyaboard/client/img/emoji/white_medium_small_square.png  
+  inflating: /opt/restyaboard/client/img/emoji/white_medium_square.png  
+  inflating: /opt/restyaboard/client/img/emoji/white_small_square.png  
+ extracting: /opt/restyaboard/client/img/emoji/white_square_button.png  
+ extracting: /opt/restyaboard/client/img/emoji/wind_chime.png  
+ extracting: /opt/restyaboard/client/img/emoji/wine_glass.png  
+ extracting: /opt/restyaboard/client/img/emoji/wink.png  
+ extracting: /opt/restyaboard/client/img/emoji/wolf.png  
+ extracting: /opt/restyaboard/client/img/emoji/woman.png  
+ extracting: /opt/restyaboard/client/img/emoji/womans_clothes.png  
+ extracting: /opt/restyaboard/client/img/emoji/womans_hat.png  
+ extracting: /opt/restyaboard/client/img/emoji/womens.png  
+  inflating: /opt/restyaboard/client/img/emoji/worried.png  
+ extracting: /opt/restyaboard/client/img/emoji/wrench.png  
+ extracting: /opt/restyaboard/client/img/emoji/x.png  
+ extracting: /opt/restyaboard/client/img/emoji/yellow_heart.png  
+ extracting: /opt/restyaboard/client/img/emoji/yen.png  
+ extracting: /opt/restyaboard/client/img/emoji/yum.png  
+ extracting: /opt/restyaboard/client/img/emoji/zap.png  
+ extracting: /opt/restyaboard/client/img/emoji/zero.png  
+ extracting: /opt/restyaboard/client/img/emoji/zzz.png  
+  inflating: /opt/restyaboard/client/img/flags.png  
+  inflating: /opt/restyaboard/client/img/grid.png  
+  inflating: /opt/restyaboard/client/img/icon_sprite.png  
+  inflating: /opt/restyaboard/client/img/logo.png  
+  inflating: /opt/restyaboard/client/img/logo.svg  
+ extracting: /opt/restyaboard/client/img/logo-icon.png  
+ extracting: /opt/restyaboard/client/img/logo-icon-offline.png  
+  inflating: /opt/restyaboard/client/img/logo-icon-sync.gif  
+ extracting: /opt/restyaboard/client/img/select2.png  
+  inflating: /opt/restyaboard/client/img/select2-spinner.gif  
+ extracting: /opt/restyaboard/client/img/select2x2.png  
+  inflating: /opt/restyaboard/client/img/split.gif  
+  inflating: /opt/restyaboard/client/img/star-load.gif  
+  inflating: /opt/restyaboard/client/index.html  
+   creating: /opt/restyaboard/client/js/
+  inflating: /opt/restyaboard/client/js/authorize.cache.js  
+  inflating: /opt/restyaboard/client/js/default.cache.a331c8c3.js  
+   creating: /opt/restyaboard/client/js/workflow_templates/
+  inflating: /opt/restyaboard/client/js/workflow_templates/bug.json  
+  inflating: /opt/restyaboard/client/js/workflow_templates/crm.json  
+  inflating: /opt/restyaboard/client/js/workflow_templates/scrum.json  
+  inflating: /opt/restyaboard/client/js/workflow_templates/todo.json  
+   creating: /opt/restyaboard/client/locales/
+   creating: /opt/restyaboard/client/locales/de/
+  inflating: /opt/restyaboard/client/locales/de/translation.json  
+   creating: /opt/restyaboard/client/locales/en_US/
+  inflating: /opt/restyaboard/client/locales/en_US/translation.json  
+   creating: /opt/restyaboard/client/locales/es/
+  inflating: /opt/restyaboard/client/locales/es/translation.json  
+   creating: /opt/restyaboard/client/locales/fi/
+  inflating: /opt/restyaboard/client/locales/fi/translation.json  
+   creating: /opt/restyaboard/client/locales/fr/
+  inflating: /opt/restyaboard/client/locales/fr/translation.json  
+   creating: /opt/restyaboard/client/locales/hi/
+  inflating: /opt/restyaboard/client/locales/hi/translation.json  
+   creating: /opt/restyaboard/client/locales/ja/
+  inflating: /opt/restyaboard/client/locales/ja/translation.json  
+   creating: /opt/restyaboard/client/locales/pl/
+  inflating: /opt/restyaboard/client/locales/pl/translation.json  
+   creating: /opt/restyaboard/client/locales/pt/
+  inflating: /opt/restyaboard/client/locales/pt/translation.json  
+   creating: /opt/restyaboard/client/locales/ru/
+  inflating: /opt/restyaboard/client/locales/ru/translation.json  
+   creating: /opt/restyaboard/client/locales/ta/
+  inflating: /opt/restyaboard/client/locales/ta/translation.json  
+   creating: /opt/restyaboard/client/locales/zh/
+  inflating: /opt/restyaboard/client/locales/zh/translation.json  
+  inflating: /opt/restyaboard/client/manifest.json  
+   creating: /opt/restyaboard/media/User/
+   creating: /opt/restyaboard/media/User/1/
+  inflating: /opt/restyaboard/media/User/1/default-admin-user.png  
+  inflating: /opt/restyaboard/restyaboard.conf  
+   creating: /opt/restyaboard/server/php/
+  inflating: /opt/restyaboard/server/php/authorize.php  
+  inflating: /opt/restyaboard/server/php/config.inc.php  
+  inflating: /opt/restyaboard/server/php/download.php  
+  inflating: /opt/restyaboard/server/php/ical.php  
+  inflating: /opt/restyaboard/server/php/image.php  
+   creating: /opt/restyaboard/server/php/libs/
+  inflating: /opt/restyaboard/server/php/libs/core.php  
+   creating: /opt/restyaboard/server/php/libs/vendors/
+  inflating: /opt/restyaboard/server/php/libs/vendors/finediff.php  
+   creating: /opt/restyaboard/server/php/libs/vendors/OAuth2/
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Autoloader.php  
+   creating: /opt/restyaboard/server/php/libs/vendors/OAuth2/ClientAssertionType/
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/ClientAssertionType/ClientAssertionTypeInterface.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/ClientAssertionType/HttpBasic.php  
+   creating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Controller/
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Controller/AuthorizeController.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Controller/AuthorizeControllerInterface.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Controller/ResourceController.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Controller/ResourceControllerInterface.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Controller/TokenController.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Controller/TokenControllerInterface.php  
+   creating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Encryption/
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Encryption/EncryptionInterface.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Encryption/Jwt.php  
+   creating: /opt/restyaboard/server/php/libs/vendors/OAuth2/GrantType/
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/GrantType/AuthorizationCode.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/GrantType/ClientCredentials.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/GrantType/GrantTypeInterface.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/GrantType/JwtBearer.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/GrantType/RefreshToken.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/GrantType/UserCredentials.php  
+   creating: /opt/restyaboard/server/php/libs/vendors/OAuth2/OpenID/
+   creating: /opt/restyaboard/server/php/libs/vendors/OAuth2/OpenID/Controller/
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/OpenID/Controller/AuthorizeController.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/OpenID/Controller/AuthorizeControllerInterface.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/OpenID/Controller/UserInfoController.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/OpenID/Controller/UserInfoControllerInterface.php  
+   creating: /opt/restyaboard/server/php/libs/vendors/OAuth2/OpenID/GrantType/
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/OpenID/GrantType/AuthorizationCode.php  
+   creating: /opt/restyaboard/server/php/libs/vendors/OAuth2/OpenID/ResponseType/
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/OpenID/ResponseType/AuthorizationCode.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/OpenID/ResponseType/AuthorizationCodeInterface.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/OpenID/ResponseType/IdToken.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/OpenID/ResponseType/IdTokenInterface.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/OpenID/ResponseType/TokenIdToken.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/OpenID/ResponseType/TokenIdTokenInterface.php  
+   creating: /opt/restyaboard/server/php/libs/vendors/OAuth2/OpenID/Storage/
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/OpenID/Storage/AuthorizationCodeInterface.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/OpenID/Storage/UserClaimsInterface.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Request.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/RequestInterface.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Response.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/ResponseInterface.php  
+   creating: /opt/restyaboard/server/php/libs/vendors/OAuth2/ResponseType/
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/ResponseType/AccessToken.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/ResponseType/AccessTokenInterface.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/ResponseType/AuthorizationCode.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/ResponseType/AuthorizationCodeInterface.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/ResponseType/CryptoToken.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/ResponseType/ResponseTypeInterface.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Scope.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/ScopeInterface.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Server.php  
+   creating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Storage/
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Storage/AccessTokenInterface.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Storage/AuthorizationCodeInterface.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Storage/Cassandra.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Storage/ClientCredentialsInterface.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Storage/ClientInterface.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Storage/CryptoToken.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Storage/CryptoTokenInterface.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Storage/JwtBearerInterface.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Storage/Memory.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Storage/Mongo.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Storage/Pdo.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Storage/PublicKeyInterface.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Storage/Redis.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Storage/RefreshTokenInterface.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Storage/ScopeInterface.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/Storage/UserCredentialsInterface.php  
+   creating: /opt/restyaboard/server/php/libs/vendors/OAuth2/TokenType/
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/TokenType/Bearer.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/TokenType/Mac.php  
+  inflating: /opt/restyaboard/server/php/libs/vendors/OAuth2/TokenType/TokenTypeInterface.php  
+  inflating: /opt/restyaboard/server/php/oauth_callback.php  
+   creating: /opt/restyaboard/server/php/R/
+  inflating: /opt/restyaboard/server/php/R/r.php  
+  inflating: /opt/restyaboard/server/php/R/README.md  
+   creating: /opt/restyaboard/server/php/shell/
+  inflating: /opt/restyaboard/server/php/shell/card_due_notification.php  
+  inflating: /opt/restyaboard/server/php/shell/card_due_notification.sh  
+  inflating: /opt/restyaboard/server/php/shell/imap.php  
+  inflating: /opt/restyaboard/server/php/shell/imap.sh  
+  inflating: /opt/restyaboard/server/php/shell/indexing_to_elasticsearch.php  
+  inflating: /opt/restyaboard/server/php/shell/indexing_to_elasticsearch.sh  
+  inflating: /opt/restyaboard/server/php/shell/instant_email_notification.php  
+  inflating: /opt/restyaboard/server/php/shell/instant_email_notification.sh  
+  inflating: /opt/restyaboard/server/php/shell/periodic_email_notification.php  
+  inflating: /opt/restyaboard/server/php/shell/periodic_email_notification.sh  
+  inflating: /opt/restyaboard/server/php/shell/webhook.php  
+  inflating: /opt/restyaboard/server/php/shell/webhook.sh  
+  inflating: /opt/restyaboard/sql/restyaboard_with_empty_data.sql  
+  inflating: /opt/restyaboard/sql/v0.2.1.sql  
+   creating: /opt/restyaboard/tmp/cache/
+++ cp /opt/restyaboard/restyaboard.conf /etc/nginx/conf.d
+++ rm /tmp/restyaboard.zip
+++ set +x
+To configure nginx, enter your domain name (e.g., www.example.com, 192.xxx.xxx.xxx, etc.,):
+++ echo hz
+hz
+++ echo 'Changing server_name in nginx configuration...'
+Changing server_name in nginx configuration...
+++ sed -i 's/server_name.*$/server_name "hz";/' /etc/nginx/conf.d/restyaboard.conf
+++ sed -i 's|listen 80.*$|listen 80;|' /etc/nginx/conf.d/restyaboard.conf
+++ set +x
+Enter your document root (where your Restyaboard to be installed. e.g., /usr/share/nginx/html/restyaboard):
+Enter your document root (where your Restyaboard to be installed. e.g., /usr/share/nginx/html/restyaboard):Enter your document root (where your Restyaboard to be installed. e.g., /usr/share/nginx/html/restyaboard):Enter your document root (where your Restyaboard to be installed. e.g., /usr/share/nginx/html/restyaboard):++ echo /usr/share/nginx/html/restyaboard
+/usr/share/nginx/html/restyaboard
+++ mkdir -p /usr/share/nginx/html/restyaboard
+++ echo 'Changing root directory in nginx configuration...'
+Changing root directory in nginx configuration...
+++ sed -i 's|root.*html|root /usr/share/nginx/html/restyaboard|' /etc/nginx/conf.d/restyaboard.conf
+++ echo 'Copying Restyaboard script to root directory...'
+Copying Restyaboard script to root directory...
+++ cp -r /opt/restyaboard/client /opt/restyaboard/media /opt/restyaboard/restyaboard.conf /opt/restyaboard/server /opt/restyaboard/sql /opt/restyaboard/tmp /usr/share/nginx/html/restyaboard
+++ echo 'Installing postfix...'
+Installing postfix...
+++ echo 'postfix postfix/mailname string hz'
+++ debconf-set-selections
+++ echo 'postfix postfix/main_mailer_type string '\''Internet Site'\'''
+++ debconf-set-selections
+++ apt-get install -y postfix
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Suggested packages:
+  procmail postfix-mysql postfix-pgsql postfix-ldap postfix-pcre sasl2-bin
+  dovecot-common resolvconf postfix-cdb mail-reader postfix-doc
+The following NEW packages will be installed:
+  postfix
+0 upgraded, 1 newly installed, 0 to remove and 113 not upgraded.
+Need to get 1,084 kB of archives.
+After this operation, 3,609 kB of additional disk space will be used.
+Get:1 http://mirror.hetzner.de/ubuntu/packages/ trusty-updates/main postfix amd64 2.11.0-1ubuntu1 [1,084 kB]
+Preconfiguring packages ...
+Fetched 1,084 kB in 0s (13.4 MB/s)
+Selecting previously unselected package postfix.
+(Reading database ... 108726 files and directories currently installed.)
+Preparing to unpack .../postfix_2.11.0-1ubuntu1_amd64.deb ...
+Unpacking postfix (2.11.0-1ubuntu1) ...
+Processing triggers for ufw (0.34~rc-0ubuntu2) ...
+Processing triggers for ureadahead (0.100.0-16) ...
+Processing triggers for man-db (2.6.7.1-1ubuntu1) ...
+Setting up postfix (2.11.0-1ubuntu1) ...
+Adding group `postfix' (GID 124) ...
+Done.
+Adding system user `postfix' (UID 113) ...
+Adding new user `postfix' (UID 113) with group `postfix' ...
+chage: the shadow password file is not present
+/usr/bin/chage failed with return code 15, shadow not enabled, password aging cannot be set. Continuing.
+Not creating home directory `/var/spool/postfix'.
+Creating /etc/postfix/dynamicmaps.cf
+Adding tcp map entry to /etc/postfix/dynamicmaps.cf
+Adding sqlite map entry to /etc/postfix/dynamicmaps.cf
+Adding group `postdrop' (GID 125) ...
+Done.
+setting myhostname: localhost.localdomain
+setting alias maps
+setting alias database
+mailname is not a fully qualified domain name.  Not changing /etc/mailname.
+setting destinations: hz, localhost.localdomain, localhost.localdomain, localhost
+setting relayhost: 
+setting mynetworks: 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+setting mailbox_size_limit: 0
+setting recipient_delimiter: +
+setting inet_interfaces: all
+setting inet_protocols: all
+WARNING: /etc/aliases exists, but does not have a root alias.
+
+Postfix is now set up with a default configuration.  If you need to make 
+changes, edit
+/etc/postfix/main.cf (and others) as needed.  To view Postfix configuration
+values, see postconf(1).
+
+After modifying main.cf, be sure to run '/etc/init.d/postfix reload'.
+
+Running newaliases
+ * Stopping Postfix Mail Transport Agent postfix
+   ...done.
+ * Starting Postfix Mail Transport Agent postfix
+   ...done.
+Processing triggers for ufw (0.34~rc-0ubuntu2) ...
+Processing triggers for ureadahead (0.100.0-16) ...
+Processing triggers for libc-bin (2.19-0ubuntu6.7) ...
+/sbin/ldconfig.real: /usr/lib/libduktape.so.1 is not a symbolic link
+
+++ echo 'Changing permission...'
+Changing permission...
+++ chmod -R go+w /usr/share/nginx/html/restyaboard/media
+++ chmod -R go+w /usr/share/nginx/html/restyaboard/client/img
+++ chmod -R go+w /usr/share/nginx/html/restyaboard/tmp/cache
+++ chmod -R 0755 /usr/share/nginx/html/restyaboard/server/php/shell/card_due_notification.sh /usr/share/nginx/html/restyaboard/server/php/shell/imap.sh /usr/share/nginx/html/restyaboard/server/php/shell/indexing_to_elasticsearch.sh /usr/share/nginx/html/restyaboard/server/php/shell/instant_email_notification.sh /usr/share/nginx/html/restyaboard/server/php/shell/periodic_email_notification.sh /usr/share/nginx/html/restyaboard/server/php/shell/webhook.sh
+++ psql -U postgres -c '\q'
+++ sleep 1
+++ echo 'Creating PostgreSQL user and database...'
+Creating PostgreSQL user and database...
+++ psql -U postgres -c 'CREATE USER restya WITH ENCRYPTED PASSWORD '\''hjVl2!rGd'\'''
+CREATE ROLE
+++ psql -U postgres -c 'CREATE DATABASE restyaboard OWNER restya ENCODING '\''UTF8'\'' TEMPLATE template0'
+CREATE DATABASE
+++ psql -U postgres -c 'CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;'
+NOTICE:  extension "plpgsql" already exists, skipping
+CREATE EXTENSION
+++ psql -U postgres -c 'COMMENT ON EXTENSION plpgsql IS '\''PL/pgSQL procedural language'\'';'
+COMMENT
+++ '[' 0 = 0 ']'
+++ echo 'Importing empty SQL...'
+Importing empty SQL...
+++ psql -d restyaboard -f /usr/share/nginx/html/restyaboard/sql/restyaboard_with_empty_data.sql -U restya
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE SEQUENCE
+SET
+SET
+CREATE TABLE
+CREATE SEQUENCE
+CREATE TABLE
+CREATE VIEW
+CREATE SEQUENCE
+CREATE TABLE
+CREATE SEQUENCE
+CREATE TABLE
+CREATE VIEW
+CREATE SEQUENCE
+CREATE TABLE
+CREATE SEQUENCE
+CREATE TABLE
+CREATE VIEW
+CREATE SEQUENCE
+CREATE TABLE
+CREATE SEQUENCE
+CREATE TABLE
+CREATE SEQUENCE
+CREATE TABLE
+CREATE SEQUENCE
+CREATE TABLE
+CREATE SEQUENCE
+CREATE TABLE
+CREATE SEQUENCE
+CREATE TABLE
+CREATE SEQUENCE
+CREATE TABLE
+CREATE SEQUENCE
+CREATE TABLE
+CREATE SEQUENCE
+CREATE TABLE
+CREATE VIEW
+CREATE SEQUENCE
+CREATE SEQUENCE
+CREATE TABLE
+CREATE SEQUENCE
+CREATE TABLE
+CREATE SEQUENCE
+CREATE TABLE
+CREATE SEQUENCE
+CREATE TABLE
+CREATE VIEW
+CREATE SEQUENCE
+CREATE TABLE
+CREATE VIEW
+CREATE SEQUENCE
+CREATE TABLE
+CREATE SEQUENCE
+CREATE TABLE
+CREATE SEQUENCE
+CREATE TABLE
+CREATE VIEW
+CREATE VIEW
+CREATE SEQUENCE
+CREATE TABLE
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE SEQUENCE
+CREATE TABLE
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE TABLE
+CREATE SEQUENCE
+CREATE SEQUENCE
+ALTER SEQUENCE
+CREATE TABLE
+CREATE SEQUENCE
+CREATE SEQUENCE
+ALTER SEQUENCE
+CREATE SEQUENCE
+CREATE TABLE
+CREATE VIEW
+CREATE SEQUENCE
+CREATE TABLE
+CREATE SEQUENCE
+CREATE TABLE
+CREATE SEQUENCE
+CREATE SEQUENCE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE SEQUENCE
+CREATE SEQUENCE
+ALTER SEQUENCE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE SEQUENCE
+CREATE TABLE
+CREATE SEQUENCE
+CREATE TABLE
+CREATE VIEW
+CREATE VIEW
+CREATE SEQUENCE
+CREATE TABLE
+CREATE VIEW
+CREATE TABLE
+CREATE SEQUENCE
+ALTER SEQUENCE
+CREATE SEQUENCE
+CREATE TABLE
+CREATE VIEW
+CREATE VIEW
+CREATE TABLE
+CREATE SEQUENCE
+CREATE SEQUENCE
+ALTER SEQUENCE
+CREATE TABLE
+CREATE SEQUENCE
+ALTER SEQUENCE
+CREATE VIEW
+CREATE VIEW
+CREATE SEQUENCE
+CREATE TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+COPY 55
+COPY 113
+ setval 
+--------
+      1
+(1 row)
+
+ setval 
+--------
+      1
+(1 row)
+
+COPY 41
+ setval 
+--------
+    123
+(1 row)
+
+COPY 77
+ setval 
+--------
+   1219
+(1 row)
+
+COPY 8
+COPY 14
+ setval 
+--------
+      1
+(1 row)
+
+ setval 
+--------
+      1
+(1 row)
+
+COPY 0
+ setval 
+--------
+      2
+(1 row)
+
+ setval 
+--------
+      1
+(1 row)
+
+COPY 0
+COPY 0
+COPY 3
+ setval 
+--------
+      1
+(1 row)
+
+COPY 0
+ setval 
+--------
+      2
+(1 row)
+
+ setval 
+--------
+      1
+(1 row)
+
+ setval 
+--------
+      1
+(1 row)
+
+COPY 0
+ setval 
+--------
+      2
+(1 row)
+
+COPY 0
+ setval 
+--------
+      1
+(1 row)
+
+COPY 0
+COPY 0
+ setval 
+--------
+      1
+(1 row)
+
+COPY 0
+ setval 
+--------
+      1
+(1 row)
+
+COPY 0
+ setval 
+--------
+      1
+(1 row)
+
+ setval 
+--------
+      1
+(1 row)
+
+COPY 0
+ setval 
+--------
+      1
+(1 row)
+
+COPY 0
+ setval 
+--------
+      1
+(1 row)
+
+COPY 0
+ setval 
+--------
+      1
+(1 row)
+
+COPY 1
+ setval 
+--------
+  15178
+(1 row)
+
+ setval 
+--------
+      1
+(1 row)
+
+COPY 250
+ setval 
+--------
+    262
+(1 row)
+
+ setval 
+--------
+      1
+(1 row)
+
+COPY 7
+ setval 
+--------
+      1
+(1 row)
+
+COPY 1
+ setval 
+--------
+      1
+(1 row)
+
+COPY 0
+ setval 
+--------
+      1
+(1 row)
+
+COPY 415
+ setval 
+--------
+      1
+(1 row)
+
+COPY 0
+ setval 
+--------
+      1
+(1 row)
+
+COPY 0
+ setval 
+--------
+    196
+(1 row)
+
+ setval 
+--------
+      1
+(1 row)
+
+COPY 2
+ setval 
+--------
+      2
+(1 row)
+
+COPY 0
+COPY 0
+COPY 4
+ setval 
+--------
+      1
+(1 row)
+
+ setval 
+--------
+      5
+(1 row)
+
+COPY 0
+COPY 3
+COPY 2
+COPY 3
+ setval 
+--------
+      1
+(1 row)
+
+COPY 0
+ setval 
+--------
+      1
+(1 row)
+
+COPY 0
+ setval 
+--------
+      1
+(1 row)
+
+COPY 3
+ setval 
+--------
+      3
+(1 row)
+
+COPY 9
+ setval 
+--------
+      5
+(1 row)
+
+COPY 28
+ setval 
+--------
+     24
+(1 row)
+
+COPY 1
+ setval 
+--------
+  15138
+(1 row)
+
+ setval 
+--------
+      1
+(1 row)
+
+COPY 2
+ setval 
+--------
+      2
+(1 row)
+
+COPY 2
+ setval 
+--------
+      2
+(1 row)
+
+COPY 0
+ setval 
+--------
+      1
+(1 row)
+
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+psql:/usr/share/nginx/html/restyaboard/sql/restyaboard_with_empty_data.sql:5966: WARNING:  no privileges could be revoked for "public"
+REVOKE
+psql:/usr/share/nginx/html/restyaboard/sql/restyaboard_with_empty_data.sql:5967: WARNING:  no privileges could be revoked for "public"
+REVOKE
+psql:/usr/share/nginx/html/restyaboard/sql/restyaboard_with_empty_data.sql:5968: WARNING:  no privileges were granted for "public"
+GRANT
+psql:/usr/share/nginx/html/restyaboard/sql/restyaboard_with_empty_data.sql:5969: WARNING:  no privileges were granted for "public"
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+REVOKE
+REVOKE
+GRANT
+++ echo 'Changing PostgreSQL database name, user and password...'
+Changing PostgreSQL database name, user and password...
+++ sed -i 's/^.*'\''R_DB_NAME'\''.*$/define('\''R_DB_NAME'\'', '\''restyaboard'\'');/g' /usr/share/nginx/html/restyaboard/server/php/config.inc.php
+++ sed -i 's/^.*'\''R_DB_USER'\''.*$/define('\''R_DB_USER'\'', '\''restya'\'');/g' /usr/share/nginx/html/restyaboard/server/php/config.inc.php
+++ sed -i 's/^.*'\''R_DB_PASSWORD'\''.*$/define('\''R_DB_PASSWORD'\'', '\''hjVl2!rGd'\'');/g' /usr/share/nginx/html/restyaboard/server/php/config.inc.php
+++ sed -i 's/^.*'\''R_DB_HOST'\''.*$/define('\''R_DB_HOST'\'', '\''localhost'\'');/g' /usr/share/nginx/html/restyaboard/server/php/config.inc.php
+++ sed -i 's/^.*'\''R_DB_PORT'\''.*$/define('\''R_DB_PORT'\'', '\''5432'\'');/g' /usr/share/nginx/html/restyaboard/server/php/config.inc.php
+++ echo 'Setting up cron for every 5 minutes to update ElasticSearch indexing...'
+Setting up cron for every 5 minutes to update ElasticSearch indexing...
+++ echo '*/5 * * * * /usr/share/nginx/html/restyaboard/server/php/shell/indexing_to_elasticsearch.sh'
+++ echo 'Setting up cron for every 5 minutes to send email notification to user, if the user chosen notification type as instant...'
+Setting up cron for every 5 minutes to send email notification to user, if the user chosen notification type as instant...
+++ echo '*/5 * * * * /usr/share/nginx/html/restyaboard/server/php/shell/instant_email_notification.sh'
+++ echo 'Setting up cron for every 1 hour to send email notification to user, if the user chosen notification type as periodic...'
+Setting up cron for every 1 hour to send email notification to user, if the user chosen notification type as periodic...
+++ echo '0 * * * * /usr/share/nginx/html/restyaboard/server/php/shell/periodic_email_notification.sh'
+++ echo 'Setting up cron for every 30 minutes to fetch IMAP email...'
+Setting up cron for every 30 minutes to fetch IMAP email...
+++ echo '*/30 * * * * /usr/share/nginx/html/restyaboard/server/php/shell/imap.sh'
+++ echo 'Setting up cron for every 5 minutes to send activities to webhook...'
+Setting up cron for every 5 minutes to send activities to webhook...
+++ echo '*/5 * * * * /usr/share/nginx/html/restyaboard/server/php/shell/webhook.sh'
+++ echo 'Setting up cron for every 5 minutes to send email notification to past due...'
+Setting up cron for every 5 minutes to send email notification to past due...
+++ echo '*/5 * * * * /usr/share/nginx/html/restyaboard/server/php/shell/card_due_notification.sh'
+++ echo 'Starting services...'
+Starting services...
+++ service cron restart
+cron stop/waiting
+cron start/running, process 17503
+++ service php5-fpm restart
+php5-fpm stop/waiting
+php5-fpm start/running, process 17518
+++ service nginx restart
+ * Restarting nginx nginx
+   ...done.
+++ service postfix restart
+ * Stopping Postfix Mail Transport Agent postfix
+   ...done.
+ * Starting Postfix Mail Transport Agent postfix
+   ...done.
+++ service elasticsearch restart
+ * Stopping ElasticSearch Server
+   ...done.
+ * Starting ElasticSearch Server
+   ...done.
+++ set +x
