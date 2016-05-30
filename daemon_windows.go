@@ -37,7 +37,7 @@ func (windows *windowsRecord) Install(args ...string) (string, error) {
 		return installAction + failed, err
 	}
 
-	cmd := exec.Command("nssm.exe", "install", "Description=\"" + windows.description + "\"", windows.name, execp)
+	cmd := exec.Command("nssm.exe", "install", windows.name, execp)
 	out, err := cmd.Output()
 	if err != nil {
 		if len(out) > 0 {
