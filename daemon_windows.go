@@ -6,6 +6,7 @@
 package daemon
 
 import (
+	"fmt"
 	"os/exec"
 	"errors"
 	"github.com/kardianos/osext"
@@ -28,6 +29,7 @@ func newDaemon(name, description string, dependencies []string) (Daemon, error) 
 // Install the service
 func (windows *windowsRecord) Install(args ...string) (string, error) {
 	installAction := "Install " + windows.description + ":"
+	adminAccessNecessary := "Administrator access is needed to install a service."
 
 	execp, err := execPath()
 
@@ -36,11 +38,18 @@ func (windows *windowsRecord) Install(args ...string) (string, error) {
 	}
 
 	cmd := exec.Command("nssm.exe", "install", "Description=\"" + windows.description + "\"", windows.name, execp)
-	err = cmd.Run()
+	out, err := cmd.Output()
 	if err != nil {
+		if len(out) > 0 {
+			fmt.Println(string(out))
+		} else {
+			fmt.Println("No output. Probably service already exists. Try uninstall first.")
+		}
 		return installAction + failed, err
 	}
-
+	if len(out) == 0 {
+		return adminAccessNecessary, errors.New(adminAccessNecessary)
+	}
 	return installAction + " completed.", nil
 }
 
