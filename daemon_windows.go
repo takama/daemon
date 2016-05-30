@@ -35,7 +35,7 @@ func (windows *windowsRecord) Install(args ...string) (string, error) {
 		return installAction + failed, err
 	}
 
-	cmd := exec.Command("nssm.exe install Description=\"" + windows.description + "\" \"" + windows.name + "\" " + execp)
+	cmd := exec.Command("nssm.exe", "install", "Description=\"" + windows.description + "\"", windows.name, execp)
 	err = cmd.Run()
 	if err != nil {
 		return installAction + failed, err
@@ -47,7 +47,7 @@ func (windows *windowsRecord) Install(args ...string) (string, error) {
 // Remove the service
 func (windows *windowsRecord) Remove() (string, error) {
 	removeAction := "Removing " + windows.description + ":"
-	cmd := exec.Command("nssm.exe remove \"" + windows.name + "\"")
+	cmd := exec.Command("nssm.exe", "remove", windows.name)
 	err := cmd.Run()
 	if err != nil {
 		return removeAction + failed, err
@@ -58,7 +58,7 @@ func (windows *windowsRecord) Remove() (string, error) {
 // Start the service
 func (windows *windowsRecord) Start() (string, error) {
 	startAction := "Starting " + windows.description + ":"
-	cmd := exec.Command("nssm.exe start \"" + windows.name + "\"")
+	cmd := exec.Command("nssm.exe", "start", windows.name)
 	err := cmd.Run()
 	if err != nil {
 		return startAction + failed, err
@@ -69,7 +69,7 @@ func (windows *windowsRecord) Start() (string, error) {
 // Stop the service
 func (windows *windowsRecord) Stop() (string, error) {
 	stopAction := "Stopping " + windows.description + ":"
-	cmd := exec.Command("nssm.exe stop \"" + windows.name + "\"")
+	cmd := exec.Command("nssm.exe", "stop", windows.name)
 	err := cmd.Run()
 	if err != nil {
 		return stopAction + failed, err
@@ -80,7 +80,7 @@ func (windows *windowsRecord) Stop() (string, error) {
 
 // Status - Get service status
 func (windows *windowsRecord) Status() (string, error) {
-	cmd := exec.Command("nssm.exe status \"" + windows.name + "\"")
+	cmd := exec.Command("nssm.exe", "status", windows.name)
 	out, err := cmd.Output()
 	if err != nil {
 		return "Getting status:" + failed, err
