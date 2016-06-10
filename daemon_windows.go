@@ -6,10 +6,12 @@
 package daemon
 
 import (
+	"errors"
 	"fmt"
 	"os/exec"
-	"errors"
-	"github.com/kardianos/osext"
+	"syscall"
+	"unicode/utf16"
+	"unsafe"
 )
 
 var ErrWindowsUnsupported = errors.New("Adding as a service failed. Download and place nssm.exe in the path to install this service as an service. NSSM url: https://nssm.cc/")
@@ -96,5 +98,18 @@ func (windows *windowsRecord) Status() (string, error) {
 
 // Get executable path
 func execPath() (string, error) {
-	return osext.Executable()
+	var n uint32
+	b := make([]uint16, syscall.MAX_PATH)
+	size := uint32(len(b))
+
+	r0, _, e1 := syscall.MustLoadDLL(
+		"kernel32.dll",
+	).MustFindProc(
+		"GetModuleFileNameW",
+	).Call(0, uintptr(unsafe.Pointer(&b[0])), uintptr(size))
+	n = uint32(r0)
+	if n == 0 {
+		return "", e1
+	}
+	return string(utf16.Decode(b[0:n])), nil
 }
