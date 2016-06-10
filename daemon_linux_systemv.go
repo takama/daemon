@@ -254,7 +254,7 @@ start() {
         $exec {{.Args}} >> $stdoutlog 2>> $stderrlog &
         echo $! > $pidfile
         touch $lockfile
-        echo "service $servname started"
+        success
         echo
     else
         # failure
