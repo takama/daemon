@@ -173,12 +173,9 @@ func main() {
 }
 ```
 
-## Author
-
-[Igor Dolzhikov](https://github.com/takama)
-
 ## Contributors
 
+- [Igor Dolzhikov](https://github.com/takama)
 - [Sheile](https://github.com/Sheile)
 - [Nguyen Trung Loi](https://github.com/loint)
 - [Donny Prasetyobudi](https://github.com/donnpebe)
