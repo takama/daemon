@@ -245,6 +245,9 @@ start() {
     if [ -f $pidfile ]; then
         if ! [ -d "/proc/$(cat $pidfile)" ]; then
             rm $pidfile
+            if [ -f $lockfile ]; then
+                rm $lockfile
+            fi
         fi
     fi
 
