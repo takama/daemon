@@ -235,12 +235,18 @@ lockfile="/var/lock/subsys/$proc"
 stdoutlog="/var/log/$proc.log"
 stderrlog="/var/log/$proc.err"
 
-[[ -d $(dirname $lockfile) ]] || mkdir -p $(dirname $lockfile)
+[ -d $(dirname $lockfile) ] || mkdir -p $(dirname $lockfile)
 
 [ -e /etc/sysconfig/$proc ] && . /etc/sysconfig/$proc
 
 start() {
     [ -x $exec ] || exit 5
+
+    if [ -f $pidfile ]; then
+        if ! [ -d "/proc/$(cat $pidfile)" ]; then
+            rm $pidfile
+        fi
+    fi
 
     if ! [ -f $pidfile ]; then
         printf "Starting $servname:\t"
@@ -251,7 +257,7 @@ start() {
         success
         echo
     else
-        failure
+        # failure
         echo
         printf "$pidfile still exists...\n"
         exit 7
