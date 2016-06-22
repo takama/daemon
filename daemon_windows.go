@@ -74,6 +74,7 @@ func (windows *windowsRecord) Start() (string, error) {
 	if err != nil {
 		return startAction + failed, err
 	}
+	return startAction + " completed.", nil
 }
 
 // Stop the service
@@ -84,6 +85,7 @@ func (windows *windowsRecord) Stop() (string, error) {
 	if err != nil {
 		return stopAction + failed, err
 	}
+	return stopAction + " completed.", nil
 }
 
 // Status - Get service status
