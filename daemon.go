@@ -127,7 +127,7 @@ Example:
 			if numbytes == 0 || err != nil {
 				return
 			}
-			client.Write(buf)
+			client.Write(buf[:numbytes])
 		}
 	}
 
