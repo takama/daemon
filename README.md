@@ -148,7 +148,7 @@ func handleClient(client net.Conn) {
 		if numbytes == 0 || err != nil {
 			return
 		}
-		client.Write(buf)
+		client.Write(buf[:numbytes])
 	}
 }
 
@@ -182,6 +182,7 @@ func main() {
 - [Mark Berner](https://github.com/mark2b)
 - [Fatih Kaya](https://github.com/fatihky)
 - [Jannick Fahlbusch](https://github.com/jannickfahlbusch)
+- [TobyZXJ](https://github.com/tobyzxj)
 
 All the contributors are welcome. If you would like to be the contributor please accept some rules.
 - The pull requests will be accepted only in "develop" branch

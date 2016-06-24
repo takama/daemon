@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 /*
-Package daemon 0.5.1 for use with Go (golang) services.
+Package daemon 0.5.2 for use with Go (golang) services.
 
 Package daemon provides primitives for daemonization of golang services.
 This package is not provide implementation of user daemon,
@@ -127,7 +127,7 @@ Example:
 			if numbytes == 0 || err != nil {
 				return
 			}
-			client.Write(buf)
+			client.Write(buf[:numbytes])
 		}
 	}
 
