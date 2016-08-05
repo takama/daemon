@@ -173,7 +173,7 @@ func main() {
 }
 ```
 
-## Contributors
+## Contributors (unsorted)
 
 - [Igor Dolzhikov](https://github.com/takama)
 - [Sheile](https://github.com/Sheile)
@@ -183,6 +183,7 @@ func main() {
 - [Fatih Kaya](https://github.com/fatihky)
 - [Jannick Fahlbusch](https://github.com/jannickfahlbusch)
 - [TobyZXJ](https://github.com/tobyzxj)
+- [Pichu Chen](https://github.com/PichuChen)
 
 All the contributors are welcome. If you would like to be the contributor please accept some rules.
 - The pull requests will be accepted only in "develop" branch
