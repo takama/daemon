@@ -188,5 +188,5 @@ stop on runlevel [016]
 
 #kill timeout 5
 
-exec {{.Path}} >> /var/log/{{.Name}}.log 2>> /var/log/{{.Name}}.err
+exec {{.Path}} {{.Args}} >> /var/log/{{.Name}}.log 2>> /var/log/{{.Name}}.err
 `

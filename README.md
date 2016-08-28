@@ -184,6 +184,7 @@ func main() {
 - [Jannick Fahlbusch](https://github.com/jannickfahlbusch)
 - [TobyZXJ](https://github.com/tobyzxj)
 - [Pichu Chen](https://github.com/PichuChen)
+- [Eric Halpern](https://github.com/ehalpern)
 
 All the contributors are welcome. If you would like to be the contributor please accept some rules.
 - The pull requests will be accepted only in "develop" branch
