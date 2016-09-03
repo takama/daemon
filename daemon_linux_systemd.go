@@ -81,16 +81,16 @@ func (linux *systemDRecord) Install(args ...string) (string, error) {
 		return installAction + failed, err
 	}
 
-	path := append([]string{execPatch}, args...)
 	if err := templ.Execute(
 		file,
 		&struct {
-			Name, Description, Dependencies, Path string
+			Name, Description, Dependencies, Path, Args string
 		}{
 			linux.name,
 			linux.description,
 			strings.Join(linux.dependencies, " "),
-			strings.Join(path, " "),
+			execPatch,
+			strings.Join(args, " "),
 		},
 	); err != nil {
 		return installAction + failed, err
