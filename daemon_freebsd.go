@@ -14,6 +14,7 @@ import (
 	"regexp"
 	"strings"
 	"text/template"
+	"io/ioutil"
 )
 
 
@@ -44,16 +45,16 @@ func (bsd *bsdRecord) isEnabled() bool {
 	rcConf, err := os.Open("/etc/rc.conf")
 	if err != nil {
 		fmt.Println("Error opening file:", err)
-		return
+		return false, err
 	}
 	defer rcConf.Close()
-	rcData, _ := ioutil.ReadAll(ConfigFile1)
+	rcData, _ := ioutil.ReadAll(rcConf)
 	ok, _ := regexp.MatchString(`^(?<!#)((\s)*` + bsd.name + `="YES".*$`, rcData)
 	return ok
 }
 
 func (bsd *bsdRecord) getCmd(cmd string) string {
-	if !bsd.isEnabled() {
+	if ok, err = bsd.isEnabled(); !ok || err != nil {
 		fmt.Println("Service is not enabled, using one" + cmd + " instead")
 		cmd = "one" + cmd
 	}
