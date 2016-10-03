@@ -39,6 +39,27 @@ func (bsd *bsdRecord) isInstalled() bool {
 	return false
 }
 
+// Is a service is enabled
+func (bsd *bsdRecord) isEnabled() bool {
+	rcConf, err := os.Open("/etc/rc.conf")
+	if err != nil {
+		fmt.Println("Error opening file:", err)
+		return
+	}
+	defer rcConf.Close()
+	rcData, _ := ioutil.ReadAll(ConfigFile1)
+	ok, _ := regexp.MatchString(`^(?<!#)((\s)*` + bsd.name + `="YES".*$`, rcData)
+	return ok
+}
+
+func (bsd *bsdRecord) getCmd(cmd string) string {
+	if !bsd.isEnabled() {
+		fmt.Println("Service is not enabled, using one" + cmd + " instead")
+		cmd = "one" + cmd
+	}
+	return cmd
+}
+
 
 // Get the daemon properly
 func newDaemon(name, description string, dependencies []string) (Daemon, error) {
@@ -79,7 +100,7 @@ func execPath() (string, error) {
 
 // Check service is running
 func (bsd *bsdRecord) checkRunning() (string, bool) {
-	output, err := exec.Command("service", bsd.name, "status").Output()
+	output, err := exec.Command("service", bsd.name, bsd.getCmd("status")).Output()
 	if err == nil {
 		if matched, err := regexp.MatchString(bsd.name, string(output)); err == nil && matched {
 			reg := regexp.MustCompile("pid  ([0-9]+)")
@@ -159,6 +180,7 @@ func (bsd *bsdRecord) Remove() (string, error) {
 	return removeAction + success, nil
 }
 
+
 // Start the service
 func (bsd *bsdRecord) Start() (string, error) {
 	startAction := "Starting " + bsd.description + ":"
@@ -175,7 +197,7 @@ func (bsd *bsdRecord) Start() (string, error) {
 		return startAction + failed, ErrAlreadyRunning
 	}
 
-	if err := exec.Command("service", bsd.name, "start").Run(); err != nil {
+	if err := exec.Command("service", bsd.name, bsd.getCmd("start")).Run(); err != nil {
 		return startAction + failed, err
 	}
 
@@ -198,7 +220,7 @@ func (bsd *bsdRecord) Stop() (string, error) {
 		return stopAction + failed, ErrAlreadyStopped
 	}
 
-	if err := exec.Command("service", bsd.name, "stop").Run(); err != nil {
+	if err := exec.Command("service", bsd.name, bsd.getCmd("stop")).Run(); err != nil {
 		return stopAction + failed, err
 	}
 
@@ -240,7 +262,7 @@ rcvar="{{.Name}}_enable"
 command="{{.Path}}"
 pidfile="/var/run/$name.pid"
 
-start_cmd="/usr/sbin/daemon -p $pidfile -f $command {{.Args}}"
+start_cmd="/usr/sbin/daemon -p $pidfile -f $command {{.Args}}
 
 run_rc_command "$1"
 `
