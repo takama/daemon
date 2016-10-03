@@ -224,7 +224,7 @@ func (bsd *bsdRecord) Status() (string, error) {
 var bsdConfig = `#!/bin/sh
 #
 # PROVIDE: {{.Name}}
-# REQUIRE: networking syslog {{.Dependencies}}
+# REQUIRE: networking syslog
 # KEYWORD:
 
 # Add the following lines to /etc/rc.conf to enable the {{.Name}}:
@@ -240,7 +240,7 @@ rcvar="{{.Name}}_enable"
 command="{{.Path}}"
 pidfile="/var/run/$name.pid"
 
-start_cmd="/usr/sbin/daemon -p $pidfile -f $command {{.Args}}
+start_cmd="/usr/sbin/daemon -p $pidfile -f $command {{.Args}}"
 
 run_rc_command "$1"
 `
