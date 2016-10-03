@@ -1,7 +1,7 @@
 
 // +build freebsd
 
-package service
+package daemon
 
 //#include <sys/types.h>
 //#include <sys/sysctl.h>
