@@ -41,7 +41,7 @@ func (bsd *bsdRecord) isInstalled() bool {
 }
 
 // Is a service is enabled
-func (bsd *bsdRecord) isEnabled() bool {
+func (bsd *bsdRecord) isEnabled() (bool, error) {
 	rcConf, err := os.Open("/etc/rc.conf")
 	if err != nil {
 		fmt.Println("Error opening file:", err)
@@ -49,12 +49,12 @@ func (bsd *bsdRecord) isEnabled() bool {
 	}
 	defer rcConf.Close()
 	rcData, _ := ioutil.ReadAll(rcConf)
-	ok, _ := regexp.MatchString(`^(?<!#)((\s)*` + bsd.name + `="YES".*$`, rcData)
+	ok, _ := regexp.Match(`^(?<!#)((\s)*` + bsd.name + `="YES".*$`, rcData)
 	return ok
 }
 
 func (bsd *bsdRecord) getCmd(cmd string) string {
-	if ok, err = bsd.isEnabled(); !ok || err != nil {
+	if ok, err := bsd.isEnabled(); !ok || err != nil {
 		fmt.Println("Service is not enabled, using one" + cmd + " instead")
 		cmd = "one" + cmd
 	}
