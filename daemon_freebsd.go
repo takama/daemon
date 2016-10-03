@@ -1,11 +1,5 @@
-
-// +build freebsd
-
 package daemon
 
-//#include <sys/types.h>
-//#include <sys/sysctl.h>
-import "C"
 
 import (
 	"unsafe"
@@ -16,6 +10,7 @@ import (
 	"os/exec"
 	"regexp"
 	"strings"
+	"text/template"
 )
 
 
@@ -186,21 +181,21 @@ func (bsd *bsdRecord) Start() (string, error) {
 
 // Stop the service
 func (bsd *bsdRecord) Stop() (string, error) {
-	stopAction := "Stopping " + linux.description + ":"
+	stopAction := "Stopping " + bsd.description + ":"
 
 	if ok, err := checkPrivileges(); !ok {
 		return stopAction + failed, err
 	}
 
-	if !linux.isInstalled() {
+	if !bsd.isInstalled() {
 		return stopAction + failed, ErrNotInstalled
 	}
 
-	if _, ok := linux.checkRunning(); !ok {
+	if _, ok := bsd.checkRunning(); !ok {
 		return stopAction + failed, ErrAlreadyStopped
 	}
 
-	if err := exec.Command("service", linux.name, "stop").Run(); err != nil {
+	if err := exec.Command("service", bsd.name, "stop").Run(); err != nil {
 		return stopAction + failed, err
 	}
 
