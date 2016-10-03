@@ -50,7 +50,7 @@ func (bsd *bsdRecord) isEnabled() (bool, error) {
 	defer rcConf.Close()
 	rcData, _ := ioutil.ReadAll(rcConf)
 	ok, _ := regexp.Match(`^(?<!#)((\s)*` + bsd.name + `="YES".*$`, rcData)
-	return ok
+	return ok, nil
 }
 
 func (bsd *bsdRecord) getCmd(cmd string) string {
