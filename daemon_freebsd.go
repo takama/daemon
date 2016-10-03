@@ -1,5 +1,8 @@
 package daemon
 
+//#include <sys/types.h>
+//#include <sys/sysctl.h>
+import "C"
 
 import (
 	"unsafe"
