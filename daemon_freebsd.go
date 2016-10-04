@@ -277,7 +277,7 @@ command="{{.Path}}"
 pidfile="/var/run/$name.pid"
 
 start_cmd="/usr/sbin/daemon -p $pidfile -f $command {{.Args}}
-
+load_rc_config $name
 run_rc_command "$1"
 `
 
