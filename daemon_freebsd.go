@@ -51,7 +51,6 @@ func (bsd *bsdRecord) isEnabled() (bool, error) {
 	rcData, _ := ioutil.ReadAll(rcConf)
 	r, _ := regexp.Compile(`.*` + bsd.name + `_enable="YES".*`)
 	v := string(r.Find(rcData))
-	fmt.Println(v)
 	var chrFound, sharpFound bool
 	for _, c := range(v){
 		if c == '#' && !chrFound{
