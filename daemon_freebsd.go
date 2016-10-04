@@ -49,9 +49,22 @@ func (bsd *bsdRecord) isEnabled() (bool, error) {
 	}
 	defer rcConf.Close()
 	rcData, _ := ioutil.ReadAll(rcConf)
-	ok, _ := regexp.Match(`^(?<!#)((\s)*` + bsd.name + `="YES".*$`, rcData)
-	return ok, nil
+	r, _ := regexp.Compile(`.*` + bsd.name + `_enable="YES".*`)
+	v := string(r.Find(rcData))
+	fmt.Println(v)
+	var chrFound, sharpFound bool
+	for _, c := range(v){
+		if c == '#' && !chrFound{
+			sharpFound = true
+			break
+		}else if !sharpFound && c != ' '{
+			chrFound = true
+			break
+		}
+	}
+	return chrFound, nil
 }
+
 
 func (bsd *bsdRecord) getCmd(cmd string) string {
 	if ok, err := bsd.isEnabled(); !ok || err != nil {
