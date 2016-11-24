@@ -174,6 +174,9 @@ type Daemon interface {
 
 	// Status - check the service status
 	Status() (string, error)
+	
+	// Executable Path
+	ExecPath()(string, error)
 }
 
 // New - Create a new daemon
