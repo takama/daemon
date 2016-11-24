@@ -186,6 +186,6 @@ func New(name, description string, dependencies ...string) (Daemon, error) {
 }
 
 // Get executable path
-func ExePath() (string, error) {
+func ExecPath() (string, error) {
 	return execPath()
 }	
