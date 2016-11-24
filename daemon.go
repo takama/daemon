@@ -174,9 +174,6 @@ type Daemon interface {
 
 	// Status - check the service status
 	Status() (string, error)
-	
-	// Executable Path
-	ExecPath()(string, error)
 }
 
 // New - Create a new daemon
@@ -187,3 +184,8 @@ type Daemon interface {
 func New(name, description string, dependencies ...string) (Daemon, error) {
 	return newDaemon(strings.Join(strings.Fields(name), "_"), description, dependencies)
 }
+
+// Get executable path
+func ExePath() (string, error) {
+	return execPath()
+}	
