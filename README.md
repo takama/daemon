@@ -187,6 +187,7 @@ func main() {
 - [Eric Halpern](https://github.com/ehalpern)
 - [Yota](https://github.com/nus)
 - [Erkan Durmus](https://github.com/derkan)
+- [maxxant](https://github.com/maxxant)
 
 All the contributors are welcome. If you would like to be the contributor please accept some rules.
 - The pull requests will be accepted only in "develop" branch
