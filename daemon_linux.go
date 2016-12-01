@@ -11,11 +11,12 @@ import (
 
 // Get the daemon properly
 func newDaemon(name, description string, dependencies []string) (Daemon, error) {
-	if _, err := os.Stat("/sbin/initctl"); err == nil {
-		return &upstartRecord{name, description, dependencies}, nil
-	}
+	// newer subsystem must be checked first
 	if _, err := os.Stat("/run/systemd/system"); err == nil {
 		return &systemDRecord{name, description, dependencies}, nil
+	}
+	if _, err := os.Stat("/sbin/initctl"); err == nil {
+		return &upstartRecord{name, description, dependencies}, nil
 	}
 	return &systemVRecord{name, description, dependencies}, nil
 }
