@@ -24,7 +24,7 @@ var (
 	ErrAlreadyInstalled  = errors.New("Service has already been installed")
 	ErrNotInstalled      = errors.New("Service is not installed")
 	ErrAlreadyStopped    = errors.New("Service has already been stopped")
-	ErrAlreadyRunning    = errors.New("Service is alredy running")
+	ErrAlreadyRunning    = errors.New("Service is already running")
 )
 
 // Lookup path for executable file
