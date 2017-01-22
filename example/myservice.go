@@ -90,9 +90,6 @@ func (service *Service) Manage() (string, error) {
 			return "Daemon was killed", nil
 		}
 	}
-
-	// never happen, but need to complete code
-	return usage, nil
 }
 
 // Accept a client connection and collect it in a channel
