@@ -99,7 +99,7 @@ Example:
 				stdlog.Println("Stoping listening on ", listener.Addr())
 				listener.Close()
 				if killSignal == os.Interrupt {
-					return "Daemon was interruped by system signal", nil
+					return "Daemon was interrupted by system signal", nil
 				}
 				return "Daemon was killed", nil
 			}
