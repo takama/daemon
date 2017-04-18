@@ -58,7 +58,7 @@ func (windows *windowsRecord) Install(args ...string) (string, error) {
 // Remove the service
 func (windows *windowsRecord) Remove() (string, error) {
 	removeAction := "Removing " + windows.description + ":"
-	cmd := exec.Command("nssm.exe", "remove", windows.name)
+	cmd := exec.Command("nssm.exe", "remove", windows.name, "confirm")
 	err := cmd.Run()
 	if err != nil {
 		return removeAction + failed, err

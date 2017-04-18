@@ -188,6 +188,7 @@ func main() {
 - [Yota](https://github.com/nus)
 - [Erkan Durmus](https://github.com/derkan)
 - [maxxant](https://github.com/maxxant)
+- [1for](https://github.com/1for)
 
 All the contributors are welcome. If you would like to be the contributor please accept some rules.
 - The pull requests will be accepted only in "develop" branch
