@@ -52,6 +52,18 @@ func (windows *windowsRecord) Install(args ...string) (string, error) {
 	if len(out) == 0 {
 		return adminAccessNecessary, errors.New(adminAccessNecessary)
 	}
+
+	cmd = exec.Command("nssm.exe", windows.dependencies...)
+	out, err = cmd.Output()
+	if err != nil {
+		if len(out) > 0 {
+			fmt.Println(string(out))
+		} else {
+			fmt.Println("No output. Set AppParameters faild. Try uninstall first.", err)
+		}
+		return installAction + failed, err
+	}
+
 	return installAction + " completed.", nil
 }
 
