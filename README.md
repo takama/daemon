@@ -190,6 +190,7 @@ func main() {
 - [maxxant](https://github.com/maxxant)
 - [1for](https://github.com/1for)
 - [okamura](https://github.com/sidepelican)
+- [0X8C - Demired](https://github.com/Demired)
 
 All the contributors are welcome. If you would like to be the contributor please accept some rules.
 - The pull requests will be accepted only in "develop" branch
