@@ -24,10 +24,7 @@ type Service struct {
 func startCron(c *cron.Cron) {
 	// Run 1x every min
 	c.AddFunc("* * * * * *", func() { makeFile() })
-	c.Start()
-	for {
-
-	}
+	c.Run()
 }
 
 var times int
