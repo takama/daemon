@@ -196,6 +196,7 @@ See `examples/cron/cron_job.go`
 - [1for](https://github.com/1for)
 - [okamura](https://github.com/sidepelican)
 - [0X8C - Demired](https://github.com/Demired)
+- [Maximus](https://github.com/maximus12793)
 
 All the contributors are welcome. If you would like to be the contributor please accept some rules.
 
