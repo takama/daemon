@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/robfig/cron"
-	"github.com/takama/daemon"
 	"log"
 	"os"
+
+	"github.com/robfig/cron"
+	"github.com/takama/daemon"
 )
 
 const (
@@ -67,15 +68,15 @@ func (service *Service) Manage() (string, error) {
 	// Begin cron job
 	go startCron(c)
 	for {
-		//EventLoop to keep cron running
+		// EventLoop to keep cron running
 	}
-	// Unreachable, but required
-	return usage, nil
 }
+
 func init() {
 	stdlog = log.New(os.Stdout, "", log.Ldate|log.Ltime)
 	errlog = log.New(os.Stderr, "", log.Ldate|log.Ltime)
 }
+
 func main() {
 	srv, err := daemon.New(name, description)
 	if err != nil {
