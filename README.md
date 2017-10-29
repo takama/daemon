@@ -173,6 +173,11 @@ func main() {
 }
 ```
 
+Cron example:
+```
+See example/cron_example.go
+```
+
 ## Contributors (unsorted)
 
 - [Igor Dolzhikov](https://github.com/takama)
