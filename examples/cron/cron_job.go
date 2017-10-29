@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/signal"
+	"syscall"
+	"time"
 
 	"github.com/robfig/cron"
 	"github.com/takama/daemon"
@@ -11,29 +14,20 @@ import (
 
 const (
 	// name of the service
-	name        = "goCron"
-	description = "Cron service example"
+	name        = "cron_job"
+	description = "Cron job service example"
 )
 
 var stdlog, errlog *log.Logger
 
 // Service is the daemon service struct
 type Service struct {
-	d daemon.Daemon
+	daemon.Daemon
 }
-
-func startCron(c *cron.Cron) {
-	// Run 1x every min
-	c.AddFunc("* * * * * *", func() { makeFile() })
-	c.Run()
-}
-
-var times int
 
 func makeFile() {
-	// create a simple file $times.txt
-	times++
-	f, err := os.Create(fmt.Sprintf("/SOMEPATH/%d.txt", times))
+	// create a simple file (current time).txt
+	f, err := os.Create(fmt.Sprintf("%s/%s.txt", os.TempDir(), time.Now().Format(time.RFC3339)))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -43,33 +37,41 @@ func makeFile() {
 // Manage by daemon commands or run the daemon
 func (service *Service) Manage() (string, error) {
 
-	// Create a new cron manager
-	c := cron.New()
-	usage := "Usage: cronStock install | remove | start | stop | status"
+	usage := "Usage: cron_job install | remove | start | stop | status"
 	// If received any kind of command, do it
 	if len(os.Args) > 1 {
 		command := os.Args[1]
 		switch command {
 		case "install":
-			return service.d.Install()
+			return service.Install()
 		case "remove":
-			return service.d.Remove()
+			return service.Remove()
 		case "start":
-			return service.d.Start()
+			return service.Start()
 		case "stop":
 			// No need to explicitly stop cron since job will be killed
-			return service.d.Stop()
+			return service.Stop()
 		case "status":
-			return service.d.Status()
+			return service.Status()
 		default:
 			return usage, nil
 		}
 	}
-	// Begin cron job
-	go startCron(c)
-	for {
-		// EventLoop to keep cron running
-	}
+	// Set up channel on which to send signal notifications.
+	// We must use a buffered channel or risk missing the signal
+	// if we're not ready to receive when the signal is sent.
+	interrupt := make(chan os.Signal, 1)
+	signal.Notify(interrupt, os.Interrupt, os.Kill, syscall.SIGTERM)
+
+	// Create a new cron manager
+	c := cron.New()
+	// Run makefile every min
+	c.AddFunc("* * * * * *", makeFile)
+	c.Start()
+	// Waiting for interrupt by system signal
+	killSignal := <-interrupt
+	stdlog.Println("Got signal:", killSignal)
+	return "Service exited", nil
 }
 
 func init() {
