@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 /*
-Package daemon 0.9.2 for use with Go (golang) services.
+Package daemon 0.10.0 for use with Go (golang) services.
 
 Package daemon provides primitives for daemonization of golang services.
 This package is not provide implementation of user daemon,
@@ -183,9 +183,4 @@ type Daemon interface {
 // description: any explanation, what is the service, its purpose
 func New(name, description string, dependencies ...string) (Daemon, error) {
 	return newDaemon(strings.Join(strings.Fields(name), "_"), description, dependencies)
-}
-
-// ExecPath tries to get executable path
-func ExecPath() (string, error) {
-	return execPath()
 }
