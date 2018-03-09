@@ -2,6 +2,8 @@
 // Use of this source code is governed by
 // license that can be found in the LICENSE file.
 
+//+build go1.8
+
 package daemon
 
 import (
@@ -22,8 +24,8 @@ var (
 	// ErrUnsupportedSystem appears if try to use service on system which is not supported by this release
 	ErrUnsupportedSystem = errors.New("Unsupported system")
 
-	// ErrRootPriveleges appears if run installation or deleting the service without root privileges
-	ErrRootPriveleges = errors.New("You must have root user privileges. Possibly using 'sudo' command should help")
+	// ErrRootPrivileges appears if run installation or deleting the service without root privileges
+	ErrRootPrivileges = errors.New("You must have root user privileges. Possibly using 'sudo' command should help")
 
 	// ErrAlreadyInstalled appears if service already installed on the system
 	ErrAlreadyInstalled = errors.New("Service has already been installed")
@@ -40,19 +42,17 @@ var (
 
 // ExecPath tries to get executable path
 func ExecPath() (string, error) {
-	return execPath()
+	return os.Executable()
 }
 
 // Lookup path for executable file
 func executablePath(name string) (string, error) {
 	if path, err := exec.LookPath(name); err == nil {
-		_, err := os.Stat(path)
-		if os.IsNotExist(err) {
-			return execPath()
+		if _, err := os.Stat(path); err == nil {
+			return path, nil
 		}
-		return path, nil
 	}
-	return execPath()
+	return os.Executable()
 }
 
 // Check root rights to use system service
@@ -63,7 +63,7 @@ func checkPrivileges() (bool, error) {
 			if gid == 0 {
 				return true, nil
 			}
-			return false, ErrRootPriveleges
+			return false, ErrRootPrivileges
 		}
 	}
 	return false, ErrUnsupportedSystem
