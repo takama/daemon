@@ -184,8 +184,3 @@ type Daemon interface {
 func New(name, description string, dependencies ...string) (Daemon, error) {
 	return newDaemon(strings.Join(strings.Fields(name), "_"), description, dependencies)
 }
-
-// ExecPath tries to get executable path
-func ExecPath() (string, error) {
-	return execPath()
-}

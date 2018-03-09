@@ -2,7 +2,7 @@
 // Use of this source code is governed by
 // license that can be found in the LICENSE file.
 
-//+build go1.8
+//+build !go1.8
 
 package daemon
 
@@ -42,7 +42,7 @@ var (
 
 // ExecPath tries to get executable path
 func ExecPath() (string, error) {
-	return os.Executable()
+	return execPath()
 }
 
 // Lookup path for executable file
@@ -52,7 +52,7 @@ func executablePath(name string) (string, error) {
 			return path, nil
 		}
 	}
-	return os.Executable()
+	return execPath()
 }
 
 // Check root rights to use system service
