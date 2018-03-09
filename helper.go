@@ -38,6 +38,11 @@ var (
 	ErrAlreadyStopped = errors.New("Service has already been stopped")
 )
 
+// ExecPath tries to get executable path
+func ExecPath() (string, error) {
+	return execPath()
+}
+
 // Lookup path for executable file
 func executablePath(name string) (string, error) {
 	if path, err := exec.LookPath(name); err == nil {
