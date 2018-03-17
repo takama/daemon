@@ -115,12 +115,6 @@ func (bsd *bsdRecord) Install(args ...string) (string, error) {
 		return installAction + failed, ErrAlreadyInstalled
 	}
 
-	file, err := os.Create(srvPath)
-	if err != nil {
-		return installAction + failed, err
-	}
-	defer file.Close()
-
 	if bsd.execStartPath == "" {
 		bsd.execStartPath, err = executablePath(bsd.name)
 		if err != nil {
@@ -131,6 +125,12 @@ func (bsd *bsdRecord) Install(args ...string) (string, error) {
 	if stat, err := os.Stat(bsd.execStartPath); os.IsNotExist(err) || stat.IsDir() {
 		return installAction + failed, ErrIncorrectExecStartPath
 	}
+
+	file, err := os.Create(srvPath)
+	if err != nil {
+		return installAction + failed, err
+	}
+	defer file.Close()
 
 	templ, err := template.New("bsdConfig").Parse(bsdConfig)
 	if err != nil {

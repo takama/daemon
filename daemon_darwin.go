@@ -77,12 +77,6 @@ func (darwin *darwinRecord) Install(args ...string) (string, error) {
 		return installAction + failed, ErrAlreadyInstalled
 	}
 
-	file, err := os.Create(srvPath)
-	if err != nil {
-		return installAction + failed, err
-	}
-	defer file.Close()
-
 	if darwin.execStartPath == "" {
 		darwin.execStartPath, err = executablePath(darwin.name)
 		if err != nil {
@@ -93,6 +87,12 @@ func (darwin *darwinRecord) Install(args ...string) (string, error) {
 	if stat, err := os.Stat(darwin.execStartPath); os.IsNotExist(err) || stat.IsDir() {
 		return installAction + failed, ErrIncorrectExecStartPath
 	}
+
+	file, err := os.Create(srvPath)
+	if err != nil {
+		return installAction + failed, err
+	}
+	defer file.Close()
 
 	templ, err := template.New("propertyList").Parse(propertyList)
 	if err != nil {

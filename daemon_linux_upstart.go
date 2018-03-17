@@ -56,6 +56,7 @@ func (linux *upstartRecord) checkRunning() (string, bool) {
 func (linux *upstartRecord) Install(args ...string) (string, error) {
 	installAction := "Install " + linux.description + ":"
 
+	var err error
 	if ok, err := checkPrivileges(); !ok {
 		return installAction + failed, err
 	}
@@ -65,12 +66,6 @@ func (linux *upstartRecord) Install(args ...string) (string, error) {
 	if linux.isInstalled() {
 		return installAction + failed, ErrAlreadyInstalled
 	}
-
-	file, err := os.Create(srvPath)
-	if err != nil {
-		return installAction + failed, err
-	}
-	defer file.Close()
 
 	if linux.execStartPath == "" {
 		linux.execStartPath, err = executablePath(linux.name)
@@ -82,6 +77,12 @@ func (linux *upstartRecord) Install(args ...string) (string, error) {
 	if stat, err := os.Stat(linux.execStartPath); os.IsNotExist(err) || stat.IsDir() {
 		return installAction + failed, ErrIncorrectExecStartPath
 	}
+
+	file, err := os.Create(srvPath)
+	if err != nil {
+		return installAction + failed, err
+	}
+	defer file.Close()
 
 	templ, err := template.New("upstatConfig").Parse(upstatConfig)
 	if err != nil {
