@@ -12,9 +12,8 @@ import (
 	"syscall"
 	"unicode/utf16"
 	"unsafe"
+	"regexp"
 )
-
-var ErrWindowsUnsupported = errors.New("Adding as a service failed. Download and place nssm.exe in the path to install this service as an service. NSSM url: https://nssm.cc/")
 
 // windowsRecord - standard record (struct) for windows version of daemon package
 type windowsRecord struct {
@@ -31,7 +30,6 @@ func newDaemon(name, description string, dependencies []string) (Daemon, error) 
 // Install the service
 func (windows *windowsRecord) Install(args ...string) (string, error) {
 	installAction := "Install " + windows.description + ":"
-	adminAccessNecessary := "Administrator access is needed to install a service."
 
 	execp, err := execPath()
 
@@ -39,21 +37,15 @@ func (windows *windowsRecord) Install(args ...string) (string, error) {
 		return installAction + failed, err
 	}
 
-	cmdArgs := []string{"install", windows.name, execp}
+	cmdArgs := []string{"create", windows.name, "start=auto", "binPath="+execp}
 	cmdArgs = append(cmdArgs, args...)
 
-	cmd := exec.Command("nssm.exe", cmdArgs...)
-	out, err := cmd.Output()
-	if err != nil {
-		if len(out) > 0 {
-			fmt.Println(string(out))
-		} else {
-			fmt.Println("No output. Probably service already exists. Try uninstall first.")
+	cmd := exec.Command("sc", cmdArgs...)
+	_, err = cmd.Output()
+	if exiterr, ok := err.(*exec.ExitError); ok {
+		if status, ok := exiterr.Sys().(syscall.WaitStatus); ok {
+			return installAction + failed, getWindowsError(status.ExitCode)
 		}
-		return installAction + failed, err
-	}
-	if len(out) == 0 {
-		return adminAccessNecessary, errors.New(adminAccessNecessary)
 	}
 	return installAction + " completed.", nil
 }
@@ -61,10 +53,12 @@ func (windows *windowsRecord) Install(args ...string) (string, error) {
 // Remove the service
 func (windows *windowsRecord) Remove() (string, error) {
 	removeAction := "Removing " + windows.description + ":"
-	cmd := exec.Command("nssm.exe", "remove", windows.name, "confirm")
+	cmd := exec.Command("sc", "delete", windows.name, "confirm")
 	err := cmd.Run()
-	if err != nil {
-		return removeAction + failed, err
+	if exiterr, ok := err.(*exec.ExitError); ok {
+		if status, ok := exiterr.Sys().(syscall.WaitStatus); ok {
+			return removeAction + failed, getWindowsError(status.ExitCode)
+		}
 	}
 	return removeAction + " completed.", nil
 }
@@ -72,10 +66,12 @@ func (windows *windowsRecord) Remove() (string, error) {
 // Start the service
 func (windows *windowsRecord) Start() (string, error) {
 	startAction := "Starting " + windows.description + ":"
-	cmd := exec.Command("nssm.exe", "start", windows.name)
+	cmd := exec.Command("sc", "start", windows.name)
 	err := cmd.Run()
-	if err != nil {
-		return startAction + failed, err
+	if exiterr, ok := err.(*exec.ExitError); ok {
+		if status, ok := exiterr.Sys().(syscall.WaitStatus); ok {
+			return startAction + failed, getWindowsError(status.ExitCode)
+		}
 	}
 	return startAction + " completed.", nil
 }
@@ -83,22 +79,26 @@ func (windows *windowsRecord) Start() (string, error) {
 // Stop the service
 func (windows *windowsRecord) Stop() (string, error) {
 	stopAction := "Stopping " + windows.description + ":"
-	cmd := exec.Command("nssm.exe", "stop", windows.name)
+	cmd := exec.Command("sc", "stop", windows.name)
 	err := cmd.Run()
-	if err != nil {
-		return stopAction + failed, err
+	if exiterr, ok := err.(*exec.ExitError); ok {
+		if status, ok := exiterr.Sys().(syscall.WaitStatus); ok {
+			return stopAction + failed, getWindowsError(status.ExitCode)
+		}
 	}
 	return stopAction + " completed.", nil
 }
 
 // Status - Get service status
 func (windows *windowsRecord) Status() (string, error) {
-	cmd := exec.Command("nssm.exe", "status", windows.name)
+	cmd := exec.Command("sc", "query", windows.name)
 	out, err := cmd.Output()
-	if err != nil {
-		return "Getting status:" + failed, err
+	if exiterr, ok := err.(*exec.ExitError); ok {
+		if status, ok := exiterr.Sys().(syscall.WaitStatus); ok {
+			return "Getting status:" + failed, getWindowsError(status.ExitCode)
+		}
 	}
-	return "Status: " + string(out), nil
+	return "Status: " + "SERVICE_"+getWindowsServiceState(out), nil
 }
 
 // Get executable path
@@ -117,4 +117,17 @@ func execPath() (string, error) {
 		return "", e1
 	}
 	return string(utf16.Decode(b[0:n])), nil
+}
+
+// Get windows error
+func getWindowsError(statusCode uint32) error {
+	return errors.New(fmt.Sprintf("\n %s: %s \n %s", WinErrCode[statusCode].Title, WinErrCode[statusCode].Description, WinErrCode[statusCode].Action))
+}
+
+// Get windows service state
+func getWindowsServiceState(out []byte) string {
+	regex := regexp.MustCompile("STATE.*: (?P<state_code>[0-9])  (?P<state>.*) ")
+	service := regex.FindAllStringSubmatch(string(out), -1)[0]
+
+	return service[2]
 }
