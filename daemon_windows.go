@@ -76,7 +76,7 @@ func (windows *windowsRecord) Stop() (string, error) {
 	cmd := exec.Command("sc", "stop", windows.name)
 	err := cmd.Run()
 	if err != nil {
-		return stopAction + failed, err
+		return stopAction + failed, getWindowsError(err)
 	}
 	return stopAction + " completed.", nil
 }
