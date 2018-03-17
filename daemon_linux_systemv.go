@@ -16,7 +16,6 @@ import (
 type systemVRecord struct {
 	name         string
 	description  string
-	execStartPath string
 	dependencies []string
 }
 
@@ -72,15 +71,9 @@ func (linux *systemVRecord) Install(args ...string) (string, error) {
 	}
 	defer file.Close()
 
-	if linux.execStartPath == "" {
-		linux.execStartPath, err = executablePath(linux.name)
-		if err != nil {
-			return installAction + failed, err
-		}
-	}
-
-	if stat, err := os.Stat(linux.execStartPath); os.IsNotExist(err) || stat.IsDir() {
-		return installAction + failed, ErrIncorrectExecStartPath
+	execPatch, err := executablePath(linux.name)
+	if err != nil {
+		return installAction + failed, err
 	}
 
 	templ, err := template.New("systemVConfig").Parse(systemVConfig)
@@ -92,7 +85,7 @@ func (linux *systemVRecord) Install(args ...string) (string, error) {
 		file,
 		&struct {
 			Name, Description, Path, Args string
-		}{linux.name, linux.description, linux.execStartPath, strings.Join(args, " ")},
+		}{linux.name, linux.description, execPatch, strings.Join(args, " ")},
 	); err != nil {
 		return installAction + failed, err
 	}

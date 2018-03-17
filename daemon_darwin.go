@@ -17,13 +17,12 @@ import (
 type darwinRecord struct {
 	name         string
 	description  string
-	execStartPath string
 	dependencies []string
 }
 
-func newDaemon(name, description, execStartPath string, dependencies []string) (Daemon, error) {
+func newDaemon(name, description string, dependencies []string) (Daemon, error) {
 
-	return &darwinRecord{name, description, execStartPath,dependencies}, nil
+	return &darwinRecord{name, description, dependencies}, nil
 }
 
 // Standard service path for system daemons
@@ -83,15 +82,9 @@ func (darwin *darwinRecord) Install(args ...string) (string, error) {
 	}
 	defer file.Close()
 
-	if darwin.execStartPath == "" {
-		darwin.execStartPath, err = executablePath(darwin.name)
-		if err != nil {
-			return installAction + failed, err
-		}
-	}
-
-	if stat, err := os.Stat(darwin.execStartPath); os.IsNotExist(err) || stat.IsDir() {
-		return installAction + failed, ErrIncorrectExecStartPath
+	execPatch, err := executablePath(darwin.name)
+	if err != nil {
+		return installAction + failed, err
 	}
 
 	templ, err := template.New("propertyList").Parse(propertyList)
@@ -104,7 +97,7 @@ func (darwin *darwinRecord) Install(args ...string) (string, error) {
 		&struct {
 			Name, Path string
 			Args       []string
-		}{darwin.name, darwin.execStartPath, args},
+		}{darwin.name, execPatch, args},
 	); err != nil {
 		return installAction + failed, err
 	}
