@@ -16,6 +16,7 @@ import (
 type systemDRecord struct {
 	name         string
 	description  string
+	execStartPath string
 	dependencies []string
 }
 
@@ -71,9 +72,15 @@ func (linux *systemDRecord) Install(args ...string) (string, error) {
 	}
 	defer file.Close()
 
-	execPatch, err := executablePath(linux.name)
-	if err != nil {
-		return installAction + failed, err
+	if linux.execStartPath == "" {
+		linux.execStartPath, err = executablePath(linux.name)
+		if err != nil {
+			return installAction + failed, err
+		}
+	}
+
+	if stat, err := os.Stat(linux.execStartPath); os.IsNotExist(err) || stat.IsDir() {
+		return installAction + failed, ErrIncorrectExecStartPath
 	}
 
 	templ, err := template.New("systemDConfig").Parse(systemDConfig)
@@ -89,7 +96,7 @@ func (linux *systemDRecord) Install(args ...string) (string, error) {
 			linux.name,
 			linux.description,
 			strings.Join(linux.dependencies, " "),
-			execPatch,
+			linux.execStartPath,
 			strings.Join(args, " "),
 		},
 	); err != nil {

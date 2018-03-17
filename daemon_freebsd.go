@@ -15,6 +15,7 @@ import (
 type bsdRecord struct {
 	name         string
 	description  string
+	execStartPath string
 	dependencies []string
 }
 
@@ -66,8 +67,8 @@ func (bsd *bsdRecord) getCmd(cmd string) string {
 }
 
 // Get the daemon properly
-func newDaemon(name, description string, dependencies []string) (Daemon, error) {
-	return &bsdRecord{name, description, dependencies}, nil
+func newDaemon(name, description, execStartPath string, dependencies []string) (Daemon, error) {
+	return &bsdRecord{name, description, execStartPath,dependencies}, nil
 }
 
 func execPath() (name string, err error) {
@@ -120,9 +121,15 @@ func (bsd *bsdRecord) Install(args ...string) (string, error) {
 	}
 	defer file.Close()
 
-	execPatch, err := executablePath(bsd.name)
-	if err != nil {
-		return installAction + failed, err
+	if bsd.execStartPath == "" {
+		bsd.execStartPath, err = executablePath(bsd.name)
+		if err != nil {
+			return installAction + failed, err
+		}
+	}
+
+	if stat, err := os.Stat(bsd.execStartPath); os.IsNotExist(err) || stat.IsDir() {
+		return installAction + failed, ErrIncorrectExecStartPath
 	}
 
 	templ, err := template.New("bsdConfig").Parse(bsdConfig)
@@ -134,7 +141,7 @@ func (bsd *bsdRecord) Install(args ...string) (string, error) {
 		file,
 		&struct {
 			Name, Description, Path, Args string
-		}{bsd.name, bsd.description, execPatch, strings.Join(args, " ")},
+		}{bsd.name, bsd.description, bsd.execStartPath, strings.Join(args, " ")},
 	); err != nil {
 		return installAction + failed, err
 	}

@@ -38,6 +38,9 @@ var (
 
 	// ErrAlreadyStopped appears if try to stop already stopped service
 	ErrAlreadyStopped = errors.New("Service has already been stopped")
+	
+	// ErrIncorrectExecStartPath appears if try to path folder or incorrect exec path start for service
+	ErrIncorrectExecStartPath = errors.New("Incorrect exec start path")
 
 	// Windows Errors
 	WinErrCode = map[uint32]SystemError{
