@@ -14,7 +14,7 @@ type SystemError struct {
 var (
 	// WinErrCode - List of system errors from Microsoft source:
 	// https://msdn.microsoft.com/en-us/library/windows/desktop/ms681385(v=vs.85).aspx
-	WinErrCode = map[uint32]SystemError{
+	WinErrCode = map[int]SystemError{
 		5: SystemError{
 			Title:       "ERROR_ACCESS_DENIED",
 			Description: "Access denied.",
