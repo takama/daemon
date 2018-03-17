@@ -9,10 +9,10 @@ import (
 	"errors"
 	"fmt"
 	"os/exec"
+	"regexp"
 	"syscall"
 	"unicode/utf16"
 	"unsafe"
-	"regexp"
 )
 
 // windowsRecord - standard record (struct) for windows version of daemon package
@@ -37,15 +37,13 @@ func (windows *windowsRecord) Install(args ...string) (string, error) {
 		return installAction + failed, err
 	}
 
-	cmdArgs := []string{"create", windows.name, "start=auto", "binPath="+execp}
+	cmdArgs := []string{"create", windows.name, "start=auto", "binPath=" + execp}
 	cmdArgs = append(cmdArgs, args...)
 
 	cmd := exec.Command("sc", cmdArgs...)
 	_, err = cmd.Output()
-	if exiterr, ok := err.(*exec.ExitError); ok {
-		if status, ok := exiterr.Sys().(syscall.WaitStatus); ok {
-			return installAction + failed, getWindowsError(status.ExitCode)
-		}
+	if err != nil {
+		return installAction + failed, getWindowsError(err)
 	}
 	return installAction + " completed.", nil
 }
@@ -55,10 +53,8 @@ func (windows *windowsRecord) Remove() (string, error) {
 	removeAction := "Removing " + windows.description + ":"
 	cmd := exec.Command("sc", "delete", windows.name, "confirm")
 	err := cmd.Run()
-	if exiterr, ok := err.(*exec.ExitError); ok {
-		if status, ok := exiterr.Sys().(syscall.WaitStatus); ok {
-			return removeAction + failed, getWindowsError(status.ExitCode)
-		}
+	if err != nil {
+		return removeAction + failed, getWindowsError(err)
 	}
 	return removeAction + " completed.", nil
 }
@@ -68,10 +64,8 @@ func (windows *windowsRecord) Start() (string, error) {
 	startAction := "Starting " + windows.description + ":"
 	cmd := exec.Command("sc", "start", windows.name)
 	err := cmd.Run()
-	if exiterr, ok := err.(*exec.ExitError); ok {
-		if status, ok := exiterr.Sys().(syscall.WaitStatus); ok {
-			return startAction + failed, getWindowsError(status.ExitCode)
-		}
+	if err != nil {
+		return startAction + failed, getWindowsError(err)
 	}
 	return startAction + " completed.", nil
 }
@@ -81,10 +75,8 @@ func (windows *windowsRecord) Stop() (string, error) {
 	stopAction := "Stopping " + windows.description + ":"
 	cmd := exec.Command("sc", "stop", windows.name)
 	err := cmd.Run()
-	if exiterr, ok := err.(*exec.ExitError); ok {
-		if status, ok := exiterr.Sys().(syscall.WaitStatus); ok {
-			return stopAction + failed, getWindowsError(status.ExitCode)
-		}
+	if err != nil {
+		return stopAction + failed, err
 	}
 	return stopAction + " completed.", nil
 }
@@ -93,12 +85,10 @@ func (windows *windowsRecord) Stop() (string, error) {
 func (windows *windowsRecord) Status() (string, error) {
 	cmd := exec.Command("sc", "query", windows.name)
 	out, err := cmd.Output()
-	if exiterr, ok := err.(*exec.ExitError); ok {
-		if status, ok := exiterr.Sys().(syscall.WaitStatus); ok {
-			return "Getting status:" + failed, getWindowsError(status.ExitCode)
-		}
+	if err != nil {
+		return "Getting status:" + failed, getWindowsError(err)
 	}
-	return "Status: " + "SERVICE_"+getWindowsServiceState(out), nil
+	return "Status: " + "SERVICE_" + getWindowsServiceState(out), nil
 }
 
 // Get executable path
@@ -120,8 +110,16 @@ func execPath() (string, error) {
 }
 
 // Get windows error
-func getWindowsError(statusCode uint32) error {
-	return errors.New(fmt.Sprintf("\n %s: %s \n %s", WinErrCode[statusCode].Title, WinErrCode[statusCode].Description, WinErrCode[statusCode].Action))
+func getWindowsError(inputError error) error {
+	if exiterr, ok := inputError.(*exec.ExitError); ok {
+		if status, ok := exiterr.Sys().(syscall.WaitStatus); ok {
+			if sysErr, ok := WinErrCode[status.ExitStatus()]; ok {
+				return errors.New(fmt.Sprintf("\n %s: %s \n %s", sysErr.Title, sysErr.Description, sysErr.Action))
+			}
+		}
+	}
+
+	return inputError
 }
 
 // Get windows service state
