@@ -13,31 +13,40 @@ import (
 	"syscall"
 	"unicode/utf16"
 	"unsafe"
+	"os"
 )
 
 // windowsRecord - standard record (struct) for windows version of daemon package
 type windowsRecord struct {
-	name         string
-	description  string
-	dependencies []string
+	name          string
+	description   string
+	execStartPath string
+	dependencies  []string
 }
 
-func newDaemon(name, description string, dependencies []string) (Daemon, error) {
+func newDaemon(name, description, execStartPath string, dependencies []string) (Daemon, error) {
 
-	return &windowsRecord{name, description, dependencies}, nil
+	return &windowsRecord{name, description, execStartPath, dependencies}, nil
 }
 
 // Install the service
 func (windows *windowsRecord) Install(args ...string) (string, error) {
 	installAction := "Install " + windows.description + ":"
 
-	execp, err := execPath()
+	var err error
+	if windows.execStartPath == "" {
+		windows.execStartPath, err = execPath()
+	}
 
 	if err != nil {
 		return installAction + failed, err
 	}
 
-	cmdArgs := []string{"create", windows.name, "start=auto", "binPath=" + execp}
+	if stat, err := os.Stat(windows.execStartPath); os.IsNotExist(err) || stat.IsDir() {
+		return installAction + failed, ErrIncorrectExecStartPath
+	}
+
+	cmdArgs := []string{"create", windows.name, "start=auto", "binPath=" + windows.execStartPath}
 	cmdArgs = append(cmdArgs, args...)
 
 	cmd := exec.Command("sc", cmdArgs...)
