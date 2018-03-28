@@ -174,6 +174,19 @@ type Daemon interface {
 
 	// Status - check the service status
 	Status() (string, error)
+
+	// Run - run executable service
+	Run(e Executable) (string, error)
+}
+
+// Executable interface defines controlling methods of executable service
+type Executable interface {
+	// Start - non-blocking start service
+	Start()
+	// Stop - non-blocking stop service
+	Stop()
+	// Run - blocking run service
+	Run()
 }
 
 // New - Create a new daemon

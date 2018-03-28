@@ -178,6 +178,13 @@ func (linux *upstartRecord) Status() (string, error) {
 	return statusAction, nil
 }
 
+// Run - Run service
+func (linux *upstartRecord) Run(e Executable) (string, error) {
+	runAction := "Running " + linux.description + ":"
+	e.Run()
+	return runAction + " completed.", nil
+}
+
 var upstatConfig = `# {{.Name}} {{.Description}}
 
 description     "{{.Description}}"
