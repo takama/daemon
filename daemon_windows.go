@@ -14,6 +14,10 @@ import (
 	"time"
 	"unicode/utf16"
 	"unsafe"
+
+	"golang.org/x/sys/windows/registry"
+	"golang.org/x/sys/windows/svc"
+	"golang.org/x/sys/windows/svc/mgr"
 )
 
 // windowsRecord - standard record (struct) for windows version of daemon package
@@ -302,7 +306,7 @@ func (windows *windowsRecord) Run(e Executable) (string, error) {
 		e.Run()
 	}
 
-	err := svc.Run(windows.name, &serviceHandler{
+	err = svc.Run(windows.name, &serviceHandler{
 		executable: e,
 	})
 	if err != nil {
