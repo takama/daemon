@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"os/exec"
 	"regexp"
+	"strings"
 	"syscall"
 	"unicode/utf16"
 	"unsafe"
@@ -37,8 +38,9 @@ func (windows *windowsRecord) Install(args ...string) (string, error) {
 		return installAction + failed, err
 	}
 
-	cmdArgs := []string{"create", windows.name, "start=auto", "binPath=" + execp}
-	cmdArgs = append(cmdArgs, args...)
+	execpWithArgs := strings.Join(append([]string{"\"" + execp + "\""}, args...), " ")
+
+	cmdArgs := []string{"create", windows.name, "start=", "auto", "binPath=", execpWithArgs}
 
 	cmd := exec.Command("sc", cmdArgs...)
 	_, err = cmd.Output()
