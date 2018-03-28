@@ -302,15 +302,18 @@ func (windows *windowsRecord) Run(e Executable) (string, error) {
 	if err != nil {
 		return runAction + failed, getWindowsError(err)
 	}
-	if interactive {
+	if !interactive {
+		// service called from windows service manager
+		// use API provided by golang.org/x/sys/windows
+		err = svc.Run(windows.name, &serviceHandler{
+			executable: e,
+		})
+		if err != nil {
+			return runAction + failed, getWindowsError(err)
+		}
+	} else {
+		// otherwise, service should be called from terminal session
 		e.Run()
-	}
-
-	err = svc.Run(windows.name, &serviceHandler{
-		executable: e,
-	})
-	if err != nil {
-		return runAction + failed, getWindowsError(err)
 	}
 
 	return runAction + " completed.", nil
