@@ -67,6 +67,7 @@ func (darwin *darwinRecord) checkRunning() (string, bool) {
 func (darwin *darwinRecord) Install(args ...string) (string, error) {
 	installAction := "Install " + darwin.description + ":"
 
+	var err error
 	if ok, err := checkPrivileges(); !ok {
 		return installAction + failed, err
 	}
