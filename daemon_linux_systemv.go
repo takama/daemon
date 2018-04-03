@@ -208,6 +208,13 @@ func (linux *systemVRecord) Status() (string, error) {
 	return statusAction, nil
 }
 
+// Run - Run service
+func (linux *systemVRecord) Run(e Executable) (string, error) {
+	runAction := "Running " + linux.description + ":"
+	e.Run()
+	return runAction + " completed.", nil
+}
+
 var systemVConfig = `#! /bin/sh
 #
 #       /etc/rc.d/init.d/{{.Name}}

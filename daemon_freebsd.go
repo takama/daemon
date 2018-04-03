@@ -234,6 +234,13 @@ func (bsd *bsdRecord) Status() (string, error) {
 	return statusAction, nil
 }
 
+// Run - Run service
+func (bsd *bsdRecord) Run(e Executable) (string, error) {
+	runAction := "Running " + bsd.description + ":"
+	e.Run()
+	return runAction + " completed.", nil
+}
+
 var bsdConfig = `#!/bin/sh
 #
 # PROVIDE: {{.Name}}
