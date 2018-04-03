@@ -174,6 +174,9 @@ type Daemon interface {
 
 	// Status - check the service status
 	Status() (string, error)
+
+	// Installed - check if service is intalled
+	IsInstalled() (bool)
 }
 
 // New - Create a new daemon
