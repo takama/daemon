@@ -199,6 +199,7 @@ See `examples/cron/cron_job.go`
 - [Maximus](https://github.com/maximus12793)
 - [AlgorathDev](https://github.com/AlgorathDev)
 - [Alexis Camilleri](https://github.com/krysennn)
+- [neverland4u](https://github.com/neverland4u)
 
 All the contributors are welcome. If you would like to be the contributor please accept some rules.
 
