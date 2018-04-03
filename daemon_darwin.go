@@ -194,6 +194,13 @@ func (darwin *darwinRecord) Status() (string, error) {
 	return statusAction, nil
 }
 
+// Run - Run service
+func (darwin *darwinRecord) Run(e Executable) (string, error) {
+	runAction := "Running " + darwin.description + ":"
+	e.Run()
+	return runAction + " completed.", nil
+}
+
 var propertyList = `<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
