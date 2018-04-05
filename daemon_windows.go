@@ -57,7 +57,7 @@ func (windows *windowsRecord) Install(args ...string) (string, error) {
 		return installAction + failed, err
 	}
 
-	s, err = m.CreateService(windows.name, execp, mgr.Config{
+	s, err = m.CreateService(windows.name, windows.execStartPath, mgr.Config{
 		DisplayName:  windows.name,
 		Description:  windows.description,
 		StartType:    mgr.StartAutomatic,
