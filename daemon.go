@@ -176,7 +176,7 @@ type Daemon interface {
 	Status() (string, error)
   
 	// Installed - check if service is intalled
-	IsInstalled() (bool, error)
+	IsInstalled() (bool)
   
 	// Run - run executable service
 	Run(e Executable) (string, error)

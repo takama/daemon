@@ -26,14 +26,13 @@ func (linux *systemVRecord) servicePath() string {
 }
 
 // Is a service installed
-func (linux *systemVRecord) IsInstalled() (bool, error) {
+func (linux *systemVRecord) IsInstalled() bool {
 
-	_, err := os.Stat(linux.servicePath())
-	if err == nil {
-		return true, err
+	if _, err := os.Stat(linux.servicePath()); err == nil {
+		return true
 	}
 
-	return false, err
+	return false
 }
 
 // Check service is running
@@ -64,7 +63,7 @@ func (linux *systemVRecord) Install(args ...string) (string, error) {
 
 	srvPath := linux.servicePath()
 
-	if check, _ := linux.IsInstalled(); check {
+	if linux.IsInstalled() {
 		return installAction + failed, ErrAlreadyInstalled
 	}
 
@@ -125,7 +124,7 @@ func (linux *systemVRecord) Remove() (string, error) {
 		return removeAction + failed, err
 	}
 
-	if check, _ := linux.IsInstalled(); !check {
+	if !linux.IsInstalled() {
 		return removeAction + failed, ErrNotInstalled
 	}
 
@@ -155,7 +154,7 @@ func (linux *systemVRecord) Start() (string, error) {
 		return startAction + failed, err
 	}
 
-	if check, _ := linux.IsInstalled(); !check {
+	if !linux.IsInstalled() {
 		return startAction + failed, ErrNotInstalled
 	}
 
@@ -178,7 +177,7 @@ func (linux *systemVRecord) Stop() (string, error) {
 		return stopAction + failed, err
 	}
 
-	if check, _ := linux.IsInstalled(); !check {
+	if !linux.IsInstalled() {
 		return stopAction + failed, ErrNotInstalled
 	}
 
@@ -200,7 +199,7 @@ func (linux *systemVRecord) Status() (string, error) {
 		return "", err
 	}
 
-	if check, _ := linux.IsInstalled(); !check {
+	if !linux.IsInstalled() {
 		return "Status could not defined", ErrNotInstalled
 	}
 
