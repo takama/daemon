@@ -15,14 +15,15 @@ import (
 
 // darwinRecord - standard record (struct) for darwin version of daemon package
 type darwinRecord struct {
-	name         string
-	description  string
-	dependencies []string
+	name          string
+	description   string
+	execStartPath string
+	dependencies  []string
 }
 
-func newDaemon(name, description string, dependencies []string) (Daemon, error) {
+func newDaemon(name, description, execStartPath string, dependencies []string) (Daemon, error) {
 
-	return &darwinRecord{name, description, dependencies}, nil
+	return &darwinRecord{name, description, execStartPath,dependencies}, nil
 }
 
 // Standard service path for system daemons
@@ -31,7 +32,7 @@ func (darwin *darwinRecord) servicePath() string {
 }
 
 // Is a service installed
-func (darwin *darwinRecord) isInstalled() bool {
+func (darwin *darwinRecord) IsInstalled() bool {
 
 	if _, err := os.Stat(darwin.servicePath()); err == nil {
 		return true
@@ -66,14 +67,26 @@ func (darwin *darwinRecord) checkRunning() (string, bool) {
 func (darwin *darwinRecord) Install(args ...string) (string, error) {
 	installAction := "Install " + darwin.description + ":"
 
+	var err error
 	if ok, err := checkPrivileges(); !ok {
 		return installAction + failed, err
 	}
 
 	srvPath := darwin.servicePath()
 
-	if darwin.isInstalled() {
+	if darwin.IsInstalled() {
 		return installAction + failed, ErrAlreadyInstalled
+	}
+
+	if darwin.execStartPath == "" {
+		darwin.execStartPath, err = executablePath(darwin.name)
+		if err != nil {
+			return installAction + failed, err
+		}
+	}
+
+	if stat, err := os.Stat(darwin.execStartPath); os.IsNotExist(err) || stat.IsDir() {
+		return installAction + failed, ErrIncorrectExecStartPath
 	}
 
 	file, err := os.Create(srvPath)
@@ -81,11 +94,6 @@ func (darwin *darwinRecord) Install(args ...string) (string, error) {
 		return installAction + failed, err
 	}
 	defer file.Close()
-
-	execPatch, err := executablePath(darwin.name)
-	if err != nil {
-		return installAction + failed, err
-	}
 
 	templ, err := template.New("propertyList").Parse(propertyList)
 	if err != nil {
@@ -97,7 +105,7 @@ func (darwin *darwinRecord) Install(args ...string) (string, error) {
 		&struct {
 			Name, Path string
 			Args       []string
-		}{darwin.name, execPatch, args},
+		}{darwin.name, darwin.execStartPath, args},
 	); err != nil {
 		return installAction + failed, err
 	}
@@ -113,7 +121,7 @@ func (darwin *darwinRecord) Remove() (string, error) {
 		return removeAction + failed, err
 	}
 
-	if !darwin.isInstalled() {
+	if !darwin.IsInstalled() {
 		return removeAction + failed, ErrNotInstalled
 	}
 
@@ -132,7 +140,7 @@ func (darwin *darwinRecord) Start() (string, error) {
 		return startAction + failed, err
 	}
 
-	if !darwin.isInstalled() {
+	if !darwin.IsInstalled() {
 		return startAction + failed, ErrNotInstalled
 	}
 
@@ -155,7 +163,7 @@ func (darwin *darwinRecord) Stop() (string, error) {
 		return stopAction + failed, err
 	}
 
-	if !darwin.isInstalled() {
+	if !darwin.IsInstalled() {
 		return stopAction + failed, ErrNotInstalled
 	}
 
@@ -177,7 +185,7 @@ func (darwin *darwinRecord) Status() (string, error) {
 		return "", err
 	}
 
-	if !darwin.isInstalled() {
+	if !darwin.IsInstalled() {
 		return "Status could not defined", ErrNotInstalled
 	}
 

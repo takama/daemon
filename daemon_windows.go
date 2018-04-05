@@ -22,21 +22,36 @@ import (
 
 // windowsRecord - standard record (struct) for windows version of daemon package
 type windowsRecord struct {
-	name         string
-	description  string
-	dependencies []string
+	name          string
+	description   string
+	execStartPath string
+	dependencies  []string
 }
 
-func newDaemon(name, description string, dependencies []string) (Daemon, error) {
+func newDaemon(name, description, execStartPath string, dependencies []string) (Daemon, error) {
 
-	return &windowsRecord{name, description, dependencies}, nil
+	return &windowsRecord{name, description, execStartPath, dependencies}, nil
+}
+
+// Is a service installed
+func (windows *windowsRecord) IsInstalled() (bool, error) {
+	s, err := m.OpenService(windows.name)
+	if err == nil {
+		s.Close()
+		return true, err
+	}
+
+	return false, err
 }
 
 // Install the service
 func (windows *windowsRecord) Install(args ...string) (string, error) {
 	installAction := "Install " + windows.description + ":"
 
-	execp, err := execPath()
+	var err error
+	if windows.execStartPath == "" {
+		windows.execStartPath, err = execPath()
+	}
 
 	if err != nil {
 		return installAction + failed, err
@@ -48,10 +63,8 @@ func (windows *windowsRecord) Install(args ...string) (string, error) {
 	}
 	defer m.Disconnect()
 
-	s, err := m.OpenService(windows.name)
-	if err == nil {
-		s.Close()
-		return installAction + failed, err
+	if ok, err := windows.IsInstalled(); ok {
+		return installAction + failed, ErrAlreadyInstalled
 	}
 
 	s, err = m.CreateService(windows.name, execp, mgr.Config{
@@ -77,8 +90,7 @@ func (windows *windowsRecord) Remove() (string, error) {
 		return removeAction + failed, getWindowsError(err)
 	}
 	defer m.Disconnect()
-	s, err := m.OpenService(windows.name)
-	if err != nil {
+	if ok, err := windows.IsInstalled(); !ok {
 		return removeAction + failed, getWindowsError(err)
 	}
 	defer s.Close()
@@ -99,8 +111,7 @@ func (windows *windowsRecord) Start() (string, error) {
 		return startAction + failed, getWindowsError(err)
 	}
 	defer m.Disconnect()
-	s, err := m.OpenService(windows.name)
-	if err != nil {
+	if ok, err := windows.IsInstalled(); !ok {
 		return startAction + failed, getWindowsError(err)
 	}
 	defer s.Close()
@@ -120,8 +131,7 @@ func (windows *windowsRecord) Stop() (string, error) {
 		return stopAction + failed, getWindowsError(err)
 	}
 	defer m.Disconnect()
-	s, err := m.OpenService(windows.name)
-	if err != nil {
+	if ok, err := windows.IsInstalled(); !ok {
 		return stopAction + failed, getWindowsError(err)
 	}
 	defer s.Close()
@@ -185,8 +195,7 @@ func (windows *windowsRecord) Status() (string, error) {
 		return "Getting status:" + failed, getWindowsError(err)
 	}
 	defer m.Disconnect()
-	s, err := m.OpenService(windows.name)
-	if err != nil {
+	if ok, err := windows.IsInstalled(); !ok {
 		return "Getting status:" + failed, getWindowsError(err)
 	}
 	defer s.Close()

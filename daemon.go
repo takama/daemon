@@ -174,7 +174,10 @@ type Daemon interface {
 
 	// Status - check the service status
 	Status() (string, error)
-
+  
+	// Installed - check if service is intalled
+	IsInstalled() (bool)
+  
 	// Run - run executable service
 	Run(e Executable) (string, error)
 }
@@ -194,6 +197,6 @@ type Executable interface {
 // name: name of the service
 //
 // description: any explanation, what is the service, its purpose
-func New(name, description string, dependencies ...string) (Daemon, error) {
-	return newDaemon(strings.Join(strings.Fields(name), "_"), description, dependencies)
+func New(name, description, execStartPath string, dependencies ...string) (Daemon, error) {
+	return newDaemon(strings.Join(strings.Fields(name), "_"), description, execStartPath, dependencies)
 }

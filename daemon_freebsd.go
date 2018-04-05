@@ -13,9 +13,10 @@ import (
 
 // systemVRecord - standard record (struct) for linux systemV version of daemon package
 type bsdRecord struct {
-	name         string
-	description  string
-	dependencies []string
+	name          string
+	description   string
+	execStartPath string
+	dependencies  []string
 }
 
 // Standard service path for systemV daemons
@@ -24,7 +25,7 @@ func (bsd *bsdRecord) servicePath() string {
 }
 
 // Is a service installed
-func (bsd *bsdRecord) isInstalled() bool {
+func (bsd *bsdRecord) IsInstalled() bool {
 
 	if _, err := os.Stat(bsd.servicePath()); err == nil {
 		return true
@@ -66,8 +67,8 @@ func (bsd *bsdRecord) getCmd(cmd string) string {
 }
 
 // Get the daemon properly
-func newDaemon(name, description string, dependencies []string) (Daemon, error) {
-	return &bsdRecord{name, description, dependencies}, nil
+func newDaemon(name, description, execStartPath string, dependencies []string) (Daemon, error) {
+	return &bsdRecord{name, description, execStartPath,dependencies}, nil
 }
 
 func execPath() (name string, err error) {
@@ -110,8 +111,19 @@ func (bsd *bsdRecord) Install(args ...string) (string, error) {
 
 	srvPath := bsd.servicePath()
 
-	if bsd.isInstalled() {
+	if bsd.IsInstalled() {
 		return installAction + failed, ErrAlreadyInstalled
+	}
+
+	if bsd.execStartPath == "" {
+		bsd.execStartPath, err = executablePath(bsd.name)
+		if err != nil {
+			return installAction + failed, err
+		}
+	}
+
+	if stat, err := os.Stat(bsd.execStartPath); os.IsNotExist(err) || stat.IsDir() {
+		return installAction + failed, ErrIncorrectExecStartPath
 	}
 
 	file, err := os.Create(srvPath)
@@ -119,11 +131,6 @@ func (bsd *bsdRecord) Install(args ...string) (string, error) {
 		return installAction + failed, err
 	}
 	defer file.Close()
-
-	execPatch, err := executablePath(bsd.name)
-	if err != nil {
-		return installAction + failed, err
-	}
 
 	templ, err := template.New("bsdConfig").Parse(bsdConfig)
 	if err != nil {
@@ -134,7 +141,7 @@ func (bsd *bsdRecord) Install(args ...string) (string, error) {
 		file,
 		&struct {
 			Name, Description, Path, Args string
-		}{bsd.name, bsd.description, execPatch, strings.Join(args, " ")},
+		}{bsd.name, bsd.description, bsd.execStartPath, strings.Join(args, " ")},
 	); err != nil {
 		return installAction + failed, err
 	}
@@ -154,7 +161,7 @@ func (bsd *bsdRecord) Remove() (string, error) {
 		return removeAction + failed, err
 	}
 
-	if !bsd.isInstalled() {
+	if !bsd.IsInstalled() {
 		return removeAction + failed, ErrNotInstalled
 	}
 
@@ -173,7 +180,7 @@ func (bsd *bsdRecord) Start() (string, error) {
 		return startAction + failed, err
 	}
 
-	if !bsd.isInstalled() {
+	if !bsd.IsInstalled() {
 		return startAction + failed, ErrNotInstalled
 	}
 
@@ -196,7 +203,7 @@ func (bsd *bsdRecord) Stop() (string, error) {
 		return stopAction + failed, err
 	}
 
-	if !bsd.isInstalled() {
+	if !bsd.IsInstalled() {
 		return stopAction + failed, ErrNotInstalled
 	}
 
@@ -218,7 +225,7 @@ func (bsd *bsdRecord) Status() (string, error) {
 		return "", err
 	}
 
-	if !bsd.isInstalled() {
+	if !bsd.IsInstalled() {
 		return "Status could not defined", ErrNotInstalled
 	}
 

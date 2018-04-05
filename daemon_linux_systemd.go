@@ -14,9 +14,10 @@ import (
 
 // systemDRecord - standard record (struct) for linux systemD version of daemon package
 type systemDRecord struct {
-	name         string
-	description  string
-	dependencies []string
+	name          string
+	description   string
+	execStartPath string
+	dependencies  []string
 }
 
 // Standard service path for systemD daemons
@@ -25,7 +26,7 @@ func (linux *systemDRecord) servicePath() string {
 }
 
 // Is a service installed
-func (linux *systemDRecord) isInstalled() bool {
+func (linux *systemDRecord) IsInstalled() bool {
 
 	if _, err := os.Stat(linux.servicePath()); err == nil {
 		return true
@@ -55,14 +56,26 @@ func (linux *systemDRecord) checkRunning() (string, bool) {
 func (linux *systemDRecord) Install(args ...string) (string, error) {
 	installAction := "Install " + linux.description + ":"
 
+	var err error
 	if ok, err := checkPrivileges(); !ok {
 		return installAction + failed, err
 	}
 
 	srvPath := linux.servicePath()
 
-	if linux.isInstalled() {
+	if linux.IsInstalled() {
 		return installAction + failed, ErrAlreadyInstalled
+	}
+
+	if linux.execStartPath == "" {
+		linux.execStartPath, err = executablePath(linux.name)
+		if err != nil {
+			return installAction + failed, err
+		}
+	}
+
+	if stat, err := os.Stat(linux.execStartPath); os.IsNotExist(err) || stat.IsDir() {
+		return installAction + failed, ErrIncorrectExecStartPath
 	}
 
 	file, err := os.Create(srvPath)
@@ -70,11 +83,6 @@ func (linux *systemDRecord) Install(args ...string) (string, error) {
 		return installAction + failed, err
 	}
 	defer file.Close()
-
-	execPatch, err := executablePath(linux.name)
-	if err != nil {
-		return installAction + failed, err
-	}
 
 	templ, err := template.New("systemDConfig").Parse(systemDConfig)
 	if err != nil {
@@ -89,7 +97,7 @@ func (linux *systemDRecord) Install(args ...string) (string, error) {
 			linux.name,
 			linux.description,
 			strings.Join(linux.dependencies, " "),
-			execPatch,
+			linux.execStartPath,
 			strings.Join(args, " "),
 		},
 	); err != nil {
@@ -115,7 +123,7 @@ func (linux *systemDRecord) Remove() (string, error) {
 		return removeAction + failed, err
 	}
 
-	if !linux.isInstalled() {
+	if !linux.IsInstalled() {
 		return removeAction + failed, ErrNotInstalled
 	}
 
@@ -138,7 +146,7 @@ func (linux *systemDRecord) Start() (string, error) {
 		return startAction + failed, err
 	}
 
-	if !linux.isInstalled() {
+	if !linux.IsInstalled() {
 		return startAction + failed, ErrNotInstalled
 	}
 
@@ -161,7 +169,7 @@ func (linux *systemDRecord) Stop() (string, error) {
 		return stopAction + failed, err
 	}
 
-	if !linux.isInstalled() {
+	if !linux.IsInstalled() {
 		return stopAction + failed, ErrNotInstalled
 	}
 
@@ -183,7 +191,7 @@ func (linux *systemDRecord) Status() (string, error) {
 		return "", err
 	}
 
-	if !linux.isInstalled() {
+	if !linux.IsInstalled() {
 		return "Status could not defined", ErrNotInstalled
 	}
 

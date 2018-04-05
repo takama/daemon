@@ -14,9 +14,10 @@ import (
 
 // systemVRecord - standard record (struct) for linux systemV version of daemon package
 type systemVRecord struct {
-	name         string
-	description  string
-	dependencies []string
+	name          string
+	description   string
+	execStartPath string
+	dependencies  []string
 }
 
 // Standard service path for systemV daemons
@@ -25,7 +26,7 @@ func (linux *systemVRecord) servicePath() string {
 }
 
 // Is a service installed
-func (linux *systemVRecord) isInstalled() bool {
+func (linux *systemVRecord) IsInstalled() bool {
 
 	if _, err := os.Stat(linux.servicePath()); err == nil {
 		return true
@@ -55,14 +56,26 @@ func (linux *systemVRecord) checkRunning() (string, bool) {
 func (linux *systemVRecord) Install(args ...string) (string, error) {
 	installAction := "Install " + linux.description + ":"
 
+	var err error
 	if ok, err := checkPrivileges(); !ok {
 		return installAction + failed, err
 	}
 
 	srvPath := linux.servicePath()
 
-	if linux.isInstalled() {
+	if linux.IsInstalled() {
 		return installAction + failed, ErrAlreadyInstalled
+	}
+
+	if linux.execStartPath == "" {
+		linux.execStartPath, err = executablePath(linux.name)
+		if err != nil {
+			return installAction + failed, err
+		}
+	}
+
+	if stat, err := os.Stat(linux.execStartPath); os.IsNotExist(err) || stat.IsDir() {
+		return installAction + failed, ErrIncorrectExecStartPath
 	}
 
 	file, err := os.Create(srvPath)
@@ -70,11 +83,6 @@ func (linux *systemVRecord) Install(args ...string) (string, error) {
 		return installAction + failed, err
 	}
 	defer file.Close()
-
-	execPatch, err := executablePath(linux.name)
-	if err != nil {
-		return installAction + failed, err
-	}
 
 	templ, err := template.New("systemVConfig").Parse(systemVConfig)
 	if err != nil {
@@ -85,7 +93,7 @@ func (linux *systemVRecord) Install(args ...string) (string, error) {
 		file,
 		&struct {
 			Name, Description, Path, Args string
-		}{linux.name, linux.description, execPatch, strings.Join(args, " ")},
+		}{linux.name, linux.description, linux.execStartPath, strings.Join(args, " ")},
 	); err != nil {
 		return installAction + failed, err
 	}
@@ -116,7 +124,7 @@ func (linux *systemVRecord) Remove() (string, error) {
 		return removeAction + failed, err
 	}
 
-	if !linux.isInstalled() {
+	if !linux.IsInstalled() {
 		return removeAction + failed, ErrNotInstalled
 	}
 
@@ -146,7 +154,7 @@ func (linux *systemVRecord) Start() (string, error) {
 		return startAction + failed, err
 	}
 
-	if !linux.isInstalled() {
+	if !linux.IsInstalled() {
 		return startAction + failed, ErrNotInstalled
 	}
 
@@ -169,7 +177,7 @@ func (linux *systemVRecord) Stop() (string, error) {
 		return stopAction + failed, err
 	}
 
-	if !linux.isInstalled() {
+	if !linux.IsInstalled() {
 		return stopAction + failed, ErrNotInstalled
 	}
 
@@ -191,7 +199,7 @@ func (linux *systemVRecord) Status() (string, error) {
 		return "", err
 	}
 
-	if !linux.isInstalled() {
+	if !linux.IsInstalled() {
 		return "Status could not defined", ErrNotInstalled
 	}
 

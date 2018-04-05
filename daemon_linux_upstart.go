@@ -14,9 +14,10 @@ import (
 
 // upstartRecord - standard record (struct) for linux upstart version of daemon package
 type upstartRecord struct {
-	name         string
-	description  string
-	dependencies []string
+	name          string
+	description   string
+	execStartPath string
+	dependencies  []string
 }
 
 // Standard service path for systemV daemons
@@ -25,7 +26,7 @@ func (linux *upstartRecord) servicePath() string {
 }
 
 // Is a service installed
-func (linux *upstartRecord) isInstalled() bool {
+func (linux *upstartRecord) IsInstalled() bool {
 
 	if _, err := os.Stat(linux.servicePath()); err == nil {
 		return true
@@ -55,14 +56,26 @@ func (linux *upstartRecord) checkRunning() (string, bool) {
 func (linux *upstartRecord) Install(args ...string) (string, error) {
 	installAction := "Install " + linux.description + ":"
 
+	var err error
 	if ok, err := checkPrivileges(); !ok {
 		return installAction + failed, err
 	}
 
 	srvPath := linux.servicePath()
 
-	if linux.isInstalled() {
+	if linux.IsInstalled() {
 		return installAction + failed, ErrAlreadyInstalled
+	}
+
+	if linux.execStartPath == "" {
+		linux.execStartPath, err = executablePath(linux.name)
+		if err != nil {
+			return installAction + failed, err
+		}
+	}
+
+	if stat, err := os.Stat(linux.execStartPath); os.IsNotExist(err) || stat.IsDir() {
+		return installAction + failed, ErrIncorrectExecStartPath
 	}
 
 	file, err := os.Create(srvPath)
@@ -70,11 +83,6 @@ func (linux *upstartRecord) Install(args ...string) (string, error) {
 		return installAction + failed, err
 	}
 	defer file.Close()
-
-	execPatch, err := executablePath(linux.name)
-	if err != nil {
-		return installAction + failed, err
-	}
 
 	templ, err := template.New("upstatConfig").Parse(upstatConfig)
 	if err != nil {
@@ -85,7 +93,7 @@ func (linux *upstartRecord) Install(args ...string) (string, error) {
 		file,
 		&struct {
 			Name, Description, Path, Args string
-		}{linux.name, linux.description, execPatch, strings.Join(args, " ")},
+		}{linux.name, linux.description, linux.execStartPath, strings.Join(args, " ")},
 	); err != nil {
 		return installAction + failed, err
 	}
@@ -105,7 +113,7 @@ func (linux *upstartRecord) Remove() (string, error) {
 		return removeAction + failed, err
 	}
 
-	if !linux.isInstalled() {
+	if !linux.IsInstalled() {
 		return removeAction + failed, ErrNotInstalled
 	}
 
@@ -124,7 +132,7 @@ func (linux *upstartRecord) Start() (string, error) {
 		return startAction + failed, err
 	}
 
-	if !linux.isInstalled() {
+	if !linux.IsInstalled() {
 		return startAction + failed, ErrNotInstalled
 	}
 
@@ -147,7 +155,7 @@ func (linux *upstartRecord) Stop() (string, error) {
 		return stopAction + failed, err
 	}
 
-	if !linux.isInstalled() {
+	if !linux.IsInstalled() {
 		return stopAction + failed, ErrNotInstalled
 	}
 
@@ -169,7 +177,7 @@ func (linux *upstartRecord) Status() (string, error) {
 		return "", err
 	}
 
-	if !linux.isInstalled() {
+	if !linux.IsInstalled() {
 		return "Status could not defined", ErrNotInstalled
 	}
 
