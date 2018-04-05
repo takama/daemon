@@ -32,13 +32,13 @@ func (darwin *darwinRecord) servicePath() string {
 }
 
 // Is a service installed
-func (darwin *darwinRecord) IsInstalled() bool {
-
-	if _, err := os.Stat(darwin.servicePath()); err == nil {
-		return true
+func (darwin *darwinRecord) IsInstalled() (bool, error) {
+	_, err := os.Stat(darwin.servicePath())
+	if err == nil {
+		return true, err
 	}
 
-	return false
+	return false, err
 }
 
 // Get executable path
@@ -74,7 +74,7 @@ func (darwin *darwinRecord) Install(args ...string) (string, error) {
 
 	srvPath := darwin.servicePath()
 
-	if darwin.IsInstalled() {
+	if check, _ := darwin.IsInstalled(); check {
 		return installAction + failed, ErrAlreadyInstalled
 	}
 
@@ -121,7 +121,7 @@ func (darwin *darwinRecord) Remove() (string, error) {
 		return removeAction + failed, err
 	}
 
-	if !darwin.IsInstalled() {
+	if check, _ := darwin.IsInstalled(); !check {
 		return removeAction + failed, ErrNotInstalled
 	}
 
@@ -140,7 +140,7 @@ func (darwin *darwinRecord) Start() (string, error) {
 		return startAction + failed, err
 	}
 
-	if !darwin.IsInstalled() {
+	if check, _ := darwin.IsInstalled(); !check {
 		return startAction + failed, ErrNotInstalled
 	}
 
@@ -163,7 +163,7 @@ func (darwin *darwinRecord) Stop() (string, error) {
 		return stopAction + failed, err
 	}
 
-	if !darwin.IsInstalled() {
+	if check, _ := darwin.IsInstalled(); !check {
 		return stopAction + failed, ErrNotInstalled
 	}
 
@@ -185,7 +185,7 @@ func (darwin *darwinRecord) Status() (string, error) {
 		return "", err
 	}
 
-	if !darwin.IsInstalled() {
+	if check, _ := darwin.IsInstalled(); !check {
 		return "Status could not defined", ErrNotInstalled
 	}
 
