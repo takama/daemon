@@ -207,6 +207,17 @@ func (linux *systemVRecord) Run(e Executable) (string, error) {
 	return runAction + " completed.", nil
 }
 
+// GetTemplate - gets service config template
+func (linux *systemVRecord) GetTemplate() string {
+	return systemVConfig
+}
+
+// SetTemplate - sets service config template
+func (linux *systemVRecord) SetTemplate(tplStr string) error {
+	systemVConfig = tplStr
+	return nil
+}
+
 var systemVConfig = `#! /bin/sh
 #
 #       /etc/rc.d/init.d/{{.Name}}

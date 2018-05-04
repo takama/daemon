@@ -199,6 +199,17 @@ func (linux *systemDRecord) Run(e Executable) (string, error) {
 	return runAction + " completed.", nil
 }
 
+// GetTemplate - gets service config template
+func (linux *systemDRecord) GetTemplate() string {
+	return systemDConfig
+}
+
+// SetTemplate - sets service config template
+func (linux *systemDRecord) SetTemplate(tplStr string) error {
+	systemDConfig = tplStr
+	return nil
+}
+
 var systemDConfig = `[Unit]
 Description={{.Description}}
 Requires={{.Dependencies}}

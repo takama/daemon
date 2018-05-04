@@ -174,6 +174,15 @@ func main() {
 }
 ```
 
+### Service config file
+
+Service config file can be retrieved or updated by calling
+`GetTemplate() string` and `SetTemplate(string)` methods(except MS
+Windows). Template will be a default Go Template(`"text/template"`).
+
+If `SetTemplate` is not called, default template content will be used
+while creating service.
+
 ### Cron example
 
 See `examples/cron/cron_job.go`
