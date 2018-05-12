@@ -174,6 +174,41 @@ func main() {
 }
 ```
 
+### Service config file
+
+Optionally, service config file can be retrieved or updated by calling
+`GetTemplate() string` and `SetTemplate(string)` methods(except MS
+Windows). Template will be a default Go Template(`"text/template"`).
+
+If `SetTemplate` is not called, default template content will be used
+while creating service.
+
+|Variable | Description|
+|---------|------------|
+|Description| Description for service |
+|Dependencies|Service dependencies|
+|Name|Service name|
+|Path|Path of service executable|
+|Args|Arguments for service executable|
+
+#### Example template(for linux systemv)
+
+```ini
+[Unit]
+Description={{.Description}}
+Requires={{.Dependencies}}
+After={{.Dependencies}}
+
+[Service]
+PIDFile=/var/run/{{.Name}}.pid
+ExecStartPre=/bin/rm -f /var/run/{{.Name}}.pid
+ExecStart={{.Path}} {{.Args}}
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+
 ### Cron example
 
 See `examples/cron/cron_job.go`

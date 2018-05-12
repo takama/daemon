@@ -234,6 +234,17 @@ func (bsd *bsdRecord) Run(e Executable) (string, error) {
 	return runAction + " completed.", nil
 }
 
+// GetTemplate - gets service config template
+func (linux *bsdRecord) GetTemplate() string {
+	return bsdConfig
+}
+
+// SetTemplate - sets service config template
+func (linux *bsdRecord) SetTemplate(tplStr string) error {
+	bsdConfig = tplStr
+	return nil
+}
+
 var bsdConfig = `#!/bin/sh
 #
 # PROVIDE: {{.Name}}

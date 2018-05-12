@@ -159,6 +159,11 @@ import "strings"
 
 // Daemon interface has a standard set of methods/commands
 type Daemon interface {
+	// GetTemplate - gets service config template
+	GetTemplate() string
+
+	// SetTemplate - sets service config template
+	SetTemplate(string) error
 
 	// Install the service into the system
 	Install(args ...string) (string, error)

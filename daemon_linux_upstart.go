@@ -185,6 +185,17 @@ func (linux *upstartRecord) Run(e Executable) (string, error) {
 	return runAction + " completed.", nil
 }
 
+// GetTemplate - gets service config template
+func (linux *upstartRecord) GetTemplate() string {
+	return upstatConfig
+}
+
+// SetTemplate - sets service config template
+func (linux *upstartRecord) SetTemplate(tplStr string) error {
+	upstatConfig = tplStr
+	return nil
+}
+
 var upstatConfig = `# {{.Name}} {{.Description}}
 
 description     "{{.Description}}"
