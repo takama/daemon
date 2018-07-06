@@ -51,7 +51,7 @@ func (windows *windowsRecord) Install(args ...string) (string, error) {
 	s, err := m.OpenService(windows.name)
 	if err == nil {
 		s.Close()
-		return installAction + failed, err
+		return installAction + failed, ErrAlreadyRunning
 	}
 
 	s, err = m.CreateService(windows.name, execp, mgr.Config{
