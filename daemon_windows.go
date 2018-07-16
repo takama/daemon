@@ -65,6 +65,30 @@ func (windows *windowsRecord) Install(args ...string) (string, error) {
 	}
 	defer s.Close()
 
+	// set recovery action for service
+	// restart after 5 seconds for the first 3 times
+	// restart after 1 minute, otherwise
+	r := []mgr.RecoveryAction{
+		mgr.RecoveryAction{
+			Type:  mgr.ServiceRestart,
+			Delay: 5000 * time.Millisecond,
+		},
+		mgr.RecoveryAction{
+			Type:  mgr.ServiceRestart,
+			Delay: 5000 * time.Millisecond,
+		},
+		mgr.RecoveryAction{
+			Type:  mgr.ServiceRestart,
+			Delay: 5000 * time.Millisecond,
+		},
+		mgr.RecoveryAction{
+			Type:  mgr.ServiceRestart,
+			Delay: 60000 * time.Millisecond,
+		},
+	}
+	// set reset period as a day
+	s.SetRecoveryActions(r, uint32(86400))
+
 	return installAction + " completed.", nil
 }
 
