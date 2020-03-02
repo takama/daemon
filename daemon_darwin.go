@@ -178,7 +178,7 @@ func (darwin *darwinRecord) Status() (string, error) {
 	}
 
 	if !darwin.isInstalled() {
-		return "Status could not defined", ErrNotInstalled
+		return statNotInstalled, ErrNotInstalled
 	}
 
 	statusAction, _ := darwin.checkRunning()
