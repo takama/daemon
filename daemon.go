@@ -157,7 +157,7 @@ package daemon
 
 import "strings"
 
-// Status literals
+// Status constants.
 const (
 	statNotInstalled = "Service not installed"
 )
