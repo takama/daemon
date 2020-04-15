@@ -219,7 +219,7 @@ func (bsd *bsdRecord) Status() (string, error) {
 	}
 
 	if !bsd.isInstalled() {
-		return "Status could not defined", ErrNotInstalled
+		return statNotInstalled, ErrNotInstalled
 	}
 
 	statusAction, _ := bsd.checkRunning()

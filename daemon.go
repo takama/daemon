@@ -157,6 +157,11 @@ package daemon
 
 import "strings"
 
+// Status constants.
+const (
+	statNotInstalled = "Service not installed"
+)
+
 // Daemon interface has a standard set of methods/commands
 type Daemon interface {
 	// GetTemplate - gets service config template
