@@ -170,7 +170,7 @@ func (linux *upstartRecord) Status() (string, error) {
 	}
 
 	if !linux.isInstalled() {
-		return "Status could not defined", ErrNotInstalled
+		return statNotInstalled, ErrNotInstalled
 	}
 
 	statusAction, _ := linux.checkRunning()
@@ -183,6 +183,17 @@ func (linux *upstartRecord) Run(e Executable) (string, error) {
 	runAction := "Running " + linux.description + ":"
 	e.Run()
 	return runAction + " completed.", nil
+}
+
+// GetTemplate - gets service config template
+func (linux *upstartRecord) GetTemplate() string {
+	return upstatConfig
+}
+
+// SetTemplate - sets service config template
+func (linux *upstartRecord) SetTemplate(tplStr string) error {
+	upstatConfig = tplStr
+	return nil
 }
 
 var upstatConfig = `# {{.Name}} {{.Description}}

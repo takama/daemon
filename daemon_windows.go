@@ -51,7 +51,7 @@ func (windows *windowsRecord) Install(args ...string) (string, error) {
 	s, err := m.OpenService(windows.name)
 	if err == nil {
 		s.Close()
-		return installAction + failed, err
+		return installAction + failed, ErrAlreadyRunning
 	}
 
 	s, err = m.CreateService(windows.name, execp, mgr.Config{
@@ -64,6 +64,30 @@ func (windows *windowsRecord) Install(args ...string) (string, error) {
 		return installAction + failed, err
 	}
 	defer s.Close()
+
+	// set recovery action for service
+	// restart after 5 seconds for the first 3 times
+	// restart after 1 minute, otherwise
+	r := []mgr.RecoveryAction{
+		mgr.RecoveryAction{
+			Type:  mgr.ServiceRestart,
+			Delay: 5000 * time.Millisecond,
+		},
+		mgr.RecoveryAction{
+			Type:  mgr.ServiceRestart,
+			Delay: 5000 * time.Millisecond,
+		},
+		mgr.RecoveryAction{
+			Type:  mgr.ServiceRestart,
+			Delay: 5000 * time.Millisecond,
+		},
+		mgr.RecoveryAction{
+			Type:  mgr.ServiceRestart,
+			Delay: 60000 * time.Millisecond,
+		},
+	}
+	// set reset period as a day
+	s.SetRecoveryActions(r, uint32(86400))
 
 	return installAction + " completed.", nil
 }
@@ -254,7 +278,7 @@ type serviceHandler struct {
 	executable Executable
 }
 
-func (sh *serviceHandler) Execute(args []string, r <-chan svc.ChangeRequest, changes chan<- svc.Status) (ssec bool, errno uint32) {
+func (sh *serviceHandler) Execute(args []string, r <-chan svc.ChangeRequest, changes chan <- svc.Status) (ssec bool, errno uint32) {
 	const cmdsAccepted = svc.AcceptStop | svc.AcceptShutdown | svc.AcceptPauseAndContinue
 	changes <- svc.Status{State: svc.StartPending}
 
@@ -265,7 +289,7 @@ func (sh *serviceHandler) Execute(args []string, r <-chan svc.ChangeRequest, cha
 	sh.executable.Start()
 	changes <- svc.Status{State: svc.Running, Accepts: cmdsAccepted}
 
-loop:
+	loop:
 	for {
 		select {
 		case <-tick:
@@ -317,4 +341,14 @@ func (windows *windowsRecord) Run(e Executable) (string, error) {
 	}
 
 	return runAction + " completed.", nil
+}
+
+// GetTemplate - gets service config template
+func (linux *windowsRecord) GetTemplate() string {
+	return ""
+}
+
+// SetTemplate - sets service config template
+func (linux *windowsRecord) SetTemplate(tplStr string) error {
+	return errors.New(fmt.Sprintf("templating is not supported for windows"))
 }

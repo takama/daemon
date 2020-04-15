@@ -219,7 +219,7 @@ func (bsd *bsdRecord) Status() (string, error) {
 	}
 
 	if !bsd.isInstalled() {
-		return "Status could not defined", ErrNotInstalled
+		return statNotInstalled, ErrNotInstalled
 	}
 
 	statusAction, _ := bsd.checkRunning()
@@ -232,6 +232,17 @@ func (bsd *bsdRecord) Run(e Executable) (string, error) {
 	runAction := "Running " + bsd.description + ":"
 	e.Run()
 	return runAction + " completed.", nil
+}
+
+// GetTemplate - gets service config template
+func (linux *bsdRecord) GetTemplate() string {
+	return bsdConfig
+}
+
+// SetTemplate - sets service config template
+func (linux *bsdRecord) SetTemplate(tplStr string) error {
+	bsdConfig = tplStr
+	return nil
 }
 
 var bsdConfig = `#!/bin/sh

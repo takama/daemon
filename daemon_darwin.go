@@ -178,7 +178,7 @@ func (darwin *darwinRecord) Status() (string, error) {
 	}
 
 	if !darwin.isInstalled() {
-		return "Status could not defined", ErrNotInstalled
+		return statNotInstalled, ErrNotInstalled
 	}
 
 	statusAction, _ := darwin.checkRunning()
@@ -191,6 +191,17 @@ func (darwin *darwinRecord) Run(e Executable) (string, error) {
 	runAction := "Running " + darwin.description + ":"
 	e.Run()
 	return runAction + " completed.", nil
+}
+
+// GetTemplate - gets service config template
+func (linux *darwinRecord) GetTemplate() string {
+	return propertyList
+}
+
+// SetTemplate - sets service config template
+func (linux *darwinRecord) SetTemplate(tplStr string) error {
+	propertyList = tplStr
+	return nil
 }
 
 var propertyList = `<?xml version="1.0" encoding="UTF-8"?>

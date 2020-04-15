@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 /*
-Package daemon 0.11.0 for use with Go (golang) services.
+Package daemon v0.12.0 for use with Go (golang) services.
 
 Package daemon provides primitives for daemonization of golang services.
 This package is not provide implementation of user daemon,
@@ -157,8 +157,18 @@ package daemon
 
 import "strings"
 
+// Status constants.
+const (
+	statNotInstalled = "Service not installed"
+)
+
 // Daemon interface has a standard set of methods/commands
 type Daemon interface {
+	// GetTemplate - gets service config template
+	GetTemplate() string
+
+	// SetTemplate - sets service config template
+	SetTemplate(string) error
 
 	// Install the service into the system
 	Install(args ...string) (string, error)

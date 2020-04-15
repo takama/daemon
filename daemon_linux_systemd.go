@@ -184,7 +184,7 @@ func (linux *systemDRecord) Status() (string, error) {
 	}
 
 	if !linux.isInstalled() {
-		return "Status could not defined", ErrNotInstalled
+		return statNotInstalled, ErrNotInstalled
 	}
 
 	statusAction, _ := linux.checkRunning()
@@ -197,6 +197,17 @@ func (linux *systemDRecord) Run(e Executable) (string, error) {
 	runAction := "Running " + linux.description + ":"
 	e.Run()
 	return runAction + " completed.", nil
+}
+
+// GetTemplate - gets service config template
+func (linux *systemDRecord) GetTemplate() string {
+	return systemDConfig
+}
+
+// SetTemplate - sets service config template
+func (linux *systemDRecord) SetTemplate(tplStr string) error {
+	systemDConfig = tplStr
+	return nil
 }
 
 var systemDConfig = `[Unit]
