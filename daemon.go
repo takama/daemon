@@ -199,11 +199,16 @@ type Executable interface {
 	Run()
 }
 
+// Kind is type of the daemon
+type Kind string
+
 // New - Create a new daemon
 //
 // name: name of the service
 //
 // description: any explanation, what is the service, its purpose
-func New(name, description string, dependencies ...string) (Daemon, error) {
-	return newDaemon(strings.Join(strings.Fields(name), "_"), description, dependencies)
+//
+// kind: what kind of daemon to create
+func New(name, description string, kind Kind, dependencies ...string) (Daemon, error) {
+	return newDaemon(strings.Join(strings.Fields(name), "_"), description, kind, dependencies)
 }

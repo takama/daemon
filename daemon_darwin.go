@@ -17,12 +17,13 @@ import (
 type darwinRecord struct {
 	name         string
 	description  string
+	kind         Kind
 	dependencies []string
 }
 
-func newDaemon(name, description string, dependencies []string) (Daemon, error) {
+func newDaemon(name, description string, kind Kind, dependencies []string) (Daemon, error) {
 
-	return &darwinRecord{name, description, dependencies}, nil
+	return &darwinRecord{name, description, kind, dependencies}, nil
 }
 
 // Standard service path for system daemons
