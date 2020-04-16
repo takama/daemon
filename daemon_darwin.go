@@ -8,6 +8,7 @@ package daemon
 import (
 	"os"
 	"os/exec"
+	"os/user"
 	"path/filepath"
 	"regexp"
 	"text/template"
@@ -49,7 +50,8 @@ func (darwin *darwinRecord) servicePath() string {
 
 	switch darwin.kind {
 	case UserAgent:
-		path = "~/Library/LaunchAgents" + darwin.name + ".plist"
+		usr, _ := user.Current()
+		path = usr.HomeDir + "/Library/LaunchAgents/" + darwin.name + ".plist"
 	case GlobalAgent:
 		path = "/Library/LaunchAgents/" + darwin.name + ".plist"
 	case GlobalDaemon:
