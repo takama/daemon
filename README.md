@@ -19,7 +19,7 @@ import (
 )
 
 func main() {
-    service, err := daemon.New("name", "description")
+    service, err := daemon.New("name", "description", daemon.GlobalDaemon)
     if err != nil {
         log.Fatal("Error: ", err)
     }
@@ -159,7 +159,7 @@ func init() {
 }
 
 func main() {
-    srv, err := daemon.New(name, description, dependencies...)
+    srv, err := daemon.New(name, description, daemon.GlobalDaemon, dependencies...)
     if err != nil {
         errlog.Println("Error: ", err)
         os.Exit(1)

@@ -5,10 +5,12 @@
 /*
 Package daemon v0.12.0 for use with Go (golang) services.
 
-Package daemon provides primitives for daemonization of golang services.
-This package is not provide implementation of user daemon,
-accordingly must have root rights to install/remove service.
-In the current implementation is only supported Linux and Mac Os X daemon.
+Package daemon provides primitives for daemonization of golang services. In the
+current implementation the only supported operating systems are macOS, FreeBSD,
+Linux and Windows. Also to note, for global daemons one must have root rights to
+install or remove the service. The only exception is macOS where there is an
+implementation of a user daemon that can installed or removed by the current
+user.
 
 Example:
 
@@ -137,7 +139,7 @@ Example:
 	}
 
 	func main() {
-		srv, err := daemon.New(name, description, dependencies...)
+		srv, err := daemon.New(name, description, daemon.GlobalDaemon, dependencies...)
 		if err != nil {
 			errlog.Println("Error: ", err)
 			os.Exit(1)
