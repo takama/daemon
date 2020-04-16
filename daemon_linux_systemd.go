@@ -14,9 +14,10 @@ import (
 
 // systemDRecord - standard record (struct) for linux systemD version of daemon package
 type systemDRecord struct {
-	name         string
-	description  string
-	dependencies []string
+	name          string
+	description   string
+	execStartPath string
+	dependencies  []string
 }
 
 // Standard service path for systemD daemons
@@ -55,6 +56,7 @@ func (linux *systemDRecord) checkRunning() (string, bool) {
 func (linux *systemDRecord) Install(args ...string) (string, error) {
 	installAction := "Install " + linux.description + ":"
 
+	var err error
 	if ok, err := checkPrivileges(); !ok {
 		return installAction + failed, err
 	}
@@ -65,16 +67,22 @@ func (linux *systemDRecord) Install(args ...string) (string, error) {
 		return installAction + failed, ErrAlreadyInstalled
 	}
 
+	if linux.execStartPath == "" {
+		linux.execStartPath, err = executablePath(linux.name)
+		if err != nil {
+			return installAction + failed, err
+		}
+	}
+
+	if stat, err := os.Stat(linux.execStartPath); os.IsNotExist(err) || stat.IsDir() {
+		return installAction + failed, ErrIncorrectExecStartPath
+	}
+
 	file, err := os.Create(srvPath)
 	if err != nil {
 		return installAction + failed, err
 	}
 	defer file.Close()
-
-	execPatch, err := executablePath(linux.name)
-	if err != nil {
-		return installAction + failed, err
-	}
 
 	templ, err := template.New("systemDConfig").Parse(systemDConfig)
 	if err != nil {
@@ -89,7 +97,7 @@ func (linux *systemDRecord) Install(args ...string) (string, error) {
 			linux.name,
 			linux.description,
 			strings.Join(linux.dependencies, " "),
-			execPatch,
+			linux.execStartPath,
 			strings.Join(args, " "),
 		},
 	); err != nil {

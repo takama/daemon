@@ -14,7 +14,6 @@ import (
 	"time"
 	"unicode/utf16"
 	"unsafe"
-
 	"golang.org/x/sys/windows/registry"
 	"golang.org/x/sys/windows/svc"
 	"golang.org/x/sys/windows/svc/mgr"
@@ -22,21 +21,25 @@ import (
 
 // windowsRecord - standard record (struct) for windows version of daemon package
 type windowsRecord struct {
-	name         string
-	description  string
-	dependencies []string
+	name          string
+	description   string
+	execStartPath string
+	dependencies  []string
 }
 
-func newDaemon(name, description string, dependencies []string) (Daemon, error) {
+func newDaemon(name, description, execStartPath string, dependencies []string) (Daemon, error) {
 
-	return &windowsRecord{name, description, dependencies}, nil
+	return &windowsRecord{name, description, execStartPath, dependencies}, nil
 }
 
 // Install the service
 func (windows *windowsRecord) Install(args ...string) (string, error) {
 	installAction := "Install " + windows.description + ":"
 
-	execp, err := execPath()
+	var err error
+	if windows.execStartPath == "" {
+		windows.execStartPath, err = execPath()
+	}
 
 	if err != nil {
 		return installAction + failed, err
@@ -54,7 +57,7 @@ func (windows *windowsRecord) Install(args ...string) (string, error) {
 		return installAction + failed, ErrAlreadyRunning
 	}
 
-	s, err = m.CreateService(windows.name, execp, mgr.Config{
+	s, err = m.CreateService(windows.name, windows.execStartPath, mgr.Config{
 		DisplayName:  windows.name,
 		Description:  windows.description,
 		StartType:    mgr.StartAutomatic,
