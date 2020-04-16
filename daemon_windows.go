@@ -28,6 +28,12 @@ type windowsRecord struct {
 	dependencies []string
 }
 
+const (
+	// GlobalDaemon is a user daemon that runs as the root user. In other words,
+	// system-wide daemons provided by the administrator.
+	GlobalDaemon Kind = "GlobalDaemon"
+)
+
 func newDaemon(name, description string, kind Kind, dependencies []string) (Daemon, error) {
 
 	return &windowsRecord{name, description, kind, dependencies}, nil
