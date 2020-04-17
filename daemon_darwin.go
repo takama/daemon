@@ -22,23 +22,6 @@ type darwinRecord struct {
 	dependencies []string
 }
 
-const (
-	// UserAgent is a user daemon that runs as the currently logged in user and
-	// stores its property list in the user’s individual LaunchAgents directory.
-	// In other words, per-user agents provided by the user.
-	UserAgent Kind = "UserAgent"
-
-	// GlobalAgent is a user daemon that runs as the currently logged in user and
-	// stores its property list in the users' global LaunchAgents directory. In
-	// other words, per-user agents provided by the administrator.
-	GlobalAgent Kind = "GlobalAgent"
-
-	// GlobalDaemon is a system daemon that runs as the root user and stores its
-	// property list in the global LaunchDaemons directory. In other words,
-	// system-wide daemons provided by the administrator.
-	GlobalDaemon Kind = "GlobalDaemon"
-)
-
 func newDaemon(name, description string, kind Kind, dependencies []string) (Daemon, error) {
 
 	return &darwinRecord{name, description, kind, dependencies}, nil

@@ -19,12 +19,6 @@ type bsdRecord struct {
 	dependencies []string
 }
 
-const (
-	// GlobalDaemon is a user daemon that runs as the root user. In other words,
-	// system-wide daemons provided by the administrator.
-	GlobalDaemon Kind = "GlobalDaemon"
-)
-
 // Standard service path for systemV daemons
 func (bsd *bsdRecord) servicePath() string {
 	return "/usr/local/etc/rc.d/" + bsd.name
