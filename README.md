@@ -1,6 +1,6 @@
 # Go Daemon
 
-A daemon package for use with Go (golang) services with no dependencies
+A daemon package for use with Go (golang) services
 
 [![GoDoc](https://godoc.org/github.com/takama/daemon?status.svg)](https://godoc.org/github.com/takama/daemon)
 
@@ -19,7 +19,7 @@ import (
 )
 
 func main() {
-    service, err := daemon.New("name", "description")
+    service, err := daemon.New("name", "description", daemon.SystemDaemon)
     if err != nil {
         log.Fatal("Error: ", err)
     }
@@ -159,7 +159,7 @@ func init() {
 }
 
 func main() {
-    srv, err := daemon.New(name, description, dependencies...)
+    srv, err := daemon.New(name, description, daemon.SystemDaemon, dependencies...)
     if err != nil {
         errlog.Println("Error: ", err)
         os.Exit(1)
@@ -183,13 +183,13 @@ Windows). Template will be a default Go Template(`"text/template"`).
 If `SetTemplate` is not called, default template content will be used
 while creating service.
 
-|Variable | Description|
-|---------|------------|
-|Description| Description for service |
-|Dependencies|Service dependencies|
-|Name|Service name|
-|Path|Path of service executable|
-|Args|Arguments for service executable|
+| Variable     | Description                      |
+| ------------ | -------------------------------- |
+| Description  | Description for service          |
+| Dependencies | Service dependencies             |
+| Name         | Service name                     |
+| Path         | Path of service executable       |
+| Args         | Arguments for service executable |
 
 #### Example template(for linux systemv)
 
@@ -215,7 +215,6 @@ See `examples/cron/cron_job.go`
 
 ## Contributors (unsorted)
 
-- [Igor Dolzhikov](https://github.com/takama)
 - [Sheile](https://github.com/Sheile)
 - [Nguyen Trung Loi](https://github.com/loint)
 - [Donny Prasetyobudi](https://github.com/donnpebe)
@@ -235,10 +234,12 @@ See `examples/cron/cron_job.go`
 - [AlgorathDev](https://github.com/AlgorathDev)
 - [Alexis Camilleri](https://github.com/krysennn)
 - [neverland4u](https://github.com/neverland4u)
+- [Rustam](https://github.com/rusq)
+- [King'ori Maina](https://github.com/itskingori)
 
 All the contributors are welcome. If you would like to be the contributor please accept some rules.
 
-- The pull requests will be accepted only in "develop" branch
+- The pull requests will be accepted only in `develop` branch
 - All modifications or additions should be tested
 - Sorry, We will not accept code with any dependency, only standard library
 

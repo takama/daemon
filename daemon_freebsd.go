@@ -1,3 +1,7 @@
+// Copyright 2020 The Go Authors. All rights reserved.
+// Use of this source code is governed by
+// license that can be found in the LICENSE file.
+
 package daemon
 
 import (
@@ -15,6 +19,7 @@ import (
 type bsdRecord struct {
 	name         string
 	description  string
+	kind         Kind
 	dependencies []string
 }
 
@@ -66,8 +71,8 @@ func (bsd *bsdRecord) getCmd(cmd string) string {
 }
 
 // Get the daemon properly
-func newDaemon(name, description string, dependencies []string) (Daemon, error) {
-	return &bsdRecord{name, description, dependencies}, nil
+func newDaemon(name, description string, kind Kind, dependencies []string) (Daemon, error) {
+	return &bsdRecord{name, description, kind, dependencies}, nil
 }
 
 func execPath() (name string, err error) {
