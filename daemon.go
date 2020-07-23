@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 /*
-Package daemon v0.12.0 for use with Go (golang) services.
+Package daemon v1.0.0 for use with Go (golang) services.
 
 Package daemon provides primitives for daemonization of golang services. In the
 current implementation the only supported operating systems are macOS, FreeBSD,
