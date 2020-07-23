@@ -76,6 +76,8 @@ func (linux *systemDRecord) Install(args ...string) (string, error) {
 	if err != nil {
 		return installAction + failed, err
 	}
+	
+	execDir := path.Dir(execPatch)
 
 	templ, err := template.New("systemDConfig").Parse(systemDConfig)
 	if err != nil {
@@ -85,12 +87,13 @@ func (linux *systemDRecord) Install(args ...string) (string, error) {
 	if err := templ.Execute(
 		file,
 		&struct {
-			Name, Description, Dependencies, Path, Args string
+			Name, Description, Dependencies, Path, Dir, Args string
 		}{
 			linux.name,
 			linux.description,
 			strings.Join(linux.dependencies, " "),
 			execPatch,
+			execDir,
 			strings.Join(args, " "),
 		},
 	); err != nil {
@@ -217,6 +220,7 @@ Requires={{.Dependencies}}
 After={{.Dependencies}}
 
 [Service]
+EnvironmentFile={{.Dir}}/.env
 PIDFile=/var/run/{{.Name}}.pid
 ExecStartPre=/bin/rm -f /var/run/{{.Name}}.pid
 ExecStart={{.Path}} {{.Args}}
