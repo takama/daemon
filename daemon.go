@@ -5,10 +5,12 @@
 /*
 Package daemon v0.12.0 for use with Go (golang) services.
 
-Package daemon provides primitives for daemonization of golang services.
-This package is not provide implementation of user daemon,
-accordingly must have root rights to install/remove service.
-In the current implementation is only supported Linux and Mac Os X daemon.
+Package daemon provides primitives for daemonization of golang services. In the
+current implementation the only supported operating systems are macOS, FreeBSD,
+Linux and Windows. Also to note, for global daemons one must have root rights to
+install or remove the service. The only exception is macOS where there is an
+implementation of a user daemon that can installed or removed by the current
+user.
 
 Example:
 
@@ -137,7 +139,7 @@ Example:
 	}
 
 	func main() {
-		srv, err := daemon.New(name, description, dependencies...)
+		srv, err := daemon.New(name, description, daemon.SystemDaemon, dependencies...)
 		if err != nil {
 			errlog.Println("Error: ", err)
 			os.Exit(1)
@@ -155,7 +157,11 @@ Go daemon
 */
 package daemon
 
-import "strings"
+import (
+	"errors"
+	"runtime"
+	"strings"
+)
 
 // Status constants.
 const (
@@ -199,11 +205,58 @@ type Executable interface {
 	Run()
 }
 
+// Kind is type of the daemon
+type Kind string
+
+const (
+	// UserAgent is a user daemon that runs as the currently logged in user and
+	// stores its property list in the user’s individual LaunchAgents directory.
+	// In other words, per-user agents provided by the user. Valid for macOS only.
+	UserAgent Kind = "UserAgent"
+
+	// GlobalAgent is a user daemon that runs as the currently logged in user and
+	// stores its property list in the users' global LaunchAgents directory. In
+	// other words, per-user agents provided by the administrator. Valid for macOS
+	// only.
+	GlobalAgent Kind = "GlobalAgent"
+
+	// GlobalDaemon is a system daemon that runs as the root user and stores its
+	// property list in the global LaunchDaemons directory. In other words,
+	// system-wide daemons provided by the administrator. Valid for macOS only.
+	GlobalDaemon Kind = "GlobalDaemon"
+
+	// SystemDaemon is a system daemon that runs as the root user. In other words,
+	// system-wide daemons provided by the administrator. Valid for FreeBSD, Linux
+	// and Windows only.
+	SystemDaemon Kind = "SystemDaemon"
+)
+
 // New - Create a new daemon
 //
 // name: name of the service
 //
 // description: any explanation, what is the service, its purpose
-func New(name, description string, dependencies ...string) (Daemon, error) {
-	return newDaemon(strings.Join(strings.Fields(name), "_"), description, dependencies)
+//
+// kind: what kind of daemon to create
+func New(name, description string, kind Kind, dependencies ...string) (Daemon, error) {
+	switch runtime.GOOS {
+	case "darwin":
+		if kind == SystemDaemon {
+			return nil, errors.New("Invalid daemon kind specified")
+		}
+	case "freebsd":
+		if kind != SystemDaemon {
+			return nil, errors.New("Invalid daemon kind specified")
+		}
+	case "linux":
+		if kind != SystemDaemon {
+			return nil, errors.New("Invalid daemon kind specified")
+		}
+	case "windows":
+		if kind != SystemDaemon {
+			return nil, errors.New("Invalid daemon kind specified")
+		}
+	}
+
+	return newDaemon(strings.Join(strings.Fields(name), "_"), description, kind, dependencies)
 }

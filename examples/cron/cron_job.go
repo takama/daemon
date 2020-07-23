@@ -80,7 +80,7 @@ func init() {
 }
 
 func main() {
-	srv, err := daemon.New(name, description)
+	srv, err := daemon.New(name, description, daemon.SystemDaemon)
 	if err != nil {
 		errlog.Println("Error: ", err)
 		os.Exit(1)

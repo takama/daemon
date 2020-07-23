@@ -16,6 +16,7 @@ import (
 type systemDRecord struct {
 	name         string
 	description  string
+	kind         Kind
 	dependencies []string
 }
 
