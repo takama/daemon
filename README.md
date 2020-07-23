@@ -234,6 +234,7 @@ See `examples/cron/cron_job.go`
 - [AlgorathDev](https://github.com/AlgorathDev)
 - [Alexis Camilleri](https://github.com/krysennn)
 - [neverland4u](https://github.com/neverland4u)
+- [Rustam](https://github.com/rusq)
 - [King'ori Maina](https://github.com/itskingori)
 
 All the contributors are welcome. If you would like to be the contributor please accept some rules.
