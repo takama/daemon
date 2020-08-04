@@ -10,6 +10,8 @@ import (
 	"errors"
 	"os"
 	"os/exec"
+	"path"
+	"path/filepath"
 	"strconv"
 	"strings"
 )
@@ -47,12 +49,35 @@ func ExecPath() (string, error) {
 
 // Lookup path for executable file
 func executablePath(name string) (string, error) {
-	if path, err := exec.LookPath(name); err == nil {
-		if _, err := os.Stat(path); err == nil {
-			return path, nil
+	if p, err := exec.LookPath(name); err == nil {
+		if _, err := os.Stat(p); err == nil {
+			cwd, _ := os.Getwd()
+			if strings.HasPrefix(p, "./") {
+				p = path.Join(cwd, path.Base(p))
+			}
+			return p, nil
 		}
 	}
-	return os.Executable()
+
+	return findBinaryPath()
+}
+
+func findBinaryPath() (string, error) {
+	ctlExePath, err := os.Executable()
+	if err != nil {
+		return "./", err
+	}
+
+	dir, err := filepath.EvalSymlinks(ctlExePath)
+	if err != nil {
+		return "./", err
+	}
+
+	cwd, _ := os.Getwd()
+	if strings.HasPrefix(dir, "./") {
+		dir = path.Join(cwd, path.Base(dir))
+	}
+	return filepath.Abs(filepath.Dir(dir))
 }
 
 // Check root rights to use system service

@@ -7,6 +7,7 @@ package daemon
 import (
 	"os"
 	"os/exec"
+	"path"
 	"regexp"
 	"strings"
 	"text/template"
@@ -72,7 +73,7 @@ func (linux *systemDRecord) Install(args ...string) (string, error) {
 	}
 	defer file.Close()
 
-	execPatch, err := executablePath(linux.name)
+	execPath, err := executablePath(linux.name)
 	if err != nil {
 		return installAction + failed, err
 	}
@@ -85,12 +86,13 @@ func (linux *systemDRecord) Install(args ...string) (string, error) {
 	if err := templ.Execute(
 		file,
 		&struct {
-			Name, Description, Dependencies, Path, Args string
+			Name, BaseName, Description, Dependencies, Path, Args string
 		}{
 			linux.name,
+			path.Base(linux.name),
 			linux.description,
 			strings.Join(linux.dependencies, " "),
-			execPatch,
+			execPath,
 			strings.Join(args, " "),
 		},
 	); err != nil {
@@ -101,7 +103,7 @@ func (linux *systemDRecord) Install(args ...string) (string, error) {
 		return installAction + failed, err
 	}
 
-	if err := exec.Command("systemctl", "enable", linux.name+".service").Run(); err != nil {
+	if err := exec.Command("systemctl", "enable", path.Base(linux.name)+".service").Run(); err != nil {
 		return installAction + failed, err
 	}
 
@@ -217,8 +219,8 @@ Requires={{.Dependencies}}
 After={{.Dependencies}}
 
 [Service]
-PIDFile=/var/run/{{.Name}}.pid
-ExecStartPre=/bin/rm -f /var/run/{{.Name}}.pid
+PIDFile=/var/run/{{.BaseName}}.pid
+ExecStartPre=/bin/rm -f /var/run/{{.BaseName}}.pid
 ExecStart={{.Path}} {{.Args}}
 Restart=on-failure
 
