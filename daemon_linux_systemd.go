@@ -73,7 +73,7 @@ func (linux *systemDRecord) Install(args ...string) (string, error) {
 	}
 	defer file.Close()
 
-	execPatch, err := executablePath(linux.name)
+	execPath, err := executablePath(linux.name)
 	if err != nil {
 		return installAction + failed, err
 	}
@@ -92,7 +92,7 @@ func (linux *systemDRecord) Install(args ...string) (string, error) {
 			path.Base(linux.name),
 			linux.description,
 			strings.Join(linux.dependencies, " "),
-			execPatch,
+			execPath,
 			strings.Join(args, " "),
 		},
 	); err != nil {
