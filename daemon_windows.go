@@ -6,7 +6,6 @@
 package daemon
 
 import (
-	"errors"
 	"fmt"
 	"os/exec"
 	"strconv"
@@ -17,6 +16,7 @@ import (
 
 	"golang.org/x/sys/windows/registry"
 	"golang.org/x/sys/windows/svc"
+	"golang.org/x/sys/windows/svc/debug"
 	"golang.org/x/sys/windows/svc/mgr"
 )
 
@@ -246,7 +246,7 @@ func getWindowsError(inputError error) error {
 	if exiterr, ok := inputError.(*exec.ExitError); ok {
 		if status, ok := exiterr.Sys().(syscall.WaitStatus); ok {
 			if sysErr, ok := WinErrCode[status.ExitStatus()]; ok {
-				return errors.New(fmt.Sprintf("\n %s: %s \n %s", sysErr.Title, sysErr.Description, sysErr.Action))
+				return fmt.Errorf("\n %s: %s \n %s", sysErr.Title, sysErr.Description, sysErr.Action)
 			}
 		}
 	}
@@ -327,29 +327,28 @@ func (windows *windowsRecord) Run(e Executable) (string, error) {
 	if err != nil {
 		return runAction + failed, getWindowsError(err)
 	}
-	if !interactive {
-		// service called from windows service manager
-		// use API provided by golang.org/x/sys/windows
-		err = svc.Run(windows.name, &serviceHandler{
-			executable: e,
-		})
-		if err != nil {
-			return runAction + failed, getWindowsError(err)
-		}
-	} else {
-		// otherwise, service should be called from terminal session
-		e.Run()
+	run := svc.Run
+	if interactive {
+		run = debug.Run
+	}
+	// service called from windows service manager
+	// use API provided by golang.org/x/sys/windows
+	err = run(windows.name, &serviceHandler{
+		executable: e,
+	})
+	if err != nil {
+		return runAction + failed, getWindowsError(err)
 	}
 
 	return runAction + " completed.", nil
 }
 
 // GetTemplate - gets service config template
-func (linux *windowsRecord) GetTemplate() string {
+func (windows *windowsRecord) GetTemplate() string {
 	return ""
 }
 
 // SetTemplate - sets service config template
-func (linux *windowsRecord) SetTemplate(tplStr string) error {
-	return errors.New(fmt.Sprintf("templating is not supported for windows"))
+func (windows *windowsRecord) SetTemplate(tplStr string) error {
+	return fmt.Errorf("templating is not supported on windows")
 }
