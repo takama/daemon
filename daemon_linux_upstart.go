@@ -17,6 +17,7 @@ type upstartRecord struct {
 	name         string
 	description  string
 	kind         Kind
+	username     string
 	dependencies []string
 }
 
@@ -77,16 +78,20 @@ func (linux *upstartRecord) Install(args ...string) (string, error) {
 		return installAction + failed, err
 	}
 
-	templ, err := template.New("upstatConfig").Parse(upstatConfig)
+	templ, err := template.New("upstartConfig").Parse(upstartConfig)
 	if err != nil {
 		return installAction + failed, err
+	}
+
+	if linux.username == "" {
+		linux.username = "root"
 	}
 
 	if err := templ.Execute(
 		file,
 		&struct {
-			Name, Description, Path, Args string
-		}{linux.name, linux.description, execPatch, strings.Join(args, " ")},
+			Name, Description, Username, Path, Args string
+		}{linux.name, linux.description, linux.username, execPatch, strings.Join(args, " ")},
 	); err != nil {
 		return installAction + failed, err
 	}
@@ -188,16 +193,27 @@ func (linux *upstartRecord) Run(e Executable) (string, error) {
 
 // GetTemplate - gets service config template
 func (linux *upstartRecord) GetTemplate() string {
-	return upstatConfig
+	return upstartConfig
 }
 
 // SetTemplate - sets service config template
 func (linux *upstartRecord) SetTemplate(tplStr string) error {
-	upstatConfig = tplStr
+	upstartConfig = tplStr
 	return nil
 }
 
-var upstatConfig = `# {{.Name}} {{.Description}}
+// SetUser - Sets the user the service will run as
+func (linux *upstartRecord) SetUser(username string) error {
+	linux.username = username
+	return nil
+}
+
+// SetPassword - Sets the password for the user that will run the service. Only used for macOS
+func (linux *upstartRecord) SetPassword(_ string) error {
+	return ErrUnsupportedSystem
+}
+
+var upstartConfig = `# {{.Name}} {{.Description}}
 
 description     "{{.Description}}"
 author          "Pichu Chen <pichu@tih.tw>"
@@ -208,5 +224,5 @@ stop on runlevel [016]
 respawn
 #kill timeout 5
 
-exec {{.Path}} {{.Args}} >> /var/log/{{.Name}}.log 2>> /var/log/{{.Name}}.err
+exec su -l {{.Username}} -c "{{.Path}} {{.Args}} >> /var/log/{{.Name}}.log 2>> /var/log/{{.Name}}.err"
 `

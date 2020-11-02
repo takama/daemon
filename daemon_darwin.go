@@ -19,12 +19,13 @@ type darwinRecord struct {
 	name         string
 	description  string
 	kind         Kind
+	username     string
 	dependencies []string
 }
 
 func newDaemon(name, description string, kind Kind, dependencies []string) (Daemon, error) {
 
-	return &darwinRecord{name, description, kind, dependencies}, nil
+	return &darwinRecord{name, description, kind, "", dependencies}, nil
 }
 
 // Standard service path for system daemons
@@ -102,6 +103,23 @@ func (darwin *darwinRecord) Install(args ...string) (string, error) {
 		return installAction + failed, err
 	}
 
+	if darwin.username == "" {
+		if darwin.kind == UserAgent {
+			usr, err := user.Current()
+			if err != nil {
+				return installAction + failed, err
+			}
+			darwin.username = usr.Username
+		} else if darwin.kind == GlobalAgent {
+			usr := os.Getenv("SUDO_USER")
+			if usr != "" {
+				darwin.username = usr
+			}
+		} else {
+			darwin.username = "root"
+		}
+	}
+
 	templ, err := template.New("propertyList").Parse(propertyList)
 	if err != nil {
 		return installAction + failed, err
@@ -110,9 +128,9 @@ func (darwin *darwinRecord) Install(args ...string) (string, error) {
 	if err := templ.Execute(
 		file,
 		&struct {
-			Name, Path string
+			Name, Path, Username string
 			Args       []string
-		}{darwin.name, execPatch, args},
+		}{darwin.name, execPatch, darwin.username, args},
 	); err != nil {
 		return installAction + failed, err
 	}
@@ -213,14 +231,29 @@ func (darwin *darwinRecord) Run(e Executable) (string, error) {
 }
 
 // GetTemplate - gets service config template
-func (linux *darwinRecord) GetTemplate() string {
+func (darwin *darwinRecord) GetTemplate() string {
 	return propertyList
 }
 
 // SetTemplate - sets service config template
-func (linux *darwinRecord) SetTemplate(tplStr string) error {
+func (darwin *darwinRecord) SetTemplate(tplStr string) error {
 	propertyList = tplStr
 	return nil
+}
+
+// SetUser - Sets the user the service will run as
+func (darwin *darwinRecord) SetUser(username string) error {
+	if darwin.kind == UserAgent || darwin.kind == GlobalAgent {
+		return ErrUserNameNotSupported
+	}
+
+	darwin.username = username
+	return nil
+}
+
+// SetPassword - Sets the password for the user that will run the service. Only used for macOS
+func (darwin *darwinRecord) SetPassword(_ string) error {
+	return ErrUnsupportedSystem
 }
 
 var propertyList = `<?xml version="1.0" encoding="UTF-8"?>
@@ -237,6 +270,8 @@ var propertyList = `<?xml version="1.0" encoding="UTF-8"?>
 		{{range .Args}}<string>{{.}}</string>
 		{{end}}
 	</array>
+	<key>UserName</key>
+	<string>{{.Username}}</string>
 	<key>RunAtLoad</key>
 	<true/>
     <key>WorkingDirectory</key>
