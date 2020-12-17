@@ -213,7 +213,7 @@ func (linux *systemDRecord) SetTemplate(tplStr string) error {
 var systemDConfig = `[Unit]
 Description={{.Description}}
 Requires={{.Dependencies}}
-After={{.Dependencies}}
+After={{.After}}
 
 [Service]
 PIDFile=/var/run/{{.Name}}.pid
