@@ -197,7 +197,7 @@ while creating service.
 [Unit]
 Description={{.Description}}
 Requires={{.Dependencies}}
-After={{.Dependencies}}
+After={{.After}}
 
 [Service]
 PIDFile=/var/run/{{.Name}}.pid
