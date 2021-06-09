@@ -120,6 +120,12 @@ func (linux *systemDRecord) Remove() (string, error) {
 		return removeAction + failed, ErrNotInstalled
 	}
 
+	if _, ok := linux.checkRunning(); ok {
+		if err := exec.Command("systemctl", "stop", linux.name+".service").Run(); err != nil {
+			return removeAction + failed, err
+		}
+	}
+
 	if err := exec.Command("systemctl", "disable", linux.name+".service").Run(); err != nil {
 		return removeAction + failed, err
 	}
