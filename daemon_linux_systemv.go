@@ -121,6 +121,12 @@ func (linux *systemVRecord) Remove() (string, error) {
 		return removeAction + failed, ErrNotInstalled
 	}
 
+	if _, ok := linux.checkRunning(); ok {
+		if err := exec.Command("service", linux.name, "stop").Run(); err != nil {
+			return removeAction + failed, err
+		}
+	}
+
 	if err := os.Remove(linux.servicePath()); err != nil {
 		return removeAction + failed, err
 	}

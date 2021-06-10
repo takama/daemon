@@ -133,6 +133,12 @@ func (darwin *darwinRecord) Remove() (string, error) {
 		return removeAction + failed, ErrNotInstalled
 	}
 
+	if _, ok := darwin.checkRunning(); ok {
+		if err := exec.Command("launchctl", "unload", darwin.servicePath()).Run(); err != nil {
+			return removeAction + failed, err
+		}
+	}
+
 	if err := os.Remove(darwin.servicePath()); err != nil {
 		return removeAction + failed, err
 	}
