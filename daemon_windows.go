@@ -108,7 +108,7 @@ func (windows *windowsRecord) Remove() (string, error) {
 	}
 	defer s.Close()
 	if err := stopAndWait(s); err != nil {
-		return stopAction + failed, getWindowsError(err)
+		return removeAction + failed, getWindowsError(err)
 	}
 	err = s.Delete()
 	if err != nil {
