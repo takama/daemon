@@ -162,6 +162,11 @@ func (bsd *bsdRecord) Remove() (string, error) {
 	if !bsd.isInstalled() {
 		return removeAction + failed, ErrNotInstalled
 	}
+	if _, ok := bsd.checkRunning(); ok {
+		if err := exec.Command("service", bsd.name, bsd.getCmd("stop")).Run(); err != nil {
+			return removeAction + failed, err
+		}
+	}
 
 	if err := os.Remove(bsd.servicePath()); err != nil {
 		return removeAction + failed, err
