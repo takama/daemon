@@ -249,7 +249,7 @@ func New(name, description string, kind Kind, dependencies ...string) (Daemon, e
 			return nil, errors.New("Invalid daemon kind specified")
 		}
 	case "linux":
-		if kind != SystemDaemon {
+		if kind != SystemDaemon && kind != UserAgent {
 			return nil, errors.New("Invalid daemon kind specified")
 		}
 	case "windows":
