@@ -22,7 +22,14 @@ type systemDRecord struct {
 
 // Standard service path for systemD daemons
 func (linux *systemDRecord) servicePath() string {
-	return "/etc/systemd/system/" + linux.name + ".service"
+	var basePath string
+	if linux.kind == UserAgent {
+		basePath, _ = os.UserHomeDir()
+		basePath += "/.config/systemd/user/"
+	} else {
+		basePath = "/etc/systemd/system/"
+	}
+	return basePath + linux.name + ".service"
 }
 
 // Is a service installed
@@ -35,9 +42,17 @@ func (linux *systemDRecord) isInstalled() bool {
 	return false
 }
 
+// Provide kind-appropriate systemctl command
+func (linux *systemDRecord) systemctl(args ...string) *exec.Cmd {
+	if linux.kind == UserAgent {
+		args = append([]string{"--user"}, args...)
+	}
+	return exec.Command("systemctl", args...)
+}
+
 // Check service is running
 func (linux *systemDRecord) checkRunning() (string, bool) {
-	output, err := exec.Command("systemctl", "status", linux.name+".service").Output()
+	output, err := linux.systemctl("status", linux.name+".service").Output()
 	if err == nil {
 		if matched, err := regexp.MatchString("Active: active", string(output)); err == nil && matched {
 			reg := regexp.MustCompile("Main PID: ([0-9]+)")
@@ -56,7 +71,7 @@ func (linux *systemDRecord) checkRunning() (string, bool) {
 func (linux *systemDRecord) Install(args ...string) (string, error) {
 	installAction := "Install " + linux.description + ":"
 
-	if ok, err := checkPrivileges(); !ok {
+	if ok, err := checkPrivileges(); !ok && linux.kind != UserAgent {
 		return installAction + failed, err
 	}
 
@@ -97,11 +112,13 @@ func (linux *systemDRecord) Install(args ...string) (string, error) {
 		return installAction + failed, err
 	}
 
-	if err := exec.Command("systemctl", "daemon-reload").Run(); err != nil {
-		return installAction + failed, err
+	if linux.kind != UserAgent {
+		if err := linux.systemctl("daemon-reload").Run(); err != nil {
+			return installAction + failed, err
+		}
 	}
 
-	if err := exec.Command("systemctl", "enable", linux.name+".service").Run(); err != nil {
+	if err := linux.systemctl("enable", linux.name+".service").Run(); err != nil {
 		return installAction + failed, err
 	}
 
@@ -112,7 +129,7 @@ func (linux *systemDRecord) Install(args ...string) (string, error) {
 func (linux *systemDRecord) Remove() (string, error) {
 	removeAction := "Removing " + linux.description + ":"
 
-	if ok, err := checkPrivileges(); !ok {
+	if ok, err := checkPrivileges(); !ok && linux.kind != UserAgent {
 		return removeAction + failed, err
 	}
 
@@ -126,7 +143,7 @@ func (linux *systemDRecord) Remove() (string, error) {
 		}
 	}
 
-	if err := exec.Command("systemctl", "disable", linux.name+".service").Run(); err != nil {
+	if err := linux.systemctl("disable", linux.name+".service").Run(); err != nil {
 		return removeAction + failed, err
 	}
 
@@ -141,7 +158,7 @@ func (linux *systemDRecord) Remove() (string, error) {
 func (linux *systemDRecord) Start() (string, error) {
 	startAction := "Starting " + linux.description + ":"
 
-	if ok, err := checkPrivileges(); !ok {
+	if ok, err := checkPrivileges(); !ok && linux.kind != UserAgent {
 		return startAction + failed, err
 	}
 
@@ -153,7 +170,7 @@ func (linux *systemDRecord) Start() (string, error) {
 		return startAction + failed, ErrAlreadyRunning
 	}
 
-	if err := exec.Command("systemctl", "start", linux.name+".service").Run(); err != nil {
+	if err := linux.systemctl("start", linux.name+".service").Run(); err != nil {
 		return startAction + failed, err
 	}
 
@@ -164,7 +181,7 @@ func (linux *systemDRecord) Start() (string, error) {
 func (linux *systemDRecord) Stop() (string, error) {
 	stopAction := "Stopping " + linux.description + ":"
 
-	if ok, err := checkPrivileges(); !ok {
+	if ok, err := checkPrivileges(); !ok && linux.kind != UserAgent {
 		return stopAction + failed, err
 	}
 
@@ -176,7 +193,7 @@ func (linux *systemDRecord) Stop() (string, error) {
 		return stopAction + failed, ErrAlreadyStopped
 	}
 
-	if err := exec.Command("systemctl", "stop", linux.name+".service").Run(); err != nil {
+	if err := linux.systemctl("stop", linux.name+".service").Run(); err != nil {
 		return stopAction + failed, err
 	}
 
@@ -186,7 +203,7 @@ func (linux *systemDRecord) Stop() (string, error) {
 // Status - Get service status
 func (linux *systemDRecord) Status() (string, error) {
 
-	if ok, err := checkPrivileges(); !ok {
+	if ok, err := checkPrivileges(); !ok && linux.kind != UserAgent {
 		return "", err
 	}
 
