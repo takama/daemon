@@ -7,6 +7,7 @@ import (
 	"net"
 	"os"
 	"os/signal"
+	"runtime"
 	"syscall"
 
 	"github.com/takama/daemon"
@@ -23,11 +24,81 @@ const (
 )
 
 // dependencies that are NOT required by the service, but might be used
-var dependencies = []string{"dummy.service"}
+var dependencies = []string{ /*"dummy.service"*/ }
 
 var stdlog, errlog *log.Logger
 
+// MyService implements the daemon.Executable interface
+// and represents the actual service behavior
+type MyService struct {
+	listen chan net.Conn
+}
+
+// Start gets the service up
+func (mysvc *MyService) Start() {
+	// Set up listener for defined host and port
+	listener, err := net.Listen("tcp", port)
+	if err != nil {
+		errlog.Println("Possibly was a problem with the port binding", err)
+		return
+	}
+
+	// set up channel on which to send accepted connections
+	mysvc.listen = make(chan net.Conn, 100)
+	go acceptConnection(listener, mysvc.listen)
+
+	// loop work cycle with accept connections or interrupt
+	// by system signal
+	go func() {
+		for {
+			select {
+			case conn, ok := <-mysvc.listen:
+				if !ok {
+					stdlog.Println("Closing connections")
+					listener.Close()
+					return
+				}
+				go handleClient(conn)
+			}
+		}
+	}()
+}
+
+// Stop shuts down the service
+func (mysvc *MyService) Stop() {
+	close(mysvc.listen)
+}
+
+// Run is invoked when the service is run in interective mode
+// (ie during development). On Windows it is never invoked
+func (mysvc *MyService) Run() {
+	mysvc.Start()
+	// Set up channel on which to send signal notifications.
+	// We must use a buffered channel or risk missing the signal
+	// if we're not ready to receive when the signal is sent.
+	interrupt := make(chan os.Signal, 1)
+	signal.Notify(interrupt, os.Interrupt, os.Kill, syscall.SIGTERM)
+
+	// loop work cycle with accept connections or interrupt
+	// by system signal
+loop:
+	for {
+		select {
+		case killSignal := <-interrupt:
+			stdlog.Println("Got signal:", killSignal)
+			if killSignal == os.Interrupt {
+				stdlog.Println("Daemon was interrupted by system signal")
+			}
+			stdlog.Println("Daemon was killed")
+			break loop
+		}
+	}
+
+	mysvc.Stop()
+}
+
 // Service has embedded daemon
+// daemon.Daemon abstracts os specific service mechanics
 type Service struct {
 	daemon.Daemon
 }
@@ -56,40 +127,8 @@ func (service *Service) Manage() (string, error) {
 		}
 	}
 
-	// Do something, call your goroutines, etc
-
-	// Set up channel on which to send signal notifications.
-	// We must use a buffered channel or risk missing the signal
-	// if we're not ready to receive when the signal is sent.
-	interrupt := make(chan os.Signal, 1)
-	signal.Notify(interrupt, os.Interrupt, os.Kill, syscall.SIGTERM)
-
-	// Set up listener for defined host and port
-	listener, err := net.Listen("tcp", port)
-	if err != nil {
-		return "Possibly was a problem with the port binding", err
-	}
-
-	// set up channel on which to send accepted connections
-	listen := make(chan net.Conn, 100)
-	go acceptConnection(listener, listen)
-
-	// loop work cycle with accept connections or interrupt
-	// by system signal
-	for {
-		select {
-		case conn := <-listen:
-			go handleClient(conn)
-		case killSignal := <-interrupt:
-			stdlog.Println("Got signal:", killSignal)
-			stdlog.Println("Stoping listening on ", listener.Addr())
-			listener.Close()
-			if killSignal == os.Interrupt {
-				return "Daemon was interrupted by system signal", nil
-			}
-			return "Daemon was killed", nil
-		}
-	}
+	mysvc := &MyService{}
+	return service.Run(mysvc)
 }
 
 // Accept a client connection and collect it in a channel
@@ -120,7 +159,11 @@ func init() {
 }
 
 func main() {
-	srv, err := daemon.New(name, description, daemon.SystemDaemon, dependencies...)
+	daemonKind := daemon.SystemDaemon
+	if runtime.GOOS == "darwin" {
+		daemonKind = daemon.UserAgent
+	}
+	srv, err := daemon.New(name, description, daemonKind, dependencies...)
 	if err != nil {
 		errlog.Println("Error: ", err)
 		os.Exit(1)
@@ -132,5 +175,4 @@ func main() {
 		os.Exit(1)
 	}
 	fmt.Println(status)
-
 }
