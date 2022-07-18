@@ -213,6 +213,24 @@ WantedBy=multi-user.target
 
 See `examples/cron/cron_job.go`
 
+### SetUser and SetPassword
+If you want the system daemon to run under a normal user and not root, you can call `SetUser(username string)` to
+change the username the daemon will run as.
+
+If username isn't set specifically the default username will be set to `root` or `Administrator` depending on the OS. 
+
+#### Windows specific instructions
+If you are installing a service on Windows you will also need to set the user's password as well, using the
+`SetPassword(password string)` function. On Windows, you will also need to grant the user permissions to
+"Log on as a Service" permissions. This is done by opening the `Local Security Policy` tool, then navigating to
+`Local Policies` > `User Rights Assignment` > `Log on as a service` and add the username to this list.
+
+If the above permissions aren't granted, the service will install correctly, but will fail to start, as the user is
+unable to launch the daemon.
+
+For `SetUser` the username needs to be in the format of `DOMAIN\username`. If you are using a local system account,
+this can be written in shorthand notation, for example: `.\username`
+
 ## Contributors (unsorted)
 
 - [Sheile](https://github.com/Sheile)
