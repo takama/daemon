@@ -1,4 +1,4 @@
-// Copyright 2016 The Go Authors. All rights reserved.
+// Copyright 2020 The Go Authors. All rights reserved.
 // Use of this source code is governed by
 // license that can be found in the LICENSE file.
 
@@ -24,12 +24,13 @@ import (
 type windowsRecord struct {
 	name         string
 	description  string
+	kind         Kind
 	dependencies []string
 }
 
-func newDaemon(name, description string, dependencies []string) (Daemon, error) {
+func newDaemon(name, description string, kind Kind, dependencies []string) (Daemon, error) {
 
-	return &windowsRecord{name, description, dependencies}, nil
+	return &windowsRecord{name, description, kind, dependencies}, nil
 }
 
 // Install the service
@@ -278,7 +279,7 @@ type serviceHandler struct {
 	executable Executable
 }
 
-func (sh *serviceHandler) Execute(args []string, r <-chan svc.ChangeRequest, changes chan <- svc.Status) (ssec bool, errno uint32) {
+func (sh *serviceHandler) Execute(args []string, r <-chan svc.ChangeRequest, changes chan<- svc.Status) (ssec bool, errno uint32) {
 	const cmdsAccepted = svc.AcceptStop | svc.AcceptShutdown | svc.AcceptPauseAndContinue
 	changes <- svc.Status{State: svc.StartPending}
 
@@ -289,7 +290,7 @@ func (sh *serviceHandler) Execute(args []string, r <-chan svc.ChangeRequest, cha
 	sh.executable.Start()
 	changes <- svc.Status{State: svc.Running, Accepts: cmdsAccepted}
 
-	loop:
+loop:
 	for {
 		select {
 		case <-tick:

@@ -1,4 +1,4 @@
-// Copyright 2016 The Go Authors. All rights reserved.
+// Copyright 2020 The Go Authors. All rights reserved.
 // Use of this source code is governed by
 // license that can be found in the LICENSE file.
 
@@ -8,6 +8,7 @@ package daemon
 import (
 	"os"
 	"os/exec"
+	"os/user"
 	"path/filepath"
 	"regexp"
 	"text/template"
@@ -17,17 +18,30 @@ import (
 type darwinRecord struct {
 	name         string
 	description  string
+	kind         Kind
 	dependencies []string
 }
 
-func newDaemon(name, description string, dependencies []string) (Daemon, error) {
+func newDaemon(name, description string, kind Kind, dependencies []string) (Daemon, error) {
 
-	return &darwinRecord{name, description, dependencies}, nil
+	return &darwinRecord{name, description, kind, dependencies}, nil
 }
 
 // Standard service path for system daemons
 func (darwin *darwinRecord) servicePath() string {
-	return "/Library/LaunchDaemons/" + darwin.name + ".plist"
+	var path string
+
+	switch darwin.kind {
+	case UserAgent:
+		usr, _ := user.Current()
+		path = usr.HomeDir + "/Library/LaunchAgents/" + darwin.name + ".plist"
+	case GlobalAgent:
+		path = "/Library/LaunchAgents/" + darwin.name + ".plist"
+	case GlobalDaemon:
+		path = "/Library/LaunchDaemons/" + darwin.name + ".plist"
+	}
+
+	return path
 }
 
 // Is a service installed
@@ -66,7 +80,8 @@ func (darwin *darwinRecord) checkRunning() (string, bool) {
 func (darwin *darwinRecord) Install(args ...string) (string, error) {
 	installAction := "Install " + darwin.description + ":"
 
-	if ok, err := checkPrivileges(); !ok {
+	ok, err := checkPrivileges()
+	if !ok && darwin.kind != UserAgent {
 		return installAction + failed, err
 	}
 
@@ -109,7 +124,8 @@ func (darwin *darwinRecord) Install(args ...string) (string, error) {
 func (darwin *darwinRecord) Remove() (string, error) {
 	removeAction := "Removing " + darwin.description + ":"
 
-	if ok, err := checkPrivileges(); !ok {
+	ok, err := checkPrivileges()
+	if !ok && darwin.kind != UserAgent {
 		return removeAction + failed, err
 	}
 
@@ -128,7 +144,8 @@ func (darwin *darwinRecord) Remove() (string, error) {
 func (darwin *darwinRecord) Start() (string, error) {
 	startAction := "Starting " + darwin.description + ":"
 
-	if ok, err := checkPrivileges(); !ok {
+	ok, err := checkPrivileges()
+	if !ok && darwin.kind != UserAgent {
 		return startAction + failed, err
 	}
 
@@ -151,7 +168,8 @@ func (darwin *darwinRecord) Start() (string, error) {
 func (darwin *darwinRecord) Stop() (string, error) {
 	stopAction := "Stopping " + darwin.description + ":"
 
-	if ok, err := checkPrivileges(); !ok {
+	ok, err := checkPrivileges()
+	if !ok && darwin.kind != UserAgent {
 		return stopAction + failed, err
 	}
 
@@ -173,7 +191,8 @@ func (darwin *darwinRecord) Stop() (string, error) {
 // Status - Get service status
 func (darwin *darwinRecord) Status() (string, error) {
 
-	if ok, err := checkPrivileges(); !ok {
+	ok, err := checkPrivileges()
+	if !ok && darwin.kind != UserAgent {
 		return "", err
 	}
 
